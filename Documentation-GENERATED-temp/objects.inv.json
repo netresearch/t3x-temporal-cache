@@ -1,0 +1,2222 @@
+{
+    "std:doc": {
+        "Administrator\/ReportsModule": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html",
+            "TYPO3 Reports Module"
+        ],
+        "Architecture\/Index": [
+            "-",
+            "-",
+            "Architecture\/Index.html",
+            "Architecture"
+        ],
+        "Backend\/Content": [
+            "-",
+            "-",
+            "Backend\/Content.html",
+            "Content Tab"
+        ],
+        "Backend\/Dashboard": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html",
+            "Dashboard Tab"
+        ],
+        "Backend\/Index": [
+            "-",
+            "-",
+            "Backend\/Index.html",
+            "Backend Module"
+        ],
+        "Backend\/Tips": [
+            "-",
+            "-",
+            "Backend\/Tips.html",
+            "Tips and Best Practices"
+        ],
+        "Backend\/Wizard": [
+            "-",
+            "-",
+            "Backend\/Wizard.html",
+            "Configuration Wizard"
+        ],
+        "Configuration\/Advanced": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html",
+            "Advanced Options"
+        ],
+        "Configuration\/Examples": [
+            "-",
+            "-",
+            "Configuration\/Examples.html",
+            "Examples & Presets"
+        ],
+        "Configuration\/Index": [
+            "-",
+            "-",
+            "Configuration\/Index.html",
+            "Configuration"
+        ],
+        "Configuration\/Strategies": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html",
+            "Optimization Strategies"
+        ],
+        "Configuration\/Troubleshooting": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html",
+            "Troubleshooting"
+        ],
+        "Index": [
+            "-",
+            "-",
+            "Index.html",
+            "Temporal Cache Management"
+        ],
+        "Installation\/Index": [
+            "-",
+            "-",
+            "Installation\/Index.html",
+            "Installation"
+        ],
+        "Introduction\/Index": [
+            "-",
+            "-",
+            "Introduction\/Index.html",
+            "Introduction"
+        ],
+        "Performance\/Alternatives": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html",
+            "Alternative Approaches"
+        ],
+        "Performance\/DecisionGuide": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html",
+            "Site-Specific Decision Guide"
+        ],
+        "Performance\/FAQ": [
+            "-",
+            "-",
+            "Performance\/FAQ.html",
+            "Frequently Asked Questions"
+        ],
+        "Performance\/Index": [
+            "-",
+            "-",
+            "Performance\/Index.html",
+            "Performance Considerations"
+        ],
+        "Performance\/Limitations": [
+            "-",
+            "-",
+            "Performance\/Limitations.html",
+            "Phase 1 Architectural Limitations"
+        ],
+        "Performance\/Strategies": [
+            "-",
+            "-",
+            "Performance\/Strategies.html",
+            "Optimization Strategies"
+        ],
+        "Phases\/Index": [
+            "-",
+            "-",
+            "Phases\/Index.html",
+            "Three-Phase Solution & Roadmap"
+        ]
+    },
+    "std:label": {
+        "reports-module": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#reports-module",
+            "TYPO3 Reports Module"
+        ],
+        "architecture": [
+            "-",
+            "-",
+            "Architecture\/Index.html#architecture",
+            "Architecture"
+        ],
+        "backend-content": [
+            "-",
+            "-",
+            "Backend\/Content.html#backend-content",
+            "Content Tab"
+        ],
+        "backend-dashboard": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#backend-dashboard",
+            "Dashboard Tab"
+        ],
+        "backend-module": [
+            "-",
+            "-",
+            "Backend\/Index.html#backend-module",
+            "Backend Module"
+        ],
+        "backend-module-access": [
+            "-",
+            "-",
+            "Backend\/Index.html#backend-module-access",
+            "Accessing the Module"
+        ],
+        "backend-tips": [
+            "-",
+            "-",
+            "Backend\/Tips.html#backend-tips",
+            "Tips and Best Practices"
+        ],
+        "backend-permissions": [
+            "-",
+            "-",
+            "Backend\/Tips.html#backend-permissions",
+            "User Permissions"
+        ],
+        "backend-wizard": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#backend-wizard",
+            "Configuration Wizard"
+        ],
+        "configuration-advanced": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#configuration-advanced",
+            "Advanced Options"
+        ],
+        "scheduler-setup": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#scheduler-setup",
+            "Scheduler Task Setup"
+        ],
+        "configuration-examples": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#configuration-examples",
+            "Examples & Presets"
+        ],
+        "configuration-presets": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#configuration-presets",
+            "Configuration Presets"
+        ],
+        "configuration-scenarios": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#configuration-scenarios",
+            "Common Scenarios"
+        ],
+        "configuration": [
+            "-",
+            "-",
+            "Configuration\/Index.html#configuration",
+            "Configuration"
+        ],
+        "configuration-strategies": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#configuration-strategies",
+            "Optimization Strategies"
+        ],
+        "configuration-scoping": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#configuration-scoping",
+            "Scoping Strategy"
+        ],
+        "configuration-timing": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#configuration-timing",
+            "Timing Strategy"
+        ],
+        "configuration-harmonization": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#configuration-harmonization",
+            "Time Harmonization"
+        ],
+        "configuration-troubleshooting": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#configuration-troubleshooting",
+            "Troubleshooting"
+        ],
+        "installation": [
+            "-",
+            "-",
+            "Installation\/Index.html#installation",
+            "Installation"
+        ],
+        "performance-alternatives": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#performance-alternatives",
+            "Alternative Approaches"
+        ],
+        "decision-guide": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#decision-guide",
+            "Site-Specific Decision Guide"
+        ],
+        "performance-faq": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#performance-faq",
+            "Frequently Asked Questions"
+        ],
+        "performance-considerations": [
+            "-",
+            "-",
+            "Performance\/Index.html#performance-considerations",
+            "Performance Considerations"
+        ],
+        "performance-limitations": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#performance-limitations",
+            "Phase 1 Architectural Limitations"
+        ],
+        "performance-strategies": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#performance-strategies",
+            "Optimization Strategies"
+        ],
+        "phases": [
+            "-",
+            "-",
+            "Phases\/Index.html#phases",
+            "Three-Phase Solution & Roadmap"
+        ]
+    },
+    "std:title": {
+        "typo3-reports-module": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#reports-module",
+            "TYPO3 Reports Module"
+        ],
+        "system-status-report": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#system-status-report",
+            "System Status Report"
+        ],
+        "accessing-the-report": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#accessing-the-report",
+            "Accessing the Report"
+        ],
+        "report-sections": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#report-sections",
+            "Report Sections"
+        ],
+        "extension-configuration": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#extension-configuration",
+            "Extension Configuration"
+        ],
+        "database-indexes": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#database-indexes",
+            "Database Indexes"
+        ],
+        "temporal-content-statistics": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#temporal-content-statistics",
+            "Temporal Content Statistics"
+        ],
+        "harmonization-status": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#harmonization-status",
+            "Harmonization Status"
+        ],
+        "upcoming-transitions": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#upcoming-transitions",
+            "Upcoming Transitions"
+        ],
+        "common-scenarios": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#configuration-scenarios",
+            "Common Scenarios"
+        ],
+        "scenario-1-extension-just-installed": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#scenario-1-extension-just-installed",
+            "Scenario 1: Extension Just Installed"
+        ],
+        "scenario-2-production-site-with-temporal-content": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#scenario-2-production-site-with-temporal-content",
+            "Scenario 2: Production Site with Temporal Content"
+        ],
+        "scenario-3-performance-issues-detected": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#scenario-3-performance-issues-detected",
+            "Scenario 3: Performance Issues Detected"
+        ],
+        "scenario-4-no-temporal-content-found": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#scenario-4-no-temporal-content-found",
+            "Scenario 4: No Temporal Content Found"
+        ],
+        "automation-and-monitoring": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#automation-and-monitoring",
+            "Automation and Monitoring"
+        ],
+        "cli-command-alternative": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#cli-command-alternative",
+            "CLI Command Alternative"
+        ],
+        "integration-with-monitoring-systems": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#integration-with-monitoring-systems",
+            "Integration with Monitoring Systems"
+        ],
+        "troubleshooting": [
+            "-",
+            "-",
+            "Installation\/Index.html#troubleshooting",
+            "Troubleshooting"
+        ],
+        "report-not-visible": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#report-not-visible",
+            "Report Not Visible"
+        ],
+        "database-index-check-fails": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#database-index-check-fails",
+            "Database Index Check Fails"
+        ],
+        "statistics-show-zero-items": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#statistics-show-zero-items",
+            "Statistics Show Zero Items"
+        ],
+        "best-practices": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#best-practices",
+            "Best Practices"
+        ],
+        "regular-monitoring": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#regular-monitoring",
+            "Regular Monitoring"
+        ],
+        "before-major-events": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#before-major-events",
+            "Before Major Events"
+        ],
+        "after-configuration-changes": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#after-configuration-changes",
+            "After Configuration Changes"
+        ],
+        "database-maintenance": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#database-maintenance",
+            "Database Maintenance"
+        ],
+        "performance-optimization": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#performance-optimization",
+            "Performance Optimization"
+        ],
+        "based-on-reports-module-data": [
+            "-",
+            "-",
+            "Administrator\/ReportsModule.html#based-on-reports-module-data",
+            "Based on Reports Module Data"
+        ],
+        "related-documentation": [
+            "-",
+            "-",
+            "Performance\/Index.html#related-documentation",
+            "Related Documentation"
+        ],
+        "architecture-1": [
+            "-",
+            "-",
+            "Architecture\/Index.html#architecture",
+            "Architecture"
+        ],
+        "root-cause-analysis": [
+            "-",
+            "-",
+            "Architecture\/Index.html#root-cause-analysis",
+            "Root Cause Analysis"
+        ],
+        "typo3-s-cache-invalidation-paradigms": [
+            "-",
+            "-",
+            "Architecture\/Index.html#typo3-s-cache-invalidation-paradigms",
+            "TYPO3's Cache Invalidation Paradigms"
+        ],
+        "the-architectural-gap": [
+            "-",
+            "-",
+            "Architecture\/Index.html#the-architectural-gap",
+            "The Architectural Gap"
+        ],
+        "why-this-matters": [
+            "-",
+            "-",
+            "Architecture\/Index.html#why-this-matters",
+            "Why This Matters"
+        ],
+        "how-phase-1-solves-this": [
+            "-",
+            "-",
+            "Architecture\/Index.html#how-phase-1-solves-this",
+            "How Phase 1 Solves This"
+        ],
+        "dynamic-cache-lifetime-strategy": [
+            "-",
+            "-",
+            "Architecture\/Index.html#dynamic-cache-lifetime-strategy",
+            "Dynamic Cache Lifetime Strategy"
+        ],
+        "implementation-psr-14-event": [
+            "-",
+            "-",
+            "Architecture\/Index.html#implementation-psr-14-event",
+            "Implementation: PSR-14 Event"
+        ],
+        "temporal-transition-detection": [
+            "-",
+            "-",
+            "Architecture\/Index.html#temporal-transition-detection",
+            "Temporal Transition Detection"
+        ],
+        "timeline-example": [
+            "-",
+            "-",
+            "Architecture\/Index.html#timeline-example",
+            "Timeline Example"
+        ],
+        "scenario": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#scenario",
+            "Scenario"
+        ],
+        "execution-flow": [
+            "-",
+            "-",
+            "Architecture\/Index.html#execution-flow",
+            "Execution Flow"
+        ],
+        "performance-analysis": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#performance-analysis",
+            "Performance Analysis"
+        ],
+        "query-cost": [
+            "-",
+            "-",
+            "Architecture\/Index.html#query-cost",
+            "Query Cost"
+        ],
+        "cache-hit-rate-impact": [
+            "-",
+            "-",
+            "Architecture\/Index.html#cache-hit-rate-impact",
+            "Cache Hit Rate Impact"
+        ],
+        "comparison-current-workarounds": [
+            "-",
+            "-",
+            "Architecture\/Index.html#comparison-current-workarounds",
+            "Comparison: Current Workarounds"
+        ],
+        "context-awareness": [
+            "-",
+            "-",
+            "Architecture\/Index.html#context-awareness",
+            "Context Awareness"
+        ],
+        "workspace-support": [
+            "-",
+            "-",
+            "Architecture\/Index.html#workspace-support",
+            "Workspace Support"
+        ],
+        "language-support": [
+            "-",
+            "-",
+            "Architecture\/Index.html#language-support",
+            "Language Support"
+        ],
+        "extensibility": [
+            "-",
+            "-",
+            "Architecture\/Index.html#extensibility",
+            "Extensibility"
+        ],
+        "custom-tables": [
+            "-",
+            "-",
+            "Architecture\/Index.html#custom-tables",
+            "Custom Tables"
+        ],
+        "custom-transition-logic": [
+            "-",
+            "-",
+            "Architecture\/Index.html#custom-transition-logic",
+            "Custom Transition Logic"
+        ],
+        "limitations-trade-offs": [
+            "-",
+            "-",
+            "Architecture\/Index.html#limitations-trade-offs",
+            "Limitations & Trade-offs"
+        ],
+        "current-limitations": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#current-limitations",
+            "Current Limitations"
+        ],
+        "when-phase-2-3-are-better": [
+            "-",
+            "-",
+            "Architecture\/Index.html#when-phase-2-3-are-better",
+            "When Phase 2\/3 Are Better"
+        ],
+        "next-steps": [
+            "-",
+            "-",
+            "Phases\/Index.html#next-steps",
+            "Next Steps"
+        ],
+        "content-tab": [
+            "-",
+            "-",
+            "Backend\/Index.html#content-tab",
+            "Content Tab"
+        ],
+        "interface-overview": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#interface-overview",
+            "Interface Overview"
+        ],
+        "filter-options": [
+            "-",
+            "-",
+            "Backend\/Content.html#filter-options",
+            "Filter Options"
+        ],
+        "all-content": [
+            "-",
+            "-",
+            "Backend\/Content.html#all-content",
+            "All Content"
+        ],
+        "active-content": [
+            "-",
+            "-",
+            "Backend\/Content.html#active-content",
+            "Active Content"
+        ],
+        "pending-content": [
+            "-",
+            "-",
+            "Backend\/Content.html#pending-content",
+            "Pending Content"
+        ],
+        "expired-content": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#expired-content",
+            "Expired Content"
+        ],
+        "content-table-columns": [
+            "-",
+            "-",
+            "Backend\/Content.html#content-table-columns",
+            "Content Table Columns"
+        ],
+        "type": [
+            "-",
+            "-",
+            "Backend\/Content.html#type",
+            "Type"
+        ],
+        "title": [
+            "-",
+            "-",
+            "Backend\/Content.html#title",
+            "Title"
+        ],
+        "start-time": [
+            "-",
+            "-",
+            "Backend\/Content.html#start-time",
+            "Start Time"
+        ],
+        "end-time": [
+            "-",
+            "-",
+            "Backend\/Content.html#end-time",
+            "End Time"
+        ],
+        "status": [
+            "-",
+            "-",
+            "Backend\/Content.html#status",
+            "Status"
+        ],
+        "harmonization-suggestion": [
+            "-",
+            "-",
+            "Backend\/Content.html#harmonization-suggestion",
+            "Harmonization Suggestion"
+        ],
+        "actions-column": [
+            "-",
+            "-",
+            "Backend\/Content.html#actions-column",
+            "Actions Column"
+        ],
+        "per-item-actions": [
+            "-",
+            "-",
+            "Backend\/Content.html#per-item-actions",
+            "Per-Item Actions"
+        ],
+        "bulk-operations": [
+            "-",
+            "-",
+            "Backend\/Content.html#bulk-operations",
+            "Bulk Operations"
+        ],
+        "select-multiple-items": [
+            "-",
+            "-",
+            "Backend\/Content.html#select-multiple-items",
+            "Select Multiple Items"
+        ],
+        "available-bulk-actions": [
+            "-",
+            "-",
+            "Backend\/Content.html#available-bulk-actions",
+            "Available Bulk Actions"
+        ],
+        "search-and-filter": [
+            "-",
+            "-",
+            "Backend\/Content.html#search-and-filter",
+            "Search and Filter"
+        ],
+        "search-field": [
+            "-",
+            "-",
+            "Backend\/Content.html#search-field",
+            "Search Field"
+        ],
+        "combined-filtering": [
+            "-",
+            "-",
+            "Backend\/Content.html#combined-filtering",
+            "Combined Filtering"
+        ],
+        "detailed-view": [
+            "-",
+            "-",
+            "Backend\/Content.html#detailed-view",
+            "Detailed View"
+        ],
+        "page-details": [
+            "-",
+            "-",
+            "Backend\/Content.html#page-details",
+            "Page Details"
+        ],
+        "content-element-details": [
+            "-",
+            "-",
+            "Backend\/Content.html#content-element-details",
+            "Content Element Details"
+        ],
+        "use-cases": [
+            "-",
+            "-",
+            "Backend\/Content.html#use-cases",
+            "Use Cases"
+        ],
+        "audit-temporal-content": [
+            "-",
+            "-",
+            "Backend\/Content.html#audit-temporal-content",
+            "Audit Temporal Content"
+        ],
+        "review-expired-content": [
+            "-",
+            "-",
+            "Backend\/Content.html#review-expired-content",
+            "Review Expired Content"
+        ],
+        "plan-cache-warming": [
+            "-",
+            "-",
+            "Backend\/Content.html#plan-cache-warming",
+            "Plan Cache Warming"
+        ],
+        "apply-harmonization": [
+            "-",
+            "-",
+            "Backend\/Content.html#apply-harmonization",
+            "Apply Harmonization"
+        ],
+        "dashboard-tab": [
+            "-",
+            "-",
+            "Backend\/Index.html#dashboard-tab",
+            "Dashboard Tab"
+        ],
+        "statistics-cards": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#statistics-cards",
+            "Statistics Cards"
+        ],
+        "total-temporal-content": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#total-temporal-content",
+            "Total Temporal Content"
+        ],
+        "active-transitions": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#active-transitions",
+            "Active Transitions"
+        ],
+        "pending-transitions": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#pending-transitions",
+            "Pending Transitions"
+        ],
+        "timeline-visualization": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#timeline-visualization",
+            "Timeline Visualization"
+        ],
+        "how-to-read": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#how-to-read",
+            "How to Read"
+        ],
+        "example-interpretation": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#example-interpretation",
+            "Example Interpretation"
+        ],
+        "performance-metrics": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#performance-metrics",
+            "Performance Metrics"
+        ],
+        "cache-invalidation-rate": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#cache-invalidation-rate",
+            "Cache Invalidation Rate"
+        ],
+        "estimated-cache-hit-ratio": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#estimated-cache-hit-ratio",
+            "Estimated Cache Hit Ratio"
+        ],
+        "database-query-performance": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#database-query-performance",
+            "Database Query Performance"
+        ],
+        "configuration-impact": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#configuration-impact",
+            "Configuration Impact"
+        ],
+        "configuration-summary": [
+            "-",
+            "-",
+            "Backend\/Dashboard.html#configuration-summary",
+            "Configuration Summary"
+        ],
+        "backend-module-1": [
+            "-",
+            "-",
+            "Backend\/Index.html#backend-module",
+            "Backend Module"
+        ],
+        "overview": [
+            "-",
+            "-",
+            "Phases\/Index.html#overview",
+            "Overview"
+        ],
+        "accessing-the-module": [
+            "-",
+            "-",
+            "Backend\/Index.html#backend-module-access",
+            "Accessing the Module"
+        ],
+        "location": [
+            "-",
+            "-",
+            "Backend\/Index.html#location",
+            "Location"
+        ],
+        "requirements": [
+            "-",
+            "-",
+            "Installation\/Index.html#requirements",
+            "Requirements"
+        ],
+        "module-features": [
+            "-",
+            "-",
+            "Backend\/Index.html#module-features",
+            "Module Features"
+        ],
+        "quick-actions": [
+            "-",
+            "-",
+            "Backend\/Index.html#quick-actions",
+            "Quick Actions"
+        ],
+        "module-tabs-overview": [
+            "-",
+            "-",
+            "Backend\/Index.html#module-tabs-overview",
+            "Module Tabs Overview"
+        ],
+        "configuration-wizard-tab": [
+            "-",
+            "-",
+            "Backend\/Index.html#configuration-wizard-tab",
+            "Configuration Wizard Tab"
+        ],
+        "tips-and-best-practices": [
+            "-",
+            "-",
+            "Backend\/Tips.html#backend-tips",
+            "Tips and Best Practices"
+        ],
+        "optimizing-performance": [
+            "-",
+            "-",
+            "Backend\/Tips.html#optimizing-performance",
+            "Optimizing Performance"
+        ],
+        "using-harmonization-effectively": [
+            "-",
+            "-",
+            "Backend\/Tips.html#using-harmonization-effectively",
+            "Using Harmonization Effectively"
+        ],
+        "managing-temporal-content": [
+            "-",
+            "-",
+            "Backend\/Tips.html#managing-temporal-content",
+            "Managing Temporal Content"
+        ],
+        "troubleshooting-with-module": [
+            "-",
+            "-",
+            "Backend\/Tips.html#troubleshooting-with-module",
+            "Troubleshooting with Module"
+        ],
+        "cache-not-updating": [
+            "-",
+            "-",
+            "Installation\/Index.html#cache-not-updating",
+            "Cache Not Updating"
+        ],
+        "high-performance-impact": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#high-performance-impact",
+            "High Performance Impact"
+        ],
+        "harmonization-issues": [
+            "-",
+            "-",
+            "Backend\/Tips.html#harmonization-issues",
+            "Harmonization Issues"
+        ],
+        "user-permissions": [
+            "-",
+            "-",
+            "Backend\/Tips.html#backend-permissions",
+            "User Permissions"
+        ],
+        "required-permissions": [
+            "-",
+            "-",
+            "Backend\/Tips.html#required-permissions",
+            "Required Permissions"
+        ],
+        "restricting-access": [
+            "-",
+            "-",
+            "Backend\/Tips.html#restricting-access",
+            "Restricting Access"
+        ],
+        "configuration-wizard": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#backend-wizard",
+            "Configuration Wizard"
+        ],
+        "wizard-overview": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#wizard-overview",
+            "Wizard Overview"
+        ],
+        "wizard-steps": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#wizard-steps",
+            "Wizard Steps"
+        ],
+        "step-1-site-profile": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#step-1-site-profile",
+            "Step 1: Site Profile"
+        ],
+        "step-2-strategy-selection": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#step-2-strategy-selection",
+            "Step 2: Strategy Selection"
+        ],
+        "step-3-performance-calculator": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#step-3-performance-calculator",
+            "Step 3: Performance Calculator"
+        ],
+        "step-4-preview-configuration": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#step-4-preview-configuration",
+            "Step 4: Preview Configuration"
+        ],
+        "step-5-testing": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#step-5-testing",
+            "Step 5: Testing"
+        ],
+        "configuration-presets": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#configuration-presets",
+            "Configuration Presets"
+        ],
+        "small-site-preset": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#small-site-preset",
+            "Small Site Preset"
+        ],
+        "medium-site-preset": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#medium-site-preset",
+            "Medium Site Preset"
+        ],
+        "large-site-preset": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#large-site-preset",
+            "Large Site Preset"
+        ],
+        "high-traffic-preset": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#high-traffic-preset",
+            "High-Traffic Preset"
+        ],
+        "performance-impact-calculator": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#performance-impact-calculator",
+            "Performance Impact Calculator"
+        ],
+        "input-fields": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#input-fields",
+            "Input Fields"
+        ],
+        "calculated-metrics": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#calculated-metrics",
+            "Calculated Metrics"
+        ],
+        "comparison-view": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#comparison-view",
+            "Comparison View"
+        ],
+        "applying-configuration": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#applying-configuration",
+            "Applying Configuration"
+        ],
+        "apply-button": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#apply-button",
+            "Apply Button"
+        ],
+        "export-as-php": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#export-as-php",
+            "Export as PHP"
+        ],
+        "test-configuration": [
+            "-",
+            "-",
+            "Backend\/Wizard.html#test-configuration",
+            "Test Configuration"
+        ],
+        "advanced-options": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#configuration-advanced",
+            "Advanced Options"
+        ],
+        "advanced-settings": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#advanced-settings",
+            "Advanced Settings"
+        ],
+        "advanced-default-max-lifetime": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#advanced-default-max-lifetime",
+            "advanced.default_max_lifetime"
+        ],
+        "example": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#example",
+            "Example"
+        ],
+        "advanced-debug-logging": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#advanced-debug-logging",
+            "advanced.debug_logging"
+        ],
+        "scheduler-task-setup": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#scheduler-setup",
+            "Scheduler Task Setup"
+        ],
+        "step-1-create-scheduler-task": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#step-1-create-scheduler-task",
+            "Step 1: Create Scheduler Task"
+        ],
+        "step-2-verify-execution": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#step-2-verify-execution",
+            "Step 2: Verify Execution"
+        ],
+        "example-scheduler-cron": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#example-scheduler-cron",
+            "Example Scheduler Cron"
+        ],
+        "scheduler-configuration-best-practices": [
+            "-",
+            "-",
+            "Configuration\/Advanced.html#scheduler-configuration-best-practices",
+            "Scheduler Configuration Best Practices"
+        ],
+        "examples-presets": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#configuration-examples",
+            "Examples & Presets"
+        ],
+        "high-traffic-site-preset": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#high-traffic-site-preset",
+            "High-Traffic Site Preset"
+        ],
+        "scenario-1-news-site-with-hourly-articles": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#scenario-1-news-site-with-hourly-articles",
+            "Scenario 1: News Site with Hourly Articles"
+        ],
+        "scenario-2-corporate-site-with-scheduled-pages": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#scenario-2-corporate-site-with-scheduled-pages",
+            "Scenario 2: Corporate Site with Scheduled Pages"
+        ],
+        "scenario-3-event-calendar-with-daily-updates": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#scenario-3-event-calendar-with-daily-updates",
+            "Scenario 3: Event Calendar with Daily Updates"
+        ],
+        "scenario-4-multi-language-portal": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#scenario-4-multi-language-portal",
+            "Scenario 4: Multi-Language Portal"
+        ],
+        "scenario-5-e-commerce-with-flash-sales": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#scenario-5-e-commerce-with-flash-sales",
+            "Scenario 5: E-Commerce with Flash Sales"
+        ],
+        "scenario-6-blog-with-weekly-posts": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#scenario-6-blog-with-weekly-posts",
+            "Scenario 6: Blog with Weekly Posts"
+        ],
+        "php-configuration-examples": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#php-configuration-examples",
+            "PHP Configuration Examples"
+        ],
+        "complete-extension-configuration": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#complete-extension-configuration",
+            "Complete Extension Configuration"
+        ],
+        "environment-specific-configuration": [
+            "-",
+            "-",
+            "Configuration\/Examples.html#environment-specific-configuration",
+            "Environment-Specific Configuration"
+        ],
+        "configuration-1": [
+            "-",
+            "-",
+            "Configuration\/Index.html#configuration",
+            "Configuration"
+        ],
+        "configuration-sections": [
+            "-",
+            "-",
+            "Configuration\/Index.html#configuration-sections",
+            "Configuration Sections"
+        ],
+        "quick-reference": [
+            "-",
+            "-",
+            "Configuration\/Index.html#quick-reference",
+            "Quick Reference"
+        ],
+        "default-configuration": [
+            "-",
+            "-",
+            "Configuration\/Index.html#default-configuration",
+            "Default Configuration"
+        ],
+        "recommended-for-large-sites": [
+            "-",
+            "-",
+            "Configuration\/Index.html#recommended-for-large-sites",
+            "Recommended for Large Sites"
+        ],
+        "configuration-methods": [
+            "-",
+            "-",
+            "Configuration\/Index.html#configuration-methods",
+            "Configuration Methods"
+        ],
+        "extension-manager": [
+            "-",
+            "-",
+            "Configuration\/Index.html#extension-manager",
+            "Extension Manager"
+        ],
+        "backend-module-wizard": [
+            "-",
+            "-",
+            "Configuration\/Index.html#backend-module-wizard",
+            "Backend Module Wizard"
+        ],
+        "php-configuration": [
+            "-",
+            "-",
+            "Configuration\/Index.html#php-configuration",
+            "PHP Configuration"
+        ],
+        "optimization-strategies": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#performance-strategies",
+            "Optimization Strategies"
+        ],
+        "scoping-strategy": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#scoping-strategy",
+            "scoping.strategy"
+        ],
+        "scoping-use-refindex": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#scoping-use-refindex",
+            "scoping.use_refindex"
+        ],
+        "timing-strategy": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#timing-strategy",
+            "timing.strategy"
+        ],
+        "timing-scheduler-interval": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#timing-scheduler-interval",
+            "timing.scheduler_interval"
+        ],
+        "timing-hybrid-pages": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#timing-hybrid-pages",
+            "timing.hybrid.pages"
+        ],
+        "timing-hybrid-content": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#timing-hybrid-content",
+            "timing.hybrid.content"
+        ],
+        "time-harmonization": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#time-harmonization",
+            "Time Harmonization"
+        ],
+        "harmonization-enabled": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#harmonization-enabled",
+            "harmonization.enabled"
+        ],
+        "harmonization-slots": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#harmonization-slots",
+            "harmonization.slots"
+        ],
+        "harmonization-tolerance": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#harmonization-tolerance",
+            "harmonization.tolerance"
+        ],
+        "harmonization-auto-round": [
+            "-",
+            "-",
+            "Configuration\/Strategies.html#harmonization-auto-round",
+            "harmonization.auto_round"
+        ],
+        "detailed-diagnosis-steps": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#detailed-diagnosis-steps",
+            "Detailed Diagnosis Steps"
+        ],
+        "harmonization-not-working": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#harmonization-not-working",
+            "Harmonization Not Working"
+        ],
+        "harmonization-diagnosis": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#harmonization-diagnosis",
+            "Harmonization Diagnosis"
+        ],
+        "scheduler-task-not-running": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#scheduler-task-not-running",
+            "Scheduler Task Not Running"
+        ],
+        "scheduler-configuration-verification": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#scheduler-configuration-verification",
+            "Scheduler Configuration Verification"
+        ],
+        "configuration-validation": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#configuration-validation",
+            "Configuration Validation"
+        ],
+        "invalid-configuration-values": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#invalid-configuration-values",
+            "Invalid Configuration Values"
+        ],
+        "extension-manager-vs-php-configuration": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#extension-manager-vs-php-configuration",
+            "Extension Manager vs PHP Configuration"
+        ],
+        "getting-help": [
+            "-",
+            "-",
+            "Configuration\/Troubleshooting.html#getting-help",
+            "Getting Help"
+        ],
+        "temporal-cache-management": [
+            "-",
+            "-",
+            "Index.html#temporal-cache-management",
+            "Temporal Cache Management"
+        ],
+        "documentation": [
+            "-",
+            "-",
+            "Index.html#documentation",
+            "Documentation"
+        ],
+        "installation-1": [
+            "-",
+            "-",
+            "Installation\/Index.html#installation",
+            "Installation"
+        ],
+        "compatibility": [
+            "-",
+            "-",
+            "Installation\/Index.html#compatibility",
+            "Compatibility"
+        ],
+        "installation-methods": [
+            "-",
+            "-",
+            "Installation\/Index.html#installation-methods",
+            "Installation Methods"
+        ],
+        "method-1-composer-recommended": [
+            "-",
+            "-",
+            "Installation\/Index.html#method-1-composer-recommended",
+            "Method 1: Composer (Recommended)"
+        ],
+        "method-2-ter-extension-repository": [
+            "-",
+            "-",
+            "Installation\/Index.html#method-2-ter-extension-repository",
+            "Method 2: TER (Extension Repository)"
+        ],
+        "method-3-manual-installation": [
+            "-",
+            "-",
+            "Installation\/Index.html#method-3-manual-installation",
+            "Method 3: Manual Installation"
+        ],
+        "configuration": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#configuration",
+            "Configuration"
+        ],
+        "zero-configuration": [
+            "-",
+            "-",
+            "Installation\/Index.html#zero-configuration",
+            "Zero Configuration"
+        ],
+        "optional-monitor-custom-tables": [
+            "-",
+            "-",
+            "Installation\/Index.html#optional-monitor-custom-tables",
+            "Optional: Monitor Custom Tables"
+        ],
+        "optional-adjust-maximum-lifetime": [
+            "-",
+            "-",
+            "Installation\/Index.html#optional-adjust-maximum-lifetime",
+            "Optional: Adjust Maximum Lifetime"
+        ],
+        "verification": [
+            "-",
+            "-",
+            "Installation\/Index.html#verification",
+            "Verification"
+        ],
+        "test-scheduled-content": [
+            "-",
+            "-",
+            "Installation\/Index.html#test-scheduled-content",
+            "Test Scheduled Content"
+        ],
+        "test-expiring-content": [
+            "-",
+            "-",
+            "Installation\/Index.html#test-expiring-content",
+            "Test Expiring Content"
+        ],
+        "performance-check": [
+            "-",
+            "-",
+            "Installation\/Index.html#performance-check",
+            "Performance Check"
+        ],
+        "performance-issues": [
+            "-",
+            "-",
+            "Installation\/Index.html#performance-issues",
+            "Performance Issues"
+        ],
+        "workspace-issues": [
+            "-",
+            "-",
+            "Installation\/Index.html#workspace-issues",
+            "Workspace Issues"
+        ],
+        "uninstallation": [
+            "-",
+            "-",
+            "Installation\/Index.html#uninstallation",
+            "Uninstallation"
+        ],
+        "introduction": [
+            "-",
+            "-",
+            "Introduction\/Index.html#introduction",
+            "Introduction"
+        ],
+        "the-problem-20-years-of-temporal-cache-issues": [
+            "-",
+            "-",
+            "Introduction\/Index.html#the-problem-20-years-of-temporal-cache-issues",
+            "The Problem: 20 Years of Temporal Cache Issues"
+        ],
+        "root-cause": [
+            "-",
+            "-",
+            "Introduction\/Index.html#root-cause",
+            "Root Cause"
+        ],
+        "symptoms": [
+            "-",
+            "-",
+            "Introduction\/Index.html#symptoms",
+            "Symptoms"
+        ],
+        "impact": [
+            "-",
+            "-",
+            "Introduction\/Index.html#impact",
+            "Impact"
+        ],
+        "community-impact": [
+            "-",
+            "-",
+            "Introduction\/Index.html#community-impact",
+            "Community Impact"
+        ],
+        "related-issues": [
+            "-",
+            "-",
+            "Introduction\/Index.html#related-issues",
+            "Related Issues"
+        ],
+        "why-it-took-20-years-to-solve": [
+            "-",
+            "-",
+            "Introduction\/Index.html#why-it-took-20-years-to-solve",
+            "Why It Took 20 Years to Solve"
+        ],
+        "what-this-extension-does": [
+            "-",
+            "-",
+            "Introduction\/Index.html#what-this-extension-does",
+            "What This Extension Does"
+        ],
+        "quick-start": [
+            "-",
+            "-",
+            "Introduction\/Index.html#quick-start",
+            "Quick Start"
+        ],
+        "alternative-approaches": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#performance-alternatives",
+            "Alternative Approaches"
+        ],
+        "overview-of-alternatives": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#overview-of-alternatives",
+            "Overview of Alternatives"
+        ],
+        "comparison-matrix": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#comparison-matrix",
+            "Comparison Matrix"
+        ],
+        "alternative-1-user-int-menus": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#alternative-1-user-int-menus",
+            "Alternative 1: USER_INT Menus"
+        ],
+        "how-it-works": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#how-it-works",
+            "How It Works"
+        ],
+        "alternative-2-ssi-esi-server-edge-side-includes": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#alternative-2-ssi-esi-server-edge-side-includes",
+            "Alternative 2: SSI\/ESI (Server\/Edge Side Includes)"
+        ],
+        "ssi-server-side-includes": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#ssi-server-side-includes",
+            "SSI (Server Side Includes)"
+        ],
+        "esi-edge-side-includes": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#esi-edge-side-includes",
+            "ESI (Edge Side Includes)"
+        ],
+        "alternative-3-ajax-menus": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#alternative-3-ajax-menus",
+            "Alternative 3: AJAX Menus"
+        ],
+        "implementation": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#implementation",
+            "Implementation"
+        ],
+        "alternative-4-scheduled-cache-clearing": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#alternative-4-scheduled-cache-clearing",
+            "Alternative 4: Scheduled Cache Clearing"
+        ],
+        "alternative-5-manual-cache-management": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#alternative-5-manual-cache-management",
+            "Alternative 5: Manual Cache Management"
+        ],
+        "decision-framework": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#decision-framework",
+            "Decision Framework"
+        ],
+        "recommendation-by-site-profile": [
+            "-",
+            "-",
+            "Performance\/Alternatives.html#recommendation-by-site-profile",
+            "Recommendation by Site Profile"
+        ],
+        "site-specific-decision-guide": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#decision-guide",
+            "Site-Specific Decision Guide"
+        ],
+        "decision-matrix-by-site-size": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#decision-matrix-by-site-size",
+            "Decision Matrix by Site Size"
+        ],
+        "small-sites-1-000-pages": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#small-sites-1-000-pages",
+            "Small Sites (<1,000 pages)"
+        ],
+        "medium-sites-1-000-10-000-pages": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#medium-sites-1-000-10-000-pages",
+            "Medium Sites (1,000-10,000 pages)"
+        ],
+        "large-sites-10-000-pages": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#large-sites-10-000-pages",
+            "Large Sites (>10,000 pages)"
+        ],
+        "high-traffic-sites-10m-pageviews-month": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#high-traffic-sites-10m-pageviews-month",
+            "High-Traffic Sites (>10M pageviews\/month)"
+        ],
+        "multi-language-sites": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#multi-language-sites",
+            "Multi-Language Sites"
+        ],
+        "when-not-to-use-this-extension": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#when-not-to-use-this-extension",
+            "When NOT to Use This Extension"
+        ],
+        "real-world-impact-scenarios": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#real-world-impact-scenarios",
+            "Real-World Impact Scenarios"
+        ],
+        "scenario-1-corporate-website-low-impact": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#scenario-1-corporate-website-low-impact",
+            "Scenario 1: Corporate Website (Low Impact)"
+        ],
+        "scenario-2-news-portal-medium-impact": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#scenario-2-news-portal-medium-impact",
+            "Scenario 2: News Portal (Medium Impact)"
+        ],
+        "scenario-3-enterprise-portal-high-impact": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#scenario-3-enterprise-portal-high-impact",
+            "Scenario 3: Enterprise Portal (High Impact)"
+        ],
+        "decision-formula": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#decision-formula",
+            "Decision Formula"
+        ],
+        "testing-checklist": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#testing-checklist",
+            "Testing Checklist"
+        ],
+        "before-production-deployment": [
+            "-",
+            "-",
+            "Performance\/DecisionGuide.html#before-production-deployment",
+            "Before Production Deployment"
+        ],
+        "frequently-asked-questions": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#performance-faq",
+            "Frequently Asked Questions"
+        ],
+        "q-why-does-my-entire-site-cache-expire-when-one-page-has-a-future-starttime": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-why-does-my-entire-site-cache-expire-when-one-page-has-a-future-starttime",
+            "Q: Why does my entire site cache expire when one page has a future starttime?"
+        ],
+        "q-can-i-disable-this-for-specific-page-trees": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-can-i-disable-this-for-specific-page-trees",
+            "Q: Can I disable this for specific page trees?"
+        ],
+        "q-will-this-work-with-my-cdn-varnish-setup": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-will-this-work-with-my-cdn-varnish-setup",
+            "Q: Will this work with my CDN\/Varnish setup?"
+        ],
+        "q-should-i-use-this-on-a-50-000-page-site": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-should-i-use-this-on-a-50-000-page-site",
+            "Q: Should I use this on a 50,000 page site?"
+        ],
+        "q-does-this-affect-backend-performance": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-does-this-affect-backend-performance",
+            "Q: Does this affect backend performance?"
+        ],
+        "q-what-if-i-don-t-use-temporal-content": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-what-if-i-don-t-use-temporal-content",
+            "Q: What if I don't use temporal content?"
+        ],
+        "q-how-do-i-monitor-extension-performance": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-how-do-i-monitor-extension-performance",
+            "Q: How do I monitor extension performance?"
+        ],
+        "q-can-i-use-this-with-ext-warming": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-can-i-use-this-with-ext-warming",
+            "Q: Can I use this with EXT:warming?"
+        ],
+        "q-what-happens-during-high-traffic-cache-expiration": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-what-happens-during-high-traffic-cache-expiration",
+            "Q: What happens during high-traffic cache expiration?"
+        ],
+        "q-how-does-this-work-with-workspaces": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-how-does-this-work-with-workspaces",
+            "Q: How does this work with workspaces?"
+        ],
+        "q-can-i-combine-this-with-custom-cache-tags": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-can-i-combine-this-with-custom-cache-tags",
+            "Q: Can I combine this with custom cache tags?"
+        ],
+        "q-what-s-the-performance-impact-of-harmonization": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-what-s-the-performance-impact-of-harmonization",
+            "Q: What's the performance impact of harmonization?"
+        ],
+        "q-does-this-work-with-multi-language-sites": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-does-this-work-with-multi-language-sites",
+            "Q: Does this work with multi-language sites?"
+        ],
+        "q-when-will-phase-2-3-be-available": [
+            "-",
+            "-",
+            "Performance\/FAQ.html#q-when-will-phase-2-3-be-available",
+            "Q: When will Phase 2\/3 be available?"
+        ],
+        "performance-considerations-1": [
+            "-",
+            "-",
+            "Performance\/Index.html#performance-considerations",
+            "Performance Considerations"
+        ],
+        "critical-information-for-production-deployment": [
+            "-",
+            "-",
+            "Performance\/Index.html#critical-information-for-production-deployment",
+            "Critical Information for Production Deployment"
+        ],
+        "quick-decision-guide": [
+            "-",
+            "-",
+            "Performance\/Index.html#quick-decision-guide",
+            "Quick Decision Guide"
+        ],
+        "performance-topics": [
+            "-",
+            "-",
+            "Performance\/Index.html#performance-topics",
+            "Performance Topics"
+        ],
+        "summary-key-takeaways": [
+            "-",
+            "-",
+            "Performance\/Index.html#summary-key-takeaways",
+            "Summary: Key Takeaways"
+        ],
+        "phase-1-architectural-limitations": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#performance-limitations",
+            "Phase 1 Architectural Limitations"
+        ],
+        "understanding-phase-1-constraints": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#understanding-phase-1-constraints",
+            "Understanding Phase 1 Constraints"
+        ],
+        "critical-impact-site-wide-cache-synchronization": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#critical-impact-site-wide-cache-synchronization",
+            "Critical Impact: Site-Wide Cache Synchronization"
+        ],
+        "behavior": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#behavior",
+            "Behavior"
+        ],
+        "example-scenario": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#example-scenario",
+            "Example Scenario"
+        ],
+        "why-this-happens": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#why-this-happens",
+            "Why This Happens"
+        ],
+        "performance-impacts": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#performance-impacts",
+            "Performance Impacts"
+        ],
+        "1-reduced-cache-hit-ratio": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#1-reduced-cache-hit-ratio",
+            "1. Reduced Cache Hit Ratio"
+        ],
+        "2-cache-miss-storms-thundering-herd": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#2-cache-miss-storms-thundering-herd",
+            "2. Cache Miss Storms (Thundering Herd)"
+        ],
+        "3-database-query-overhead": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#3-database-query-overhead",
+            "3. Database Query Overhead"
+        ],
+        "queries-executed": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#queries-executed",
+            "Queries Executed"
+        ],
+        "performance-cost": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#performance-cost",
+            "Performance Cost"
+        ],
+        "4-cdn-reverse-proxy-cascade": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#4-cdn-reverse-proxy-cascade",
+            "4. CDN\/Reverse Proxy Cascade"
+        ],
+        "architecture-flow": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#architecture-flow",
+            "Architecture Flow"
+        ],
+        "5-no-granular-control-v1-0-x": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#5-no-granular-control-v1-0-x",
+            "5. No Granular Control (v1.0.x)"
+        ],
+        "6-multi-language-overhead": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#6-multi-language-overhead",
+            "6. Multi-Language Overhead"
+        ],
+        "when-phase-1-limitations-matter": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#when-phase-1-limitations-matter",
+            "When Phase 1 Limitations Matter"
+        ],
+        "comparison-phase-1-vs-phase-2-3": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#comparison-phase-1-vs-phase-2-3",
+            "Comparison: Phase 1 vs Phase 2\/3"
+        ],
+        "mitigation-summary": [
+            "-",
+            "-",
+            "Performance\/Limitations.html#mitigation-summary",
+            "Mitigation Summary"
+        ],
+        "scoping-strategies": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#scoping-strategies",
+            "Scoping Strategies"
+        ],
+        "global-scoping-default": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#global-scoping-default",
+            "Global Scoping (Default)"
+        ],
+        "per-page-scoping": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#per-page-scoping",
+            "Per-Page Scoping"
+        ],
+        "per-content-scoping": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#per-content-scoping",
+            "Per-Content Scoping"
+        ],
+        "scoping-strategy-comparison": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#scoping-strategy-comparison",
+            "Scoping Strategy Comparison"
+        ],
+        "timing-strategies": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#timing-strategies",
+            "Timing Strategies"
+        ],
+        "dynamic-timing-default": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#dynamic-timing-default",
+            "Dynamic Timing (Default)"
+        ],
+        "scheduler-timing": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#scheduler-timing",
+            "Scheduler Timing"
+        ],
+        "hybrid-timing": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#hybrid-timing",
+            "Hybrid Timing"
+        ],
+        "timing-strategy-comparison": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#timing-strategy-comparison",
+            "Timing Strategy Comparison"
+        ],
+        "real-world-impact": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#real-world-impact",
+            "Real-World Impact"
+        ],
+        "tolerance-setting": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#tolerance-setting",
+            "Tolerance Setting"
+        ],
+        "combined-strategy-example": [
+            "-",
+            "-",
+            "Performance\/Strategies.html#combined-strategy-example",
+            "Combined Strategy Example"
+        ],
+        "three-phase-solution-roadmap": [
+            "-",
+            "-",
+            "Phases\/Index.html#phases",
+            "Three-Phase Solution & Roadmap"
+        ],
+        "the-three-phases": [
+            "-",
+            "-",
+            "Phases\/Index.html#the-three-phases",
+            "The Three Phases"
+        ],
+        "phase-1-extension-based-dynamic-cache-lifetime-current": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-1-extension-based-dynamic-cache-lifetime-current",
+            "Phase 1: Extension-Based Dynamic Cache Lifetime (Current)"
+        ],
+        "phase-2-core-api-with-absolute-expiration": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-2-core-api-with-absolute-expiration",
+            "Phase 2: Core API with Absolute Expiration"
+        ],
+        "phase-3-automatic-temporal-dependency-detection": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-3-automatic-temporal-dependency-detection",
+            "Phase 3: Automatic Temporal Dependency Detection"
+        ],
+        "migration-path": [
+            "-",
+            "-",
+            "Phases\/Index.html#migration-path",
+            "Migration Path"
+        ],
+        "phase-1-phase-2-transition": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-1-phase-2-transition",
+            "Phase 1 \u2192 Phase 2 Transition"
+        ],
+        "phase-2-phase-3-transition": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-2-phase-3-transition",
+            "Phase 2 \u2192 Phase 3 Transition"
+        ],
+        "why-phase-1-is-necessary-today": [
+            "-",
+            "-",
+            "Phases\/Index.html#why-phase-1-is-necessary-today",
+            "Why Phase 1 Is Necessary Today"
+        ],
+        "the-problem-cannot-wait": [
+            "-",
+            "-",
+            "Phases\/Index.html#the-problem-cannot-wait",
+            "The Problem Cannot Wait"
+        ],
+        "phase-2-3-timeline-too-long": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-2-3-timeline-too-long",
+            "Phase 2\/3 Timeline Too Long"
+        ],
+        "phase-1-as-pragmatic-bridge": [
+            "-",
+            "-",
+            "Phases\/Index.html#phase-1-as-pragmatic-bridge",
+            "Phase 1 as Pragmatic Bridge"
+        ],
+        "community-feedback-loop": [
+            "-",
+            "-",
+            "Phases\/Index.html#community-feedback-loop",
+            "Community Feedback Loop"
+        ],
+        "your-experience-matters": [
+            "-",
+            "-",
+            "Phases\/Index.html#your-experience-matters",
+            "Your Experience Matters"
+        ],
+        "rfc-participation": [
+            "-",
+            "-",
+            "Phases\/Index.html#rfc-participation",
+            "RFC Participation"
+        ],
+        "experimental-but-stable": [
+            "-",
+            "-",
+            "Phases\/Index.html#experimental-but-stable",
+            "Experimental But Stable"
+        ],
+        "clarifying-experimental": [
+            "-",
+            "-",
+            "Phases\/Index.html#clarifying-experimental",
+            "Clarifying \"Experimental\""
+        ],
+        "when-to-use-phase-1": [
+            "-",
+            "-",
+            "Phases\/Index.html#when-to-use-phase-1",
+            "When to Use Phase 1"
+        ]
+    }
+}

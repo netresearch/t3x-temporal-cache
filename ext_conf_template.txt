@@ -1,0 +1,35 @@
+# cat=scoping/enable/10; type=options[global,per-page,per-content]; label=Scoping Strategy: Which caches to invalidate when temporal transitions occur
+scoping.strategy = global
+
+# cat=scoping/enable/20; type=boolean; label=Use Refindex: Enable sys_refindex for accurate content element tracking (per-content strategy only)
+scoping.use_refindex = 1
+
+# cat=timing/enable/10; type=options[dynamic,scheduler,hybrid]; label=Timing Strategy: When to check for temporal transitions
+timing.strategy = dynamic
+
+# cat=timing/enable/20; type=int+; label=Scheduler Interval (seconds): Check interval for scheduler-based strategy (minimum 60 seconds)
+timing.scheduler_interval = 60
+
+# cat=timing/enable/30; type=options[dynamic,scheduler]; label=Hybrid Strategy - Pages: Timing strategy for page transitions (affects menus)
+timing.hybrid.pages = dynamic
+
+# cat=timing/enable/40; type=options[dynamic,scheduler]; label=Hybrid Strategy - Content: Timing strategy for content element transitions
+timing.hybrid.content = scheduler
+
+# cat=harmonization/enable/10; type=boolean; label=Enable Time Harmonization: Round temporal transitions to fixed time slots to reduce cache churn
+harmonization.enabled = 0
+
+# cat=harmonization/enable/20; type=string; label=Time Slots: Comma-separated time slots in HH:MM format (e.g., 00:00,06:00,12:00,18:00)
+harmonization.slots = 00:00,06:00,12:00,18:00
+
+# cat=harmonization/enable/30; type=int+; label=Tolerance (seconds): Maximum allowed time shift for harmonization (0 = no limit)
+harmonization.tolerance = 3600
+
+# cat=harmonization/enable/40; type=boolean; label=Auto-Round New Content: Automatically suggest harmonized times in backend forms
+harmonization.auto_round = 0
+
+# cat=advanced/enable/10; type=int+; label=Default Cache Lifetime (seconds): Maximum cache lifetime when no temporal content exists
+advanced.default_max_lifetime = 86400
+
+# cat=advanced/enable/20; type=boolean; label=Enable Debug Logging: Log temporal cache decisions for debugging
+advanced.debug_logging = 0

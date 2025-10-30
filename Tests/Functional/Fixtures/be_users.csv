@@ -1,0 +1,2 @@
+uid,username,password,admin,deleted
+1,"admin","$argon2i$v=19$m=65536,t=16,p=1$TEST",1,0

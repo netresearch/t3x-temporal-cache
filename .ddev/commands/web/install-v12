@@ -1,0 +1,94 @@
+#!/bin/bash
+
+## Description: Install TYPO3 v12.4 LTS with temporal_cache extension
+## Usage: install-v12
+## Example: ddev install-v12
+
+set -e
+
+VERSION="v12"
+TYPO3_VERSION="^12.4"
+
+echo "Installing TYPO3 ${TYPO3_VERSION} with temporal_cache extension..."
+
+# Create installation directory
+mkdir -p /var/www/html/${VERSION}
+cd /var/www/html/${VERSION}
+
+# Create composer.json
+cat > composer.json << COMPOSER
+{
+    "name": "typo3/cms-temporal-cache-test",
+    "description": "TYPO3 ${TYPO3_VERSION} test installation for temporal_cache extension",
+    "type": "project",
+    "require": {
+        "typo3/cms-core": "${TYPO3_VERSION}",
+        "typo3/cms-backend": "${TYPO3_VERSION}",
+        "typo3/cms-frontend": "${TYPO3_VERSION}",
+        "typo3/cms-install": "${TYPO3_VERSION}",
+        "typo3/cms-reports": "${TYPO3_VERSION}",
+        "typo3/cms-fluid": "${TYPO3_VERSION}",
+        "typo3/cms-fluid-styled-content": "${TYPO3_VERSION}",
+        "typo3/cms-extbase": "${TYPO3_VERSION}",
+        "typo3/cms-extensionmanager": "${TYPO3_VERSION}",
+        "bk2k/bootstrap-package": "^13.0",
+        "typo3/cms-introduction": "^4.0"
+    },
+    "extra": {
+        "typo3/cms": {
+            "web-dir": "public"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "typo3/cms-composer-installers": true,
+            "typo3/class-alias-loader": true
+        }
+    }
+}
+COMPOSER
+
+# Install TYPO3
+echo "Running composer install..."
+composer install --no-interaction --no-progress
+
+# Create necessary directories
+mkdir -p public/typo3conf/ext
+mkdir -p var/log var/session
+
+# Link extension
+ln -sf /var/www/html/typo3conf/ext/temporal_cache public/typo3conf/ext/temporal_cache
+
+# Setup TYPO3 using CLI (database db_${VERSION} should be created beforehand)
+echo "Setting up TYPO3..."
+vendor/bin/typo3 setup --no-interaction --force \
+    --driver=mysqli \
+    --host=db \
+    --port=3306 \
+    --dbname=db \
+    --username=db \
+    --password=db \
+    --admin-username=admin \
+    --admin-user-password='Password:joh316' \
+    --admin-email='admin@example.com' \
+    --project-name="TYPO3 ${VERSION} - Temporal Cache Test" \
+    --create-site="https://${VERSION}.temporal-cache.ddev.site/" \
+    --server-type=apache
+
+# Flush caches
+vendor/bin/typo3 cache:flush
+
+echo ""
+echo "=========================================="
+echo "TYPO3 ${VERSION} installation complete!"
+echo "=========================================="
+echo ""
+echo "Frontend: https://${VERSION}.temporal-cache.ddev.site/"
+echo "Backend:  https://${VERSION}.temporal-cache.ddev.site/typo3/"
+echo ""
+echo "Backend credentials:"
+echo "  Username: admin"
+echo "  Password: Password:joh316"
+echo ""
+echo "Extension 'temporal_cache' is installed and activated."
+echo ""

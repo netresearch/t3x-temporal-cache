@@ -1,0 +1,12 @@
+version: '3.6'
+services:
+  web:
+    volumes:
+      - "./:/var/www/html/typo3conf/ext/temporal_cache:cached"
+      - "v12:/var/www/html/v12:cached"
+      - "v13:/var/www/html/v13:cached"
+    environment:
+      - APACHE_CONF_TEMPLATE=/etc/apache2/sites-available/000-default.conf
+volumes:
+  v12:
+  v13:

@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Content Tab
+        documentation</title>
+
+    
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="phpdocumentor/guides" name="generator">
+<meta content="" name="docsearch:name">
+<meta content="" name="docsearch:package_type">
+<meta content="" name="docsearch:release">
+<meta content="" name="docsearch:version">
+<meta content="2025-10-30T12:13:45+00:00" name="docsearch:modified">
+<meta content="2025-10-30T12:13:45+00:00" name="dc.modified">
+<meta content="2025-10-30T12:13:45+00:00" property="article:modified_time">
+    <link href="http://purl.org/dc/elements/1.1/" rel="schema.dc">
+<link href="../_resources/css/theme.css" rel="stylesheet">
+<link href="https://docs.typo3.org/search/" rel="search" title="Search">
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/typo3-universe.js" type="module"></script>
+                        <link href="Dashboard.html" rel="prev" title="Dashboard Tab"/>
+            <link href="Wizard.html" rel="next" title="Configuration Wizard"/>
+            <link href="../Index.html" rel="top" title="Temporal Cache Management"/>
+    </head>
+<body>
+<div class="page">
+    <header>
+    <div class="page-topbar">
+        <div class="page-topbar-inner">
+            <typo3-universe active="documentation">
+                <div style="display: block; height: 44px; background-color: #313131;"></div>
+            </typo3-universe>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="page-header-inner">
+            <div class="d-flex flex-wrap">
+                <div class="logo-wrapper">
+                    <a class="logo" href="https://docs.typo3.org/" title="TYPO3 Documentation">
+                        <img alt="TYPO3 Logo" class="logo-image" src="../_resources/img/typo3-logo.svg" width="484" height="130">
+                    </a>
+                </div>
+                <div class="align-self-center order-lg-2 order-last">
+                    
+<div class="toc-header">
+    <div class="toc-title pe-3">
+                            <a class="toc-title-project" href="../Index.html">Temporal Cache Management</a>
+            </div>
+    </div>                </div>
+                <div class="ms-auto order-lg-3 d-flex">
+                    <div class="menu-search-wrapper">
+                        <button id="toc-toggle" class="btn btn-light d-block d-lg-none" tabindex="0" aria-controls="toc-collapse" aria-expanded="false">
+                            <i class="fas fa-bars"></i> <span class="visually-hidden">Mobile Menu</span>
+                        </button>
+                        <all-documentations-menu data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu>
+                                                <search role="search">
+                            <form action="https://docs.typo3.org/search/search" id="global-search-form" method="get">
+                                <div class="sr-only"><label for="globalsearchinput">TYPO3 documentation...</label></div>
+                                <div class="input-group mb-3 mt-sm-3">
+                                    <select class="form-select search__scope" id="searchscope" name="scope">
+                                        <option value="">Search all</option>
+                                    </select>
+                                    <input autocomplete="off" class="form-control shadow-none" id="globalsearchinput" name="q" placeholder="TYPO3 documentation..." type="text" value="">
+                                    <button class="btn btn-light" type="submit"><i class="fa fa-search"></i>&nbsp;<span class="d-none d-md-inline">Search</span></button>
+                                </div>
+                            </form>
+                            <div id="global-search-root"></div>
+                        </search>
+                        <div class="position-relative d-inline-block">
+                            <button id="options-toggle" class="btn btn-light d-block" type="button" aria-expanded="false">
+                                <i class="fas fa-cog"></i> <span class="visually-hidden">Options</span>
+                            </button>
+
+                            <div id="options-panel"
+                                 class="shadow p-3"
+                                 role="menu"
+                                 aria-hidden="true">
+                                <h6 class="dropdown-header text-muted text-uppercase small mb-2">Options</h6>
+
+                                                                                                            <a class="dropdown-item d-flex align-items-center gap-2" href="../_sources/Backend/Content.rst.txt" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-code"></i>
+        View source
+    </a>
+    <a class="dropdown-item d-flex align-items-center gap-2" href="https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/WritingDocsOfficial/GithubMethod.html" id="btnHowToEdit" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-info-circle"></i>
+        How to edit
+    </a>
+                                                                                                                <a class="dropdown-item d-flex align-items-center gap-2" href="../singlehtml/Index.html" target="_blank" rel="noopener">
+                                            <i class="fas fa-print"></i>
+                                            Full documentation (single file)
+                                        </a>
+                                                                                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>    <main class="page-main">
+        <div class="page-main-inner">
+            <div class="page-main-navigation">
+                <nav>
+
+                    <div id="toc-collapse">
+                                                <div aria-label="main navigation" class="toc"
+                             role="navigation">
+                                <all-documentations-menu-mobile
+        data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu-mobile>
+    <div aria-label="Main navigation" class="main_menu" role="navigation">
+                <p class="caption">Temporal Cache Management</p>
+            <ul class="menu-level-1" role="menubar">
+    <li class="" role="menuitem">
+    <a href="../Introduction/Index.html">
+        Introduction
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Performance/Index.html">
+        Performance Considerations
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Performance/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/Limitations.html">
+        Phase 1 Architectural Limitations
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/DecisionGuide.html">
+        Site-Specific Decision Guide
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/Alternatives.html">
+        Alternative Approaches
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/FAQ.html">
+        Frequently Asked Questions
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Installation/Index.html">
+        Installation
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Configuration/Index.html">
+        Configuration
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Configuration/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Advanced.html">
+        Advanced Options
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Examples.html">
+        Examples &amp; Presets
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Troubleshooting.html">
+        Troubleshooting
+    </a></li></ul></li>    <li class=" active" role="menuitem">
+    <a href="Index.html">
+        Backend Module
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="Dashboard.html">
+        Dashboard Tab
+    </a></li><li class=" current active" role="menuitem">
+    <a href="#" aria-current="page">
+        Content Tab
+    </a></li><li class="" role="menuitem">
+    <a href="Wizard.html">
+        Configuration Wizard
+    </a></li><li class="" role="menuitem">
+    <a href="Tips.html">
+        Tips and Best Practices
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Administrator/ReportsModule.html">
+        TYPO3 Reports Module
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Architecture/Index.html">
+        Architecture
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Phases/Index.html">
+        Three-Phase Solution &amp; Roadmap
+    </a></li>    </ul>
+    </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="page-main-content">
+                <div class="rst-content">                        <nav aria-label="breadcrumbs navigation" class="breadcrumb-bar" role="navigation">
+        
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../Index.html">Temporal Cache Management</a></li>
+        <li class="breadcrumb-item"><a href="Index.html">Backend Module</a></li>
+                    <li aria-current="page"  class="breadcrumb-item  active">Content Tab</li>
+        </ol>
+        <div class="breadcrumb-additions"></div>
+    </nav>
+                    
+<article class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+    <div itemprop="articleBody">
+        <!-- content start -->
+                
+<section class="section" id="content-tab" data-rst-anchor="backend-content">
+            <a id="backend-content"></a>
+            <h1>Content Tab<a class="headerlink" href="#content-tab" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h1>
+            
+    <p>Browse and manage all temporal content (pages and content elements).</p>
+
+            <section class="section" id="interface-overview">
+            <h2>Interface Overview<a class="headerlink" href="#interface-overview" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>The Content tab displays:</p>
+
+            
+    
+<ol start="1">
+    <li value="1">
+    <p><strong>Filter Bar</strong></p>
+
+
+<ul>
+    <li class="dash">Filter dropdown (All / Active / Pending / Expired)</li>
+    <li class="dash">Search field (by title)</li>
+    <li class="dash">Bulk action buttons (Harmonize Selected, Export)</li>
+</ul>
+</li>
+    <li value="2">
+    <p><strong>Content Table</strong></p>
+
+
+<ul>
+    <li class="dash">Columns: Type, Title, Start Time, End Time, Status, Harmonization Suggestion, Actions</li>
+    <li class="dash">Sortable by any column</li>
+    <li class="dash">Pagination (50 items per page)</li>
+</ul>
+</li>
+    <li value="3">
+    <p><strong>Item Actions</strong></p>
+
+
+<ul>
+    <li class="dash">Edit (opens page/content record)</li>
+    <li class="dash">Apply Harmonization (one-click harmonize)</li>
+    <li class="dash">View Details (shows affected pages for content elements)</li>
+</ul>
+</li>
+</ol>
+
+    </section>
+            <section class="section" id="filter-options">
+            <h2>Filter Options<a class="headerlink" href="#filter-options" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="all-content">
+            <h3>All Content<a class="headerlink" href="#all-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Shows every page and content element with starttime or endtime set.</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Total: 168 items
+- 45 pages
+- 123 content elements</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="active-content">
+            <h3>Active Content<a class="headerlink" href="#active-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Content currently visible (between starttime and endtime).</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Active: 89 items currently visible
+- Starttime in past or 0
+- Endtime in future or 0
+- Current timestamp within visibility window</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="pending-content">
+            <h3>Pending Content<a class="headerlink" href="#pending-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Content scheduled for future activation.</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Pending: 56 items with future starttime
+- Not yet visible
+- Will become active when starttime arrives</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="expired-content">
+            <h3>Expired Content<a class="headerlink" href="#expired-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Content past its endtime.</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Expired: 23 items past endtime
+- Endtime in the past
+- Should no longer be visible</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+    </section>
+            <section class="section" id="content-table-columns">
+            <h2>Content Table Columns<a class="headerlink" href="#content-table-columns" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="type">
+            <h3>Type<a class="headerlink" href="#type" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Icon and label indicating record type:</p>
+
+            
+
+<ul>
+    <li class="dash">📄 Page</li>
+    <li class="dash">📝 Content Element</li>
+    <li class="dash">📰 News Article (if ext:news installed)</li>
+    <li class="dash">📅 Event (if ext:events installed)</li>
+</ul>
+
+    </section>
+            <section class="section" id="title">
+            <h3>Title<a class="headerlink" href="#title" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Page title or content element header.</p>
+
+            
+    <p><strong>Actions</strong>:</p>
+
+            
+
+<ul>
+    <li class="dash">Click title → Edit record</li>
+    <li class="dash">Hover → Show full path (for pages) or parent page (for content)</li>
+</ul>
+
+    </section>
+            <section class="section" id="start-time">
+            <h3>Start Time<a class="headerlink" href="#start-time" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Timestamp when content becomes visible.</p>
+
+            
+    <p><strong>Format</strong>: YYYY-MM-DD HH:MM:SS</p>
+
+            
+    <p><strong>Special values</strong>:</p>
+
+            
+
+<ul>
+    <li class="dash"><code class="code-inline" translate="no">0</code> or empty → No start restriction</li>
+    <li class="dash">Past time → Currently active (if no endtime or endtime in future)</li>
+    <li class="dash">Future time → Pending activation</li>
+</ul>
+
+    </section>
+            <section class="section" id="end-time">
+            <h3>End Time<a class="headerlink" href="#end-time" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Timestamp when content expires.</p>
+
+            
+    <p><strong>Format</strong>: YYYY-MM-DD HH:MM:SS</p>
+
+            
+    <p><strong>Special values</strong>:</p>
+
+            
+
+<ul>
+    <li class="dash"><code class="code-inline" translate="no">0</code> or empty → No end restriction</li>
+    <li class="dash">Past time → Expired</li>
+    <li class="dash">Future time → Will expire at this time</li>
+</ul>
+
+    </section>
+            <section class="section" id="status">
+            <h3>Status<a class="headerlink" href="#status" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Current visibility state with color coding:</p>
+
+            
+
+<ul>
+    <li class="dash">🟢 <strong>Active</strong>: Currently visible</li>
+    <li class="dash">🟡 <strong>Pending</strong>: Future starttime</li>
+    <li class="dash">🔴 <strong>Expired</strong>: Past endtime</li>
+    <li class="dash">⚪ <strong>Always</strong>: No temporal restrictions (shown if &quot;All&quot; filter active)</li>
+</ul>
+
+    </section>
+            <section class="section" id="harmonization-suggestion">
+            <h3>Harmonization Suggestion<a class="headerlink" href="#harmonization-suggestion" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Recommended time adjustment for harmonization:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Original:     2025-10-30 09:17:42
+Suggested:    2025-10-30 09:00:00
+Shift:        -17 minutes 42 seconds
+Benefit:      Groups with 3 other items</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Interpretation</strong>:</p>
+
+            
+
+<ul>
+    <li class="dash">Green badge: Minor shift (&lt;10 minutes)</li>
+    <li class="dash">Yellow badge: Moderate shift (10-30 minutes)</li>
+    <li class="dash">Red badge: Large shift (&gt;30 minutes, review manually)</li>
+    <li class="dash">Gray badge: Already harmonized or outside tolerance</li>
+</ul>
+
+    </section>
+    </section>
+            <section class="section" id="actions-column">
+            <h2>Actions Column<a class="headerlink" href="#actions-column" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="per-item-actions">
+            <h3>Per-Item Actions<a class="headerlink" href="#per-item-actions" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <dl>
+                        <dt><strong>Edit</strong> (pencil icon)</dt>
+        
+        <dd>Opens the record for editing in TYPO3 backend</dd>
+                                <dt><strong>Apply Harmonization</strong> (clock icon)</dt>
+        
+        <dd>
+    <p>One-click apply suggested harmonization</p>
+
+
+<ul>
+    <li class="dash">Updates starttime/endtime to nearest slot</li>
+    <li class="dash">Respects tolerance setting</li>
+    <li class="dash">Shows confirmation before applying</li>
+</ul>
+</dd>
+                                <dt><strong>View Details</strong> (info icon)</dt>
+        
+        <dd>
+    <p>Shows additional information:</p>
+
+
+<ul>
+    <li class="dash">For pages: Child pages, content elements count</li>
+    <li class="dash">For content: Parent page, containing column</li>
+    <li class="dash">Affected pages (if per-content scoping)</li>
+</ul>
+</dd>
+                                <dt><strong>Clear Cache</strong> (refresh icon)</dt>
+        
+        <dd>
+    <p>Force cache regeneration for this item</p>
+
+
+<ul>
+    <li class="dash">Pages: Clears page cache</li>
+    <li class="dash">Content: Clears parent page cache</li>
+</ul>
+</dd>
+            </dl>
+    </section>
+    </section>
+            <section class="section" id="bulk-operations">
+            <h2>Bulk Operations<a class="headerlink" href="#bulk-operations" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="select-multiple-items">
+            <h3>Select Multiple Items<a class="headerlink" href="#select-multiple-items" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+
+<ul>
+    <li class="dash">Checkbox in first column</li>
+    <li class="dash">&quot;Select All&quot; checkbox in table header</li>
+    <li class="dash">Selection count displayed</li>
+</ul>
+
+    </section>
+            <section class="section" id="available-bulk-actions">
+            <h3>Available Bulk Actions<a class="headerlink" href="#available-bulk-actions" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <dl>
+                        <dt><strong>Harmonize Selected</strong></dt>
+        
+        <dd>
+    <p>Apply harmonization to all selected items</p>
+
+    <p><strong>Process</strong>:</p>
+
+    
+<ol start="1" type="1">
+    <li value="1">Validates each item&#039;s harmonization suggestion</li>
+    <li value="2">Shows preview of changes</li>
+    <li value="3">Applies on confirmation</li>
+    <li value="4">Reports success/failures</li>
+</ol>
+</dd>
+                                <dt><strong>Export Selected</strong></dt>
+        
+        <dd>
+    <p>Download CSV with temporal content details</p>
+
+    <p><strong>CSV Columns</strong>:</p>
+
+
+<ul>
+    <li class="dash">Type, UID, Title, Start Time, End Time, Status</li>
+    <li class="dash">Page Path (for pages)</li>
+    <li class="dash">Parent Page (for content elements)</li>
+</ul>
+</dd>
+                                <dt><strong>Clear Cache for Selected</strong></dt>
+        
+        <dd>Force cache regeneration for all selected items</dd>
+            </dl>
+    </section>
+    </section>
+            <section class="section" id="search-and-filter">
+            <h2>Search and Filter<a class="headerlink" href="#search-and-filter" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="search-field">
+            <h3>Search Field<a class="headerlink" href="#search-field" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Search by title (case-insensitive):</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Search: "news"
+Results: All items with "news" in title
+- News Landing Page
+- Latest News Content Element
+- News Article 1, 2, 3...</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Tips</strong>:</p>
+
+            
+
+<ul>
+    <li class="dash">Partial matching supported</li>
+    <li class="dash">Searches both page titles and content element headers</li>
+    <li class="dash">Combine with filters for precise results</li>
+</ul>
+
+    </section>
+            <section class="section" id="combined-filtering">
+            <h3>Combined Filtering<a class="headerlink" href="#combined-filtering" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Apply both status filter and search:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Filter: Pending
+Search: "event"
+Result: All future events not yet visible</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+    </section>
+            <section class="section" id="detailed-view">
+            <h2>Detailed View<a class="headerlink" href="#detailed-view" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>Click &quot;View Details&quot; to see comprehensive information:</p>
+
+            <section class="section" id="page-details">
+            <h3>Page Details<a class="headerlink" href="#page-details" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Page Information:
+- UID: 123
+- Title: "Summer Campaign Landing Page"
+- Path: /campaigns/summer-2025
+- Start: 2025-06-01 00:00:00
+- End: 2025-08-31 23:59:59
+
+Child Content:
+- 12 content elements (5 with temporal restrictions)
+- 3 child pages
+
+Cache Impact:
+- Scoping: This page only (per-page strategy)
+- Transitions: 2 (start + end)</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="content-element-details">
+            <h3>Content Element Details<a class="headerlink" href="#content-element-details" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Content Element Information:
+- UID: 456
+- Type: Text &amp; Media
+- Header: "Limited Time Offer"
+- Parent Page: /homepage (UID: 1)
+- Column: Main Content (colPos: 0)
+- Start: 2025-10-30 09:00:00
+- End: 2025-11-05 23:59:59
+
+Cache Impact:
+- Affected Pages: 1 (homepage only)
+- Scoping: Per-content strategy
+- Transitions: 2 (start + end)</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+    </section>
+            <section class="section" id="use-cases">
+            <h2>Use Cases<a class="headerlink" href="#use-cases" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="audit-temporal-content">
+            <h3>Audit Temporal Content<a class="headerlink" href="#audit-temporal-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Goal</strong>: Understand what content has temporal restrictions</p>
+
+            
+    <p><strong>Steps</strong>:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">Select &quot;All&quot; filter</li>
+    <li value="2">Sort by &quot;Type&quot;</li>
+    <li value="3">Export to CSV for documentation</li>
+</ol>
+
+    </section>
+            <section class="section" id="review-expired-content">
+            <h3>Review Expired Content<a class="headerlink" href="#review-expired-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Goal</strong>: Find content that should be removed or renewed</p>
+
+            
+    <p><strong>Steps</strong>:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">Select &quot;Expired&quot; filter</li>
+    <li value="2">Review list</li>
+    <li value="3">Edit or delete expired items</li>
+</ol>
+
+    </section>
+            <section class="section" id="plan-cache-warming">
+            <h3>Plan Cache Warming<a class="headerlink" href="#plan-cache-warming" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Goal</strong>: Identify major upcoming transitions</p>
+
+            
+    <p><strong>Steps</strong>:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">Select &quot;Pending&quot; filter</li>
+    <li value="2">Sort by &quot;Start Time&quot;</li>
+    <li value="3">Note times with many simultaneous items</li>
+    <li value="4">Schedule cache warming 5 minutes before</li>
+</ol>
+
+    </section>
+            <section class="section" id="apply-harmonization">
+            <h3>Apply Harmonization<a class="headerlink" href="#apply-harmonization" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Goal</strong>: Reduce cache churn by grouping transitions</p>
+
+            
+    <p><strong>Steps</strong>:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">Select &quot;All&quot; or &quot;Pending&quot; filter</li>
+    <li value="2">Review &quot;Harmonization Suggestion&quot; column</li>
+    <li value="3">Select items with green/yellow badges</li>
+    <li value="4">Click &quot;Harmonize Selected&quot;</li>
+    <li value="5">Confirm changes</li>
+</ol>
+
+    </section>
+    </section>
+            <section class="section" id="next-steps">
+            <h2>Next Steps<a class="headerlink" href="#next-steps" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+
+<ul>
+    <li class="dash"><a href="Dashboard.html#backend-dashboard">Dashboard Tab</a> - View performance metrics</li>
+    <li class="dash"><a href="Wizard.html#backend-wizard">Configuration Wizard</a> - Configure harmonization slots</li>
+    <li class="dash"><a href="../Performance/Strategies.html#performance-strategies">Optimization Strategies</a> - Understand optimization</li>
+    <li class="dash"><a href="Tips.html#backend-tips">Tips and Best Practices</a> - Best practices</li>
+</ul>
+
+    </section>
+    </section>
+        <!-- content end -->
+    </div>
+</article>
+                        
+            <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center"><li class="page-item">
+                            <a class="page-link" href="Dashboard.html"
+                               title="Accesskey Alt(+Shift)+p">
+                                <i class="fa-solid fa-chevron-left"></i> Previous
+                            </a>
+                        </li>
+                    <li class="page-item">
+                            <a class="page-link" href="Wizard.html"
+                               title="Accesskey Alt(+Shift)+n">
+                                Next <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+        </nav>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="linkReferenceModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Backend/Content">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="linkReferenceModalLabel">Reference to the headline</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="permalink-alert-success" role="alert"></div>
+                <div class="mb-3">
+                    <label for="permalink-uri" class="col-form-label">URL</label>
+                    <div class="input-group">
+                        <input class="form-control code" id="permalink-uri" readonly>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-uri"><i class="far fa-clone"></i></button>
+                    </div>
+                    <div class="permalink-short-wrapper">
+                        <label for="permalink-short" class="col-form-label">Permalink (Shortlink)</label>
+                        <div class="input-group">
+                            <input class="form-control code" id="permalink-short" readonly>
+                            <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-short"><i class="far fa-clone"></i></button>
+                        </div>
+                        <p><em>Copy and freely share the link</em></p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="alert alert-warning alert-permalink-rst" role="alert">This link target has no permanent anchor assigned.The link below can be used, but is prone to change if the page gets moved.
+                    </div>
+                    <label for="permalink-rst" class="col-form-label">Link in reStructuredText (reST)</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-rst" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-rst"><i class="far fa-clone"></i></button>
+                    </div>
+                    <p><em>Copy this link into your TYPO3 manual.</em></p>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-md" class="col-form-label">Link in Markdown</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-md" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-md"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-html" class="col-form-label">Link in HTML</label>
+                                        <div class="input-group">
+                        <textarea class="form-control code" id="permalink-html" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-html"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>    <div class="modal fade" id="generalModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Backend/Content"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="generalModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="general-alert-success" role="alert"></div>
+                <div id="generalModalContent">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div id="generalModalCustomButtons"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i>&nbsp;Close</button>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+
+<footer class="page-footer">
+    <div class="frame frame-ruler-before frame-background-dark">
+        <div class="frame-container">
+            <div class="frame-inner">
+                                <div class="footer-additional">
+                    <p class="text-center">Last rendered: Oct 30, 2025 12:13</p>
+                </div>
+                <div class="footer-meta">
+                    <ul class="footer-meta-navigation">
+                        <li><a href="https://typo3.org/legal-notice" rel="nofollow" target="_blank" title="Legal Notice">Legal Notice</a></li>
+                        <li><a href="https://typo3.org/privacy-policy" rel="nofollow" target="_blank" title="Privacy Policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="../_resources/js/popper.min.js"></script>
+<script src="../_resources/js/bootstrap.min.js"></script>
+<script src="../_resources/js/theme.min.js"></script>
+
+<!--
+ Locally rendered. No tracking embedded.
+-->
+</body>
+</html>

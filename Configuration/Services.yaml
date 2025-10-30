@@ -1,0 +1,279 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  # Auto-register all classes (except strategies - registered explicitly below)
+  Netresearch\TemporalCache\:
+    resource: '../Classes/*'
+    exclude:
+      - '../Classes/Service/Scoping/*Strategy.php'
+      - '../Classes/Service/Timing/*Strategy.php'
+      - '../Classes/Task/*'
+
+  # ============================================================================
+  # Configuration
+  # ============================================================================
+
+  Netresearch\TemporalCache\Configuration\ExtensionConfiguration:
+    public: true
+
+  # ============================================================================
+  # Domain Layer
+  # ============================================================================
+
+  Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository:
+    public: false
+
+  # ============================================================================
+  # Core Services
+  # ============================================================================
+
+  Netresearch\TemporalCache\Service\RefindexService:
+    public: false
+
+  Netresearch\TemporalCache\Service\HarmonizationService:
+    public: false
+    arguments:
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+
+  # ============================================================================
+  # Backend Services
+  # ============================================================================
+
+  # Statistics Service (extracts dashboard statistics logic from controller)
+  Netresearch\TemporalCache\Service\Backend\TemporalCacheStatisticsService:
+    public: false
+    arguments:
+      $contentRepository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+
+  # Harmonization Analysis Service (extracts harmonization analysis logic from controller)
+  Netresearch\TemporalCache\Service\Backend\HarmonizationAnalysisService:
+    public: false
+    arguments:
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+
+  # ============================================================================
+  # Scoping Strategies
+  # ============================================================================
+
+  # Global Scoping Strategy (Phase 1 backward compatible)
+  Netresearch\TemporalCache\Service\Scoping\GlobalScopingStrategy:
+    public: false
+    tags:
+      - { name: 'nr_temporal_cache.scoping_strategy', identifier: 'global' }
+
+  # Per-Page Scoping Strategy
+  Netresearch\TemporalCache\Service\Scoping\PerPageScopingStrategy:
+    public: false
+    tags:
+      - { name: 'nr_temporal_cache.scoping_strategy', identifier: 'per-page' }
+
+  # Per-Content Scoping Strategy (optimized)
+  Netresearch\TemporalCache\Service\Scoping\PerContentScopingStrategy:
+    public: false
+    arguments:
+      $refindexService: '@Netresearch\TemporalCache\Service\RefindexService'
+    tags:
+      - { name: 'nr_temporal_cache.scoping_strategy', identifier: 'per-content' }
+
+  # Scoping Strategy Factory
+  Netresearch\TemporalCache\Service\Scoping\ScopingStrategyFactory:
+    public: true
+    arguments:
+      $strategies:
+        - '@Netresearch\TemporalCache\Service\Scoping\GlobalScopingStrategy'
+        - '@Netresearch\TemporalCache\Service\Scoping\PerPageScopingStrategy'
+        - '@Netresearch\TemporalCache\Service\Scoping\PerContentScopingStrategy'
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+
+  # Alias for injecting active scoping strategy
+  Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface:
+    alias: Netresearch\TemporalCache\Service\Scoping\ScopingStrategyFactory
+    public: false
+
+  # ============================================================================
+  # Timing Strategies
+  # ============================================================================
+
+  # Dynamic Timing Strategy (Phase 1 backward compatible)
+  Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy:
+    public: false
+    arguments:
+      $scopingStrategy: '@Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface'
+    tags:
+      - { name: 'nr_temporal_cache.timing_strategy', identifier: 'dynamic' }
+
+  # Scheduler Timing Strategy
+  Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy:
+    public: false
+    arguments:
+      $scopingStrategy: '@Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface'
+      $cacheManager: '@TYPO3\CMS\Core\Cache\CacheManager'
+    tags:
+      - { name: 'nr_temporal_cache.timing_strategy', identifier: 'scheduler' }
+
+  # Hybrid Timing Strategy
+  Netresearch\TemporalCache\Service\Timing\HybridTimingStrategy:
+    public: false
+    arguments:
+      $dynamicStrategy: '@Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy'
+      $schedulerStrategy: '@Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy'
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+    tags:
+      - { name: 'nr_temporal_cache.timing_strategy', identifier: 'hybrid' }
+
+  # Timing Strategy Factory
+  Netresearch\TemporalCache\Service\Timing\TimingStrategyFactory:
+    public: true
+    arguments:
+      $strategies:
+        - '@Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy'
+        - '@Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy'
+        - '@Netresearch\TemporalCache\Service\Timing\HybridTimingStrategy'
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+
+  # Alias for injecting active timing strategy
+  Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface:
+    alias: Netresearch\TemporalCache\Service\Timing\TimingStrategyFactory
+    public: false
+
+  # ============================================================================
+  # Event Listeners
+  # ============================================================================
+
+  Netresearch\TemporalCache\EventListener\TemporalCacheLifetime:
+    public: true
+    arguments:
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $scopingStrategy: '@Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface'
+      $timingStrategy: '@Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface'
+      $context: '@TYPO3\CMS\Core\Context\Context'
+      $logger: '@logger'
+    tags:
+      - name: event.listener
+        identifier: 'temporal-cache/modify-cache-lifetime'
+        event: TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent
+        method: '__invoke'
+
+  # ============================================================================
+  # Scheduler Tasks
+  # ============================================================================
+
+  Netresearch\TemporalCache\Task\TemporalCacheSchedulerTask:
+    public: true
+    shared: false
+    calls:
+      - method: injectTemporalContentRepository
+        arguments:
+          - '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      - method: injectTimingStrategy
+        arguments:
+          - '@Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface'
+      - method: injectExtensionConfiguration
+        arguments:
+          - '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      - method: injectContext
+        arguments:
+          - '@TYPO3\CMS\Core\Context\Context'
+      - method: injectRegistry
+        arguments:
+          - '@TYPO3\CMS\Core\Registry'
+      - method: injectLogger
+        arguments:
+          - '@logger'
+
+  # ============================================================================
+  # Backend Controllers
+  # ============================================================================
+
+  Netresearch\TemporalCache\Controller\Backend\TemporalCacheController:
+    public: true
+    arguments:
+      $moduleTemplateFactory: '@TYPO3\CMS\Backend\Template\ModuleTemplateFactory'
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $contentRepository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $statisticsService: '@Netresearch\TemporalCache\Service\Backend\TemporalCacheStatisticsService'
+      $harmonizationAnalysisService: '@Netresearch\TemporalCache\Service\Backend\HarmonizationAnalysisService'
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+      $cacheManager: '@TYPO3\CMS\Core\Cache\CacheManager'
+      $iconFactory: '@TYPO3\CMS\Core\Imaging\IconFactory'
+
+  # ============================================================================
+  # Reports Module Integration
+  # ============================================================================
+
+  # Status Report Provider for TYPO3 Reports module
+  Netresearch\TemporalCache\Report\TemporalCacheStatusReport:
+    public: false
+    arguments:
+      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $contentRepository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+      $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
+    tags:
+      - name: 'reports.status'
+        identifier: 'temporal-cache'
+        label: 'LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_reports.xlf:status.title'
+
+  # ============================================================================
+  # Console Commands
+  # ============================================================================
+
+  # Analyze Command - Temporal content statistics and analysis
+  Netresearch\TemporalCache\Command\AnalyzeCommand:
+    public: false
+    arguments:
+      $repository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+    tags:
+      - name: 'console.command'
+        command: 'temporalcache:analyze'
+        description: 'Analyze temporal content and provide cache statistics'
+        schedulable: false
+
+  # Verify Command - Database indexes and configuration verification
+  Netresearch\TemporalCache\Command\VerifyCommand:
+    public: false
+    arguments:
+      $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $schemaMigrator: '@TYPO3\CMS\Core\Database\Schema\SchemaMigrator'
+      $sqlReader: '@TYPO3\CMS\Core\Database\Schema\SqlReader'
+    tags:
+      - name: 'console.command'
+        command: 'temporalcache:verify'
+        description: 'Verify database indexes and extension configuration'
+        schedulable: false
+
+  # Harmonize Command - Apply harmonization to temporal fields
+  Netresearch\TemporalCache\Command\HarmonizeCommand:
+    public: false
+    arguments:
+      $repository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
+      $dataHandler: '@TYPO3\CMS\Core\DataHandling\DataHandler'
+    tags:
+      - name: 'console.command'
+        command: 'temporalcache:harmonize'
+        description: 'Harmonize temporal fields to configured time slots'
+        schedulable: true
+
+  # List Command - List all temporal content
+  Netresearch\TemporalCache\Command\ListCommand:
+    public: false
+    arguments:
+      $repository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+    tags:
+      - name: 'console.command'
+        command: 'temporalcache:list'
+        description: 'List all temporal content with transition information'
+        schedulable: false

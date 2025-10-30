@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:be.pageRenderer
+    includeJavaScriptModules="{0:'@typo3/backend/modal.js'}"
+    includeCssFiles="{0:'EXT:backend/Resources/Public/Css/backend.css'}"
+/>
+
+<div class="module">
+    <f:render section="Content" />
+</div>
+
+<f:if condition="{f:render(section: 'FooterAssets', optional: 1)}">
+    <f:render section="FooterAssets" />
+</f:if>
+
+</html>

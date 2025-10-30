@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Installation
+        documentation</title>
+
+    
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="phpdocumentor/guides" name="generator">
+<meta content="" name="docsearch:name">
+<meta content="" name="docsearch:package_type">
+<meta content="" name="docsearch:release">
+<meta content="" name="docsearch:version">
+<meta content="2025-10-30T12:13:45+00:00" name="docsearch:modified">
+<meta content="2025-10-30T12:13:45+00:00" name="dc.modified">
+<meta content="2025-10-30T12:13:45+00:00" property="article:modified_time">
+    <link href="http://purl.org/dc/elements/1.1/" rel="schema.dc">
+<link href="../_resources/css/theme.css" rel="stylesheet">
+<link href="https://docs.typo3.org/search/" rel="search" title="Search">
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/typo3-universe.js" type="module"></script>
+                        <link href="../Performance/FAQ.html" rel="prev" title="Frequently Asked Questions"/>
+            <link href="../Configuration/Index.html" rel="next" title="Configuration"/>
+            <link href="../Index.html" rel="top" title="Temporal Cache Management"/>
+    </head>
+<body>
+<div class="page">
+    <header>
+    <div class="page-topbar">
+        <div class="page-topbar-inner">
+            <typo3-universe active="documentation">
+                <div style="display: block; height: 44px; background-color: #313131;"></div>
+            </typo3-universe>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="page-header-inner">
+            <div class="d-flex flex-wrap">
+                <div class="logo-wrapper">
+                    <a class="logo" href="https://docs.typo3.org/" title="TYPO3 Documentation">
+                        <img alt="TYPO3 Logo" class="logo-image" src="../_resources/img/typo3-logo.svg" width="484" height="130">
+                    </a>
+                </div>
+                <div class="align-self-center order-lg-2 order-last">
+                    
+<div class="toc-header">
+    <div class="toc-title pe-3">
+                            <a class="toc-title-project" href="../Index.html">Temporal Cache Management</a>
+            </div>
+    </div>                </div>
+                <div class="ms-auto order-lg-3 d-flex">
+                    <div class="menu-search-wrapper">
+                        <button id="toc-toggle" class="btn btn-light d-block d-lg-none" tabindex="0" aria-controls="toc-collapse" aria-expanded="false">
+                            <i class="fas fa-bars"></i> <span class="visually-hidden">Mobile Menu</span>
+                        </button>
+                        <all-documentations-menu data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu>
+                                                <search role="search">
+                            <form action="https://docs.typo3.org/search/search" id="global-search-form" method="get">
+                                <div class="sr-only"><label for="globalsearchinput">TYPO3 documentation...</label></div>
+                                <div class="input-group mb-3 mt-sm-3">
+                                    <select class="form-select search__scope" id="searchscope" name="scope">
+                                        <option value="">Search all</option>
+                                    </select>
+                                    <input autocomplete="off" class="form-control shadow-none" id="globalsearchinput" name="q" placeholder="TYPO3 documentation..." type="text" value="">
+                                    <button class="btn btn-light" type="submit"><i class="fa fa-search"></i>&nbsp;<span class="d-none d-md-inline">Search</span></button>
+                                </div>
+                            </form>
+                            <div id="global-search-root"></div>
+                        </search>
+                        <div class="position-relative d-inline-block">
+                            <button id="options-toggle" class="btn btn-light d-block" type="button" aria-expanded="false">
+                                <i class="fas fa-cog"></i> <span class="visually-hidden">Options</span>
+                            </button>
+
+                            <div id="options-panel"
+                                 class="shadow p-3"
+                                 role="menu"
+                                 aria-hidden="true">
+                                <h6 class="dropdown-header text-muted text-uppercase small mb-2">Options</h6>
+
+                                                                                                            <a class="dropdown-item d-flex align-items-center gap-2" href="../_sources/Installation/Index.rst.txt" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-code"></i>
+        View source
+    </a>
+    <a class="dropdown-item d-flex align-items-center gap-2" href="https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/WritingDocsOfficial/GithubMethod.html" id="btnHowToEdit" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-info-circle"></i>
+        How to edit
+    </a>
+                                                                                                                <a class="dropdown-item d-flex align-items-center gap-2" href="../singlehtml/Index.html" target="_blank" rel="noopener">
+                                            <i class="fas fa-print"></i>
+                                            Full documentation (single file)
+                                        </a>
+                                                                                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>    <main class="page-main">
+        <div class="page-main-inner">
+            <div class="page-main-navigation">
+                <nav>
+
+                    <div id="toc-collapse">
+                                                <div aria-label="main navigation" class="toc"
+                             role="navigation">
+                                <all-documentations-menu-mobile
+        data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu-mobile>
+    <div aria-label="Main navigation" class="main_menu" role="navigation">
+                <p class="caption">Temporal Cache Management</p>
+            <ul class="menu-level-1" role="menubar">
+    <li class="" role="menuitem">
+    <a href="../Introduction/Index.html">
+        Introduction
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Performance/Index.html">
+        Performance Considerations
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Performance/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/Limitations.html">
+        Phase 1 Architectural Limitations
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/DecisionGuide.html">
+        Site-Specific Decision Guide
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/Alternatives.html">
+        Alternative Approaches
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/FAQ.html">
+        Frequently Asked Questions
+    </a></li></ul></li>    <li class=" current active" role="menuitem">
+    <a href="#" aria-current="page">
+        Installation
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Configuration/Index.html">
+        Configuration
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Configuration/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Advanced.html">
+        Advanced Options
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Examples.html">
+        Examples &amp; Presets
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Troubleshooting.html">
+        Troubleshooting
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Backend/Index.html">
+        Backend Module
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Backend/Dashboard.html">
+        Dashboard Tab
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Content.html">
+        Content Tab
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Wizard.html">
+        Configuration Wizard
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Tips.html">
+        Tips and Best Practices
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Administrator/ReportsModule.html">
+        TYPO3 Reports Module
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Architecture/Index.html">
+        Architecture
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Phases/Index.html">
+        Three-Phase Solution &amp; Roadmap
+    </a></li>    </ul>
+    </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="page-main-content">
+                <div class="rst-content">                        <nav aria-label="breadcrumbs navigation" class="breadcrumb-bar" role="navigation">
+        
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../Index.html">Temporal Cache Management</a></li>
+                    <li aria-current="page"  class="breadcrumb-item  active">Installation</li>
+        </ol>
+        <div class="breadcrumb-additions"></div>
+    </nav>
+                    
+<article class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+    <div itemprop="articleBody">
+        <!-- content start -->
+                
+<section class="section" id="installation-1" data-rst-anchor="installation">
+            <a id="installation"></a>
+            <h1>Installation<a class="headerlink" href="#installation-1" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h1>
+            <section class="section" id="requirements">
+            <h2>Requirements<a class="headerlink" href="#requirements" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p><strong>Minimum:</strong></p>
+
+            
+
+<ul>
+    <li class="dash">TYPO3 12.4 or 13.0+</li>
+    <li class="dash">PHP 8.1+</li>
+    <li class="dash">Composer (recommended)</li>
+</ul>
+
+            
+    <p><strong>Database:</strong></p>
+
+            
+
+<ul>
+    <li class="dash">No schema changes required</li>
+    <li class="dash">Uses standard TYPO3 <code>starttime/endtime</code> fields</li>
+</ul>
+
+    </section>
+            <section class="section" id="compatibility">
+            <h2>Compatibility<a class="headerlink" href="#compatibility" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <div class="table-responsive">
+    <table class="table table-bordered align-default colwidths-grid">
+                    <colgroup>
+                                    <col style="width: 20%">
+                        </colgroup>
+            <thead>
+            <tr>
+                            <th>TYPO3 Version</th>
+                            <th>PHP Version</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                    </tr>
+        </thead>
+        <tbody>
+    <tr>
+            <td>12.4+</td>            <td>8.1 - 8.3</td>            <td>✅ Fully supported</td>            <td>PSR-14 events available</td>    </tr>    <tr>
+            <td>13.0+</td>            <td>8.2 - 8.3</td>            <td>✅ Fully supported</td>            <td>Latest TYPO3 LTS</td>    </tr>    <tr>
+            <td>11.5</td>            <td>7.4 - 8.2</td>            <td>⚠️ Not supported</td>            <td>Missing required events</td>    </tr>    <tr>
+            <td>14.0 (future)</td>            <td>8.2+</td>            <td>🔄 Planned</td>            <td>May be superseded by Phase 2</td>    </tr></tbody>    </table>
+</div>
+    </section>
+            <section class="section" id="installation-methods">
+            <h2>Installation Methods<a class="headerlink" href="#installation-methods" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="method-1-composer-recommended">
+            <h3>Method 1: Composer (Recommended)<a class="headerlink" href="#method-1-composer-recommended" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Install via composer:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">composer req netresearch/typo3-temporal-cache
+</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p>Activate extension:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">vendor/bin/typo3 extension:activate temporal_cache
+</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p>Clear cache:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">vendor/bin/typo3 cache:flush
+</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="method-2-ter-extension-repository">
+            <h3>Method 2: TER (Extension Repository)<a class="headerlink" href="#method-2-ter-extension-repository" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    
+<ol start="1" type="1">
+    <li value="1">Go to <strong>Admin Tools &gt; Extensions</strong></li>
+    <li value="2">Click <strong>Get Extensions</strong></li>
+    <li value="3">Search for <code>temporal_cache</code></li>
+    <li value="4">Click <strong>Import and Install</strong></li>
+    <li value="5">Activate the extension</li>
+</ol>
+
+    </section>
+            <section class="section" id="method-3-manual-installation">
+            <h3>Method 3: Manual Installation<a class="headerlink" href="#method-3-manual-installation" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    
+<ol start="1" type="1">
+    <li value="1">Download from <a href="https://github.com/netresearch/typo3-temporal-cache/releases">GitHub</a></li>
+    <li value="2">Extract to <code>typo3conf/ext/temporal_cache/</code> (classic mode) or <code>packages/temporal_cache/</code> (composer mode)</li>
+    <li value="3">Activate in Extension Manager</li>
+    <li value="4">Clear all caches</li>
+</ol>
+
+    </section>
+    </section>
+            <section class="section" id="configuration">
+            <h2>Configuration<a class="headerlink" href="#configuration" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="zero-configuration">
+            <h3>Zero Configuration<a class="headerlink" href="#zero-configuration" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>The extension works immediately after installation with no configuration required.</strong></p>
+
+            
+    <p>It automatically:</p>
+
+            
+
+<ul>
+    <li class="dash">Registers PSR-14 event listener for <code>ModifyCacheLifetimeForPageEvent</code></li>
+    <li class="dash">Monitors <code>pages</code> and <code>tt_content</code> tables for temporal transitions</li>
+    <li class="dash">Adjusts cache lifetime dynamically</li>
+</ul>
+
+    </section>
+            <section class="section" id="optional-monitor-custom-tables">
+            <h3>Optional: Monitor Custom Tables<a class="headerlink" href="#optional-monitor-custom-tables" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <div class="versionchange versionadded">
+    <p class="versionmodified">
+        <span class="versionicon"><i class="fa-solid fa-rocket"></i></span>
+        New in version 1.2.0</p>
+    <article>
+        
+    <p>Custom table monitoring will be available in version 1.2.0</p>
+
+    </article>
+</div>
+            
+    <p>If you have custom extension tables with <code>starttime/endtime</code> fields, future versions
+will support monitoring additional tables:</p>
+
+            
+    <p><strong>File:</strong> <code>config/system/additional.php</code> or your extension&#039;s <code>ext_localconf.php</code></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Netresearch</span>\<span class="hljs-title">TemporalCache</span>\<span class="hljs-title">Service</span>\<span class="hljs-title">TemporalMonitorRegistry</span>;
+
+<span class="hljs-comment">// Register custom tables to monitor (v1.2.0+)</span>
+TemporalMonitorRegistry::registerTable(<span class="hljs-string">'tx_news_domain_model_news'</span>);
+TemporalMonitorRegistry::registerTable(<span class="hljs-string">'tx_events_domain_model_event'</span>);
+TemporalMonitorRegistry::registerTable(<span class="hljs-string">'your_custom_table'</span>);</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Note</strong>: Currently only <code>pages</code> and <code>tt_content</code> tables are monitored automatically.</p>
+
+    </section>
+            <section class="section" id="optional-adjust-maximum-lifetime">
+            <h3>Optional: Adjust Maximum Lifetime<a class="headerlink" href="#optional-adjust-maximum-lifetime" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <div class="versionchange versionadded">
+    <p class="versionmodified">
+        <span class="versionicon"><i class="fa-solid fa-rocket"></i></span>
+        New in version 1.2.0</p>
+    <article>
+        
+    <p>Configuration options will be available in version 1.2.0</p>
+
+    </article>
+</div>
+            
+    <p>Default maximum cache lifetime is 24 hours (hardcoded in v1.0.x).
+Future versions will support configuration:</p>
+
+            
+    <p><strong>File:</strong> <code>config/system/additional.php</code></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-comment">// Configuration option (v1.2.0+)</span>
+$GLOBALS[<span class="hljs-string">'TYPO3_CONF_VARS'</span>][<span class="hljs-string">'EXTENSIONS'</span>][<span class="hljs-string">'temporal_cache'</span>][<span class="hljs-string">'maxLifetime'</span>] = <span class="hljs-number">43200</span>; <span class="hljs-comment">// 12 hours</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Note</strong>: In v1.0.x, maximum lifetime is fixed at 86400 seconds (24 hours).</p>
+
+    </section>
+    </section>
+            <section class="section" id="verification">
+            <h2>Verification<a class="headerlink" href="#verification" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="test-scheduled-content">
+            <h3>Test Scheduled Content<a class="headerlink" href="#test-scheduled-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    
+<ol start="1">
+    <li value="1">
+    <p>Create a test page:</p>
+
+
+<ul>
+    <li class="dash">Set <strong>Start</strong> to 5 minutes in the future</li>
+    <li class="dash">Set <strong>In menu</strong> enabled</li>
+    <li class="dash">Save</li>
+</ul>
+</li>
+    <li value="2">
+    <p>Check your frontend menu:</p>
+
+
+<ul>
+    <li class="dash">Page should NOT appear (starttime not reached)</li>
+</ul>
+</li>
+    <li value="3">
+    <p>Wait 5 minutes, refresh:</p>
+
+
+<ul>
+    <li class="dash">Page should appear automatically (no cache clearing needed!)</li>
+</ul>
+</li>
+    <li value="4">
+    <p>Monitor cache tags:</p>
+
+    <p><strong>Console (development):</strong></p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs bash"><span class="hljs-comment"># Enable cache debugging</span>
+vendor/bin/typo3 cache:flush
+
+<span class="hljs-comment"># Watch cache lifetime in TYPO3 admin panel</span>
+<span class="hljs-comment"># Should show lifetime = seconds until starttime</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+</ol>
+
+    </section>
+            <section class="section" id="test-expiring-content">
+            <h3>Test Expiring Content<a class="headerlink" href="#test-expiring-content" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    
+<ol start="1">
+    <li value="1">
+    <p>Create content element:</p>
+
+
+<ul>
+    <li class="dash">Set <strong>Stop</strong> to 5 minutes in the future</li>
+    <li class="dash">Save</li>
+</ul>
+</li>
+    <li value="2">
+    <p>View page:</p>
+
+
+<ul>
+    <li class="dash">Content element visible</li>
+</ul>
+</li>
+    <li value="3">
+    <p>Wait 5 minutes, refresh:</p>
+
+
+<ul>
+    <li class="dash">Content element hidden automatically</li>
+</ul>
+</li>
+</ol>
+
+    </section>
+            <section class="section" id="performance-check">
+            <h3>Performance Check<a class="headerlink" href="#performance-check" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Enable TYPO3 Admin Panel to monitor cache behavior:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">Install admin panel: <code>composer req typo3/cms-adminpanel</code></li>
+    <li value="2">Enable in backend: <strong>User Settings &gt; Admin Panel</strong></li>
+    <li value="3">Check frontend: Bottom toolbar shows cache info</li>
+    <li value="4">
+    <p>Verify:</p>
+
+
+<ul>
+    <li class="dash">Cache hits: Should remain high (95%+)</li>
+    <li class="dash">Cache lifetime: Should show seconds until next transition</li>
+    <li class="dash">Page generation: Should not increase significantly</li>
+</ul>
+</li>
+</ol>
+
+    </section>
+    </section>
+            <section class="section" id="troubleshooting">
+            <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="cache-not-updating">
+            <h3>Cache Not Updating<a class="headerlink" href="#cache-not-updating" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Symptom:</strong> Content still doesn&#039;t update at scheduled times</p>
+
+            
+    <p><strong>Checks:</strong></p>
+
+            
+    
+<ol start="1">
+    <li value="1">
+    <p>Verify extension is active:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">vendor/bin/typo3 extension:<span class="hljs-keyword">list</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+    <li value="2">
+    <p>Check event listener is registered:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-comment"># Should show temporal-cache/modify-cache-lifetime</span>
+vendor/bin/typo3 config:show TYPO3_CONF_VARS/SYS/eventListeners</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+    <li value="3">
+    <p>Clear ALL caches:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">vendor/bin/typo3 cache:flush</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+    <li value="4">
+    <p>Enable debug mode:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">$GLOBALS[<span class="hljs-string">'TYPO3_CONF_VARS'</span>][<span class="hljs-string">'SYS'</span>][<span class="hljs-string">'devIPmask'</span>] = <span class="hljs-string">'*'</span>;
+$GLOBALS[<span class="hljs-string">'TYPO3_CONF_VARS'</span>][<span class="hljs-string">'FE'</span>][<span class="hljs-string">'debug'</span>] = <span class="hljs-keyword">true</span>;</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+</ol>
+
+    </section>
+            <section class="section" id="performance-issues">
+            <h3>Performance Issues<a class="headerlink" href="#performance-issues" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Symptom:</strong> Slow page generation</p>
+
+            
+    <p><strong>Diagnosis:</strong></p>
+
+            
+    <p>Enable database query logging to check temporal queries:</p>
+
+            
+    <p><strong>File:</strong> <code>config/system/additional.php</code></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+
+$GLOBALS[<span class="hljs-string">'TYPO3_CONF_VARS'</span>][<span class="hljs-string">'LOG'</span>][<span class="hljs-string">'Netresearch'</span>][<span class="hljs-string">'TemporalCache'</span>][<span class="hljs-string">'writerConfiguration'</span>] = [
+    \TYPO3\CMS\Core\Log\LogLevel::DEBUG =&gt; [
+        \TYPO3\CMS\Core\Log\Writer\FileWriter::class =&gt; [
+            <span class="hljs-string">'logFile'</span> =&gt; <span class="hljs-string">'typo3temp/var/log/temporal_cache.log'</span>
+        ],
+    ],
+];</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Expected:</strong> Queries should be &lt;10ms with proper database indexes.</p>
+
+            
+    <p><strong>Fix:</strong> Ensure indexes exist:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-comment"># Check indexes</span>
+ALTER TABLE pages ADD INDEX idx_temporal (starttime, endtime);
+ALTER TABLE tt_content ADD INDEX idx_temporal (starttime, endtime);
+</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="workspace-issues">
+            <h3>Workspace Issues<a class="headerlink" href="#workspace-issues" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Symptom:</strong> Workspace previews show incorrect content</p>
+
+            
+    <p><strong>Note:</strong> Extension respects workspace context automatically via <code>Context</code> API.</p>
+
+            
+    <p>If issues persist, check:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">Workspace ID is correct in context</li>
+    <li value="2">Language overlay is applied properly</li>
+    <li value="3">Clear workspace-specific caches</li>
+</ol>
+
+    </section>
+    </section>
+            <section class="section" id="uninstallation">
+            <h2>Uninstallation<a class="headerlink" href="#uninstallation" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>The extension makes no database changes, so uninstallation is clean:</p>
+
+            
+    
+<ol start="1">
+    <li value="1">
+    <p>Deactivate extension:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">vendor/bin/typo3 extension:deactivate temporal_cache</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+    <li value="2">
+    <p>Remove via composer:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">composer remove netresearch/typo3-temporal-cache</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+    <li value="3">
+    <p>Clear caches:</p>
+<div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">vendor/bin/typo3 cache:flush</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div></li>
+</ol>
+
+            
+    <p><strong>Result:</strong> TYPO3 reverts to default behavior (temporal content requires manual cache clearing)</p>
+
+    </section>
+            <section class="section" id="next-steps">
+            <h2>Next Steps<a class="headerlink" href="#next-steps" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+
+<ul>
+    <li class="dash"><a href="../Architecture/Index.html#architecture">Architecture</a> - Understand how it works</li>
+    <li class="dash"><a href="../Phases/Index.html#phases">Three-Phase Solution &amp; Roadmap</a> - Learn about future improvements</li>
+    <li class="dash"><a href="https://github.com/netresearch/typo3-temporal-cache/issues">GitHub Issues</a> - Report problems</li>
+</ul>
+
+    </section>
+    </section>
+        <!-- content end -->
+    </div>
+</article>
+                        
+            <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center"><li class="page-item">
+                            <a class="page-link" href="../Performance/FAQ.html"
+                               title="Accesskey Alt(+Shift)+p">
+                                <i class="fa-solid fa-chevron-left"></i> Previous
+                            </a>
+                        </li>
+                    <li class="page-item">
+                            <a class="page-link" href="../Configuration/Index.html"
+                               title="Accesskey Alt(+Shift)+n">
+                                Next <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+        </nav>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="linkReferenceModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Installation/Index">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="linkReferenceModalLabel">Reference to the headline</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="permalink-alert-success" role="alert"></div>
+                <div class="mb-3">
+                    <label for="permalink-uri" class="col-form-label">URL</label>
+                    <div class="input-group">
+                        <input class="form-control code" id="permalink-uri" readonly>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-uri"><i class="far fa-clone"></i></button>
+                    </div>
+                    <div class="permalink-short-wrapper">
+                        <label for="permalink-short" class="col-form-label">Permalink (Shortlink)</label>
+                        <div class="input-group">
+                            <input class="form-control code" id="permalink-short" readonly>
+                            <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-short"><i class="far fa-clone"></i></button>
+                        </div>
+                        <p><em>Copy and freely share the link</em></p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="alert alert-warning alert-permalink-rst" role="alert">This link target has no permanent anchor assigned.The link below can be used, but is prone to change if the page gets moved.
+                    </div>
+                    <label for="permalink-rst" class="col-form-label">Link in reStructuredText (reST)</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-rst" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-rst"><i class="far fa-clone"></i></button>
+                    </div>
+                    <p><em>Copy this link into your TYPO3 manual.</em></p>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-md" class="col-form-label">Link in Markdown</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-md" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-md"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-html" class="col-form-label">Link in HTML</label>
+                                        <div class="input-group">
+                        <textarea class="form-control code" id="permalink-html" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-html"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>    <div class="modal fade" id="generalModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Installation/Index"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="generalModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="general-alert-success" role="alert"></div>
+                <div id="generalModalContent">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div id="generalModalCustomButtons"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i>&nbsp;Close</button>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+
+<footer class="page-footer">
+    <div class="frame frame-ruler-before frame-background-dark">
+        <div class="frame-container">
+            <div class="frame-inner">
+                                <div class="footer-additional">
+                    <p class="text-center">Last rendered: Oct 30, 2025 12:13</p>
+                </div>
+                <div class="footer-meta">
+                    <ul class="footer-meta-navigation">
+                        <li><a href="https://typo3.org/legal-notice" rel="nofollow" target="_blank" title="Legal Notice">Legal Notice</a></li>
+                        <li><a href="https://typo3.org/privacy-policy" rel="nofollow" target="_blank" title="Privacy Policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="../_resources/js/popper.min.js"></script>
+<script src="../_resources/js/bootstrap.min.js"></script>
+<script src="../_resources/js/theme.min.js"></script>
+
+<!--
+ Locally rendered. No tracking embedded.
+-->
+</body>
+</html>

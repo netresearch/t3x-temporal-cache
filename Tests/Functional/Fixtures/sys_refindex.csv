@@ -1,0 +1,3 @@
+hash,tablename,recuid,field,flexpointer,softref_key,ref_table,ref_uid,ref_string,sys_language_uid,workspace
+"abc123","pages",1,"content","","","tt_content",1,"",0,0
+"abc124","pages",1,"content","","","tt_content",123,"",0,0

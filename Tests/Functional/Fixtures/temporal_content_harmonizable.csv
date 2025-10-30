@@ -1,0 +1,6 @@
+uid,pid,header,CType,hidden,deleted,starttime,endtime,sys_language_uid
+100,2,"Harmonizable Content 1","text",0,0,1704067234,0,0
+101,2,"Harmonizable Content 2","text",0,0,1704096654,0,0
+102,2,"Harmonizable Content 3","text",0,0,0,1704067234,0
+103,2,"Already Harmonized","text",0,0,1704067200,0,0
+104,2,"Near Slot Boundary","text",0,0,1704067180,0,0

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Architecture
+        documentation</title>
+
+    
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="phpdocumentor/guides" name="generator">
+<meta content="" name="docsearch:name">
+<meta content="" name="docsearch:package_type">
+<meta content="" name="docsearch:release">
+<meta content="" name="docsearch:version">
+<meta content="2025-10-30T12:13:45+00:00" name="docsearch:modified">
+<meta content="2025-10-30T12:13:45+00:00" name="dc.modified">
+<meta content="2025-10-30T12:13:45+00:00" property="article:modified_time">
+    <link href="http://purl.org/dc/elements/1.1/" rel="schema.dc">
+<link href="../_resources/css/theme.css" rel="stylesheet">
+<link href="https://docs.typo3.org/search/" rel="search" title="Search">
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/typo3-universe.js" type="module"></script>
+                        <link href="../Administrator/ReportsModule.html" rel="prev" title="TYPO3 Reports Module"/>
+            <link href="../Phases/Index.html" rel="next" title="Three-Phase Solution &amp; Roadmap"/>
+            <link href="../Index.html" rel="top" title="Temporal Cache Management"/>
+    </head>
+<body>
+<div class="page">
+    <header>
+    <div class="page-topbar">
+        <div class="page-topbar-inner">
+            <typo3-universe active="documentation">
+                <div style="display: block; height: 44px; background-color: #313131;"></div>
+            </typo3-universe>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="page-header-inner">
+            <div class="d-flex flex-wrap">
+                <div class="logo-wrapper">
+                    <a class="logo" href="https://docs.typo3.org/" title="TYPO3 Documentation">
+                        <img alt="TYPO3 Logo" class="logo-image" src="../_resources/img/typo3-logo.svg" width="484" height="130">
+                    </a>
+                </div>
+                <div class="align-self-center order-lg-2 order-last">
+                    
+<div class="toc-header">
+    <div class="toc-title pe-3">
+                            <a class="toc-title-project" href="../Index.html">Temporal Cache Management</a>
+            </div>
+    </div>                </div>
+                <div class="ms-auto order-lg-3 d-flex">
+                    <div class="menu-search-wrapper">
+                        <button id="toc-toggle" class="btn btn-light d-block d-lg-none" tabindex="0" aria-controls="toc-collapse" aria-expanded="false">
+                            <i class="fas fa-bars"></i> <span class="visually-hidden">Mobile Menu</span>
+                        </button>
+                        <all-documentations-menu data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu>
+                                                <search role="search">
+                            <form action="https://docs.typo3.org/search/search" id="global-search-form" method="get">
+                                <div class="sr-only"><label for="globalsearchinput">TYPO3 documentation...</label></div>
+                                <div class="input-group mb-3 mt-sm-3">
+                                    <select class="form-select search__scope" id="searchscope" name="scope">
+                                        <option value="">Search all</option>
+                                    </select>
+                                    <input autocomplete="off" class="form-control shadow-none" id="globalsearchinput" name="q" placeholder="TYPO3 documentation..." type="text" value="">
+                                    <button class="btn btn-light" type="submit"><i class="fa fa-search"></i>&nbsp;<span class="d-none d-md-inline">Search</span></button>
+                                </div>
+                            </form>
+                            <div id="global-search-root"></div>
+                        </search>
+                        <div class="position-relative d-inline-block">
+                            <button id="options-toggle" class="btn btn-light d-block" type="button" aria-expanded="false">
+                                <i class="fas fa-cog"></i> <span class="visually-hidden">Options</span>
+                            </button>
+
+                            <div id="options-panel"
+                                 class="shadow p-3"
+                                 role="menu"
+                                 aria-hidden="true">
+                                <h6 class="dropdown-header text-muted text-uppercase small mb-2">Options</h6>
+
+                                                                                                            <a class="dropdown-item d-flex align-items-center gap-2" href="../_sources/Architecture/Index.rst.txt" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-code"></i>
+        View source
+    </a>
+    <a class="dropdown-item d-flex align-items-center gap-2" href="https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/WritingDocsOfficial/GithubMethod.html" id="btnHowToEdit" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-info-circle"></i>
+        How to edit
+    </a>
+                                                                                                                <a class="dropdown-item d-flex align-items-center gap-2" href="../singlehtml/Index.html" target="_blank" rel="noopener">
+                                            <i class="fas fa-print"></i>
+                                            Full documentation (single file)
+                                        </a>
+                                                                                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>    <main class="page-main">
+        <div class="page-main-inner">
+            <div class="page-main-navigation">
+                <nav>
+
+                    <div id="toc-collapse">
+                                                <div aria-label="main navigation" class="toc"
+                             role="navigation">
+                                <all-documentations-menu-mobile
+        data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu-mobile>
+    <div aria-label="Main navigation" class="main_menu" role="navigation">
+                <p class="caption">Temporal Cache Management</p>
+            <ul class="menu-level-1" role="menubar">
+    <li class="" role="menuitem">
+    <a href="../Introduction/Index.html">
+        Introduction
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Performance/Index.html">
+        Performance Considerations
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Performance/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/Limitations.html">
+        Phase 1 Architectural Limitations
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/DecisionGuide.html">
+        Site-Specific Decision Guide
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/Alternatives.html">
+        Alternative Approaches
+    </a></li><li class="" role="menuitem">
+    <a href="../Performance/FAQ.html">
+        Frequently Asked Questions
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Installation/Index.html">
+        Installation
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Configuration/Index.html">
+        Configuration
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Configuration/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Advanced.html">
+        Advanced Options
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Examples.html">
+        Examples &amp; Presets
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Troubleshooting.html">
+        Troubleshooting
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Backend/Index.html">
+        Backend Module
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Backend/Dashboard.html">
+        Dashboard Tab
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Content.html">
+        Content Tab
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Wizard.html">
+        Configuration Wizard
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Tips.html">
+        Tips and Best Practices
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Administrator/ReportsModule.html">
+        TYPO3 Reports Module
+    </a></li>    <li class=" current active" role="menuitem">
+    <a href="#" aria-current="page">
+        Architecture
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Phases/Index.html">
+        Three-Phase Solution &amp; Roadmap
+    </a></li>    </ul>
+    </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="page-main-content">
+                <div class="rst-content">                        <nav aria-label="breadcrumbs navigation" class="breadcrumb-bar" role="navigation">
+        
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../Index.html">Temporal Cache Management</a></li>
+                    <li aria-current="page"  class="breadcrumb-item  active">Architecture</li>
+        </ol>
+        <div class="breadcrumb-additions"></div>
+    </nav>
+                    
+<article class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+    <div itemprop="articleBody">
+        <!-- content start -->
+                
+<section class="section" id="architecture-1" data-rst-anchor="architecture">
+            <a id="architecture"></a>
+            <h1>Architecture<a class="headerlink" href="#architecture-1" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h1>
+            <section class="section" id="root-cause-analysis">
+            <h2>Root Cause Analysis<a class="headerlink" href="#root-cause-analysis" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="typo3-s-cache-invalidation-paradigms">
+            <h3>TYPO3&#039;s Cache Invalidation Paradigms<a class="headerlink" href="#typo3-s-cache-invalidation-paradigms" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>TYPO3&#039;s cache system supports two invalidation strategies:</p>
+
+            <dl>
+                        <dt><strong>Event-Driven Invalidation:</strong></dt>
+        
+        <dd>
+    <p>Invalidate when data changes (page edited, deleted, moved).</p>
+
+    <p>Example: Page is edited → Cache tagged with <code>pageId_123</code> is flushed.</p>
+</dd>
+                                <dt><strong>Tag-Based Invalidation:</strong></dt>
+        
+        <dd>
+    <p>Invalidate entries matching specific tags.</p>
+
+    <p>Example: <code>$cache-&gt;flushByTag(&#039;news_category_5&#039;)</code> clears all news in category 5.</p>
+</dd>
+                                <dt><strong>Missing: Temporal Invalidation:</strong></dt>
+        
+        <dd>
+    <p>Invalidate at absolute timestamp (when time passes, not when data changes).</p>
+
+    <p>Example: Cache should expire at <code>2025-10-28 14:30:00</code> when page&#039;s <code>endtime</code> arrives.</p>
+</dd>
+            </dl>
+    </section>
+            <section class="section" id="the-architectural-gap">
+            <h3>The Architectural Gap<a class="headerlink" href="#the-architectural-gap" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Current TYPO3 Cache API:
+├─ Relative TTL: new CacheTag('tag', 3600)  ← Expires in 3600 seconds
+└─ Event-based: flushByTag('pageId_123')    ← Manual invalidation
+
+Missing Capability:
+└─ Absolute expiration: new CacheTag('tag', absoluteExpire: 1730124600)
+                                              ↑ Unix timestamp</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="why-this-matters">
+            <h3>Why This Matters<a class="headerlink" href="#why-this-matters" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Content rendering pipeline:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-comment">// Simplified TYPO3 rendering flow</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">renderPage</span><span class="hljs-params">($pageId)</span> </span>{
+    <span class="hljs-comment">// 1. Fetch ALL content elements</span>
+    $elements = getContentElements($pageId);
+
+    <span class="hljs-comment">// 2. Filter by starttime/endtime (snapshot at current time!)</span>
+    $visible = array_filter($elements, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($el)</span> </span>{
+        <span class="hljs-keyword">return</span> isVisible($el, time());  <span class="hljs-comment">// ← Uses CURRENT time</span>
+    });
+
+    <span class="hljs-comment">// 3. Render filtered elements</span>
+    $output = renderElements($visible);
+
+    <span class="hljs-comment">// 4. CACHE the result with relative TTL</span>
+    $cache-&gt;set($key, $output, $tags, <span class="hljs-number">3600</span>);  <span class="hljs-comment">// ← Fixed 3600s lifetime</span>
+
+    <span class="hljs-keyword">return</span> $output;
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Problem:</strong> Visibility filtering happens at render time, then result is cached with
+fixed lifetime. Cache doesn&#039;t know to expire when temporal conditions change.</p>
+
+    </section>
+    </section>
+            <section class="section" id="how-phase-1-solves-this">
+            <h2>How Phase 1 Solves This<a class="headerlink" href="#how-phase-1-solves-this" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="dynamic-cache-lifetime-strategy">
+            <h3>Dynamic Cache Lifetime Strategy<a class="headerlink" href="#dynamic-cache-lifetime-strategy" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Instead of fixed lifetime, calculate when next temporal transition will occur:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">calculateCacheLifetime</span><span class="hljs-params">()</span> </span>{
+    $now = time();
+
+    <span class="hljs-comment">// Find next starttime or endtime across all temporal content</span>
+    $transitions = [
+        getNextPageTransition(),        <span class="hljs-comment">// Pages becoming visible/expiring</span>
+        getNextContentTransition(),     <span class="hljs-comment">// Content elements changing</span>
+        getNextCustomTransition(),      <span class="hljs-comment">// Extension records</span>
+    ];
+
+    $nextTransition = min(array_filter($transitions));
+
+    <span class="hljs-comment">// Cache until that moment</span>
+    <span class="hljs-keyword">return</span> max(<span class="hljs-number">0</span>, $nextTransition - $now);
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Result:</strong> Cache expires exactly when temporal state changes.</p>
+
+    </section>
+            <section class="section" id="implementation-psr-14-event">
+            <h3>Implementation: PSR-14 Event<a class="headerlink" href="#implementation-psr-14-event" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>TYPO3 v12+ provides <code>ModifyCacheLifetimeForPageEvent</code> (Feature-96879):</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">Netresearch</span>\<span class="hljs-title">TemporalCache</span>\<span class="hljs-title">EventListener</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">TYPO3</span>\<span class="hljs-title">CMS</span>\<span class="hljs-title">Core</span>\<span class="hljs-title">Cache</span>\<span class="hljs-title">Event</span>\<span class="hljs-title">ModifyCacheLifetimeForPageEvent</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TemporalCacheLifetime</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span><span class="hljs-params">(ModifyCacheLifetimeForPageEvent $event)</span>: <span class="hljs-title">void</span>
+    </span>{
+        $nextTransition = <span class="hljs-keyword">$this</span>-&gt;getNextTemporalTransition();
+
+        <span class="hljs-keyword">if</span> ($nextTransition !== <span class="hljs-keyword">null</span>) {
+            $lifetime = max(<span class="hljs-number">0</span>, $nextTransition - time());
+            $event-&gt;setCacheLifetime($lifetime);
+        }
+    }
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Registration:</strong> <code>Configuration/Services.yaml</code></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs yaml"><span class="hljs-attr">services:</span>
+  <span class="hljs-string">Netresearch\TemporalCache\EventListener\TemporalCacheLifetime:</span>
+    <span class="hljs-attr">tags:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">event.listener</span>
+        <span class="hljs-attr">event:</span> <span class="hljs-string">TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="temporal-transition-detection">
+            <h3>Temporal Transition Detection<a class="headerlink" href="#temporal-transition-detection" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Query pages for next state change:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNextPageTransition</span><span class="hljs-params">()</span>: ?<span class="hljs-title">int</span>
+</span>{
+    $qb = <span class="hljs-keyword">$this</span>-&gt;connectionPool-&gt;getQueryBuilderForTable(<span class="hljs-string">'pages'</span>);
+    $now = time();
+
+    $result = $qb
+        -&gt;select(<span class="hljs-string">'starttime'</span>, <span class="hljs-string">'endtime'</span>)
+        -&gt;from(<span class="hljs-string">'pages'</span>)
+        -&gt;where(
+            $qb-&gt;expr()-&gt;or(
+                $qb-&gt;expr()-&gt;and(
+                    $qb-&gt;expr()-&gt;gt(<span class="hljs-string">'starttime'</span>, $now),
+                    $qb-&gt;expr()-&gt;neq(<span class="hljs-string">'starttime'</span>, <span class="hljs-number">0</span>)
+                ),
+                $qb-&gt;expr()-&gt;and(
+                    $qb-&gt;expr()-&gt;gt(<span class="hljs-string">'endtime'</span>, $now),
+                    $qb-&gt;expr()-&gt;neq(<span class="hljs-string">'endtime'</span>, <span class="hljs-number">0</span>)
+                )
+            ),
+            <span class="hljs-comment">// Context-aware filters (workspace, language)</span>
+        )
+        -&gt;executeQuery()
+        -&gt;fetchAllAssociative();
+
+    <span class="hljs-comment">// Extract minimum future timestamp</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;extractNextTransition($result);
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p>Query content elements similarly:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNextContentTransition</span><span class="hljs-params">()</span>: ?<span class="hljs-title">int</span>
+</span>{
+    <span class="hljs-comment">// Same pattern for tt_content table</span>
+    <span class="hljs-comment">// Returns next starttime/endtime transition</span>
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p>Combine transitions:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getNextTemporalTransition</span><span class="hljs-params">()</span>: ?<span class="hljs-title">int</span>
+</span>{
+    $transitions = array_filter([
+        <span class="hljs-keyword">$this</span>-&gt;getNextPageTransition(),
+        <span class="hljs-keyword">$this</span>-&gt;getNextContentTransition(),
+    ]);
+
+    <span class="hljs-keyword">return</span> !<span class="hljs-keyword">empty</span>($transitions) ? min($transitions) : <span class="hljs-keyword">null</span>;
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+    </section>
+            <section class="section" id="timeline-example">
+            <h2>Timeline Example<a class="headerlink" href="#timeline-example" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="scenario">
+            <h3>Scenario<a class="headerlink" href="#scenario" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+
+<ul>
+    <li class="dash">
+    <p><strong>09:00:</strong> Page render, 3 content elements:</p>
+
+
+<ul>
+    <li class="dash">Element A: <code>starttime = 10:00</code></li>
+    <li class="dash">Element B: visible now, <code>endtime = 12:00</code></li>
+    <li class="dash">Element C: visible now, no restrictions</li>
+</ul>
+</li>
+    <li class="dash"><strong>11:00:</strong> Another page with <code>starttime = 11:00</code></li>
+</ul>
+
+    </section>
+            <section class="section" id="execution-flow">
+            <h3>Execution Flow<a class="headerlink" href="#execution-flow" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>09:00 - Initial Render:</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">1. Query finds:
+   - Page starttime: 11:00
+   - Content A starttime: 10:00
+   - Content B endtime: 12:00
+
+2. Calculate next transition:
+   min(11:00, 10:00, 12:00) = 10:00
+
+3. Set cache lifetime:
+   10:00 - 09:00 = 3600 seconds (1 hour)
+
+4. Render page:
+   - Element A: Hidden (starttime not reached)
+   - Element B: Visible
+   - Element C: Visible
+
+5. Cache result until 10:00</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>10:00 - Cache Expires (automatic):</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">1. Cache miss triggers regeneration
+
+2. Query finds:
+   - Page starttime: 11:00
+   - Content B endtime: 12:00
+   (Element A now visible, no future starttime)
+
+3. Calculate next transition:
+   min(11:00, 12:00) = 11:00
+
+4. Set cache lifetime:
+   11:00 - 10:00 = 3600 seconds
+
+5. Render page:
+   - Element A: NOW VISIBLE ✅
+   - Element B: Still visible
+   - Element C: Visible
+
+6. Cache result until 11:00</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>11:00 - Cache Expires (automatic):</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">1. Cache miss triggers regeneration
+
+2. Query finds:
+   - Content B endtime: 12:00
+   (Page now visible in menus)
+
+3. Calculate next transition:
+   min(12:00) = 12:00
+
+4. Set cache lifetime:
+   12:00 - 11:00 = 3600 seconds
+
+5. Render page + update menus:
+   - Page: NOW IN MENU ✅
+   - Element A: Visible
+   - Element B: Still visible
+   - Element C: Visible
+
+6. Cache result until 12:00</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>12:00 - Cache Expires (automatic):</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">1. Cache miss triggers regeneration
+
+2. Query finds: No future transitions
+
+3. Set cache lifetime: Default (24 hours)
+
+4. Render page:
+   - Element A: Visible
+   - Element B: NOW HIDDEN ✅
+   - Element C: Visible
+
+5. Cache for 24 hours (no more temporal changes)</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Result:</strong> ✅ Fully automatic, zero manual intervention</p>
+
+    </section>
+    </section>
+            <section class="section" id="performance-analysis">
+            <h2>Performance Analysis<a class="headerlink" href="#performance-analysis" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="query-cost">
+            <h3>Query Cost<a class="headerlink" href="#query-cost" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Each cache regeneration executes:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs sql"><span class="hljs-comment">-- Pages query</span>
+<span class="hljs-keyword">SELECT</span> starttime, endtime <span class="hljs-keyword">FROM</span> pages
+<span class="hljs-keyword">WHERE</span> (starttime &gt; {<span class="hljs-keyword">now</span>} <span class="hljs-keyword">AND</span> starttime != <span class="hljs-number">0</span>)
+   <span class="hljs-keyword">OR</span> (endtime &gt; {<span class="hljs-keyword">now</span>} <span class="hljs-keyword">AND</span> endtime != <span class="hljs-number">0</span>)
+<span class="hljs-comment">-- Context filters...</span>
+
+<span class="hljs-comment">-- Content query</span>
+<span class="hljs-keyword">SELECT</span> starttime, endtime <span class="hljs-keyword">FROM</span> tt_content
+<span class="hljs-keyword">WHERE</span> (starttime &gt; {<span class="hljs-keyword">now</span>} <span class="hljs-keyword">AND</span> starttime != <span class="hljs-number">0</span>)
+   <span class="hljs-keyword">OR</span> (endtime &gt; {<span class="hljs-keyword">now</span>} <span class="hljs-keyword">AND</span> endtime != <span class="hljs-number">0</span>)
+<span class="hljs-keyword">AND</span> hidden = <span class="hljs-number">0</span>
+<span class="hljs-comment">-- Context filters...</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Indexes (standard TYPO3):</strong></p>
+
+            
+
+<ul>
+    <li class="dash"><code>pages(starttime)</code></li>
+    <li class="dash"><code>pages(endtime)</code></li>
+    <li class="dash"><code>tt_content(starttime)</code></li>
+    <li class="dash"><code>tt_content(endtime)</code></li>
+</ul>
+
+            
+    <p><strong>Measured Performance:</strong></p>
+
+            <div class="table-responsive">
+    <table class="table table-bordered align-default colwidths-grid">
+                    <colgroup>
+                                    <col style="width: 40%">
+                        </colgroup>
+            <thead>
+            <tr>
+                            <th>Operation</th>
+                            <th>Time</th>
+                            <th>Notes</th>
+                    </tr>
+        </thead>
+        <tbody>
+    <tr>
+            <td>Pages query</td>            <td>&nbsp;2-4ms</td>            <td>Indexed, aggregates only</td>    </tr>    <tr>
+            <td>Content query</td>            <td>&nbsp;3-6ms</td>            <td>More rows, still indexed</td>    </tr>    <tr>
+            <td>Calculation overhead</td>            <td>&nbsp;0.1ms</td>            <td>Array operations</td>    </tr>    <tr>
+            <td><strong>Total per cache miss</strong></td>            <td><strong>~5-10ms</strong></td>            <td>One-time cost</td>    </tr></tbody>    </table>
+</div>
+    </section>
+            <section class="section" id="cache-hit-rate-impact">
+            <h3>Cache Hit Rate Impact<a class="headerlink" href="#cache-hit-rate-impact" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Typical TYPO3 site:</p>
+
+            
+
+<ul>
+    <li class="dash">Cache hit rate: 95-99%</li>
+    <li class="dash">Cache miss: 1-5% of requests</li>
+</ul>
+
+            
+    <p>Effective overhead:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">10ms (query) × 2% (miss rate) = 0.2ms average per page load</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Verdict:</strong> ✅ Negligible performance impact</p>
+
+    </section>
+            <section class="section" id="comparison-current-workarounds">
+            <h3>Comparison: Current Workarounds<a class="headerlink" href="#comparison-current-workarounds" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p><strong>Manual Clearing:</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Editorial overhead: &nbsp;5-10 minutes per scheduled item</li>
+    <li class="dash">Risk: Forgotten cache clears = broken content</li>
+    <li class="dash">Cost: Developer time + broken user experience</li>
+</ul>
+
+            
+    <p><strong>Cron Cache Clearing:</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Server overhead: Clear ALL caches regularly</li>
+    <li class="dash">Side effect: Destroys all cache performance</li>
+    <li class="dash">Granularity: Limited by cron frequency</li>
+</ul>
+
+            
+    <p><strong>No Caching:</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Every request regenerates: &nbsp;50-200ms per page</li>
+    <li class="dash">100x slower than temporal cache solution</li>
+</ul>
+
+    </section>
+    </section>
+            <section class="section" id="context-awareness">
+            <h2>Context Awareness<a class="headerlink" href="#context-awareness" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="workspace-support">
+            <h3>Workspace Support<a class="headerlink" href="#workspace-support" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Extension respects TYPO3 workspace context:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">$workspaceId = <span class="hljs-keyword">$this</span>-&gt;context-&gt;getPropertyFromAspect(<span class="hljs-string">'workspace'</span>, <span class="hljs-string">'id'</span>);
+
+<span class="hljs-comment">// Query includes workspace overlay records</span>
+$qb-&gt;where(<span class="hljs-comment">/* workspace-aware conditions */</span>);</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Result:</strong> Preview mode shows correct temporal behavior for workspace versions.</p>
+
+    </section>
+            <section class="section" id="language-support">
+            <h3>Language Support<a class="headerlink" href="#language-support" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Extension respects language context:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php">$languageId = <span class="hljs-keyword">$this</span>-&gt;context-&gt;getPropertyFromAspect(<span class="hljs-string">'language'</span>, <span class="hljs-string">'id'</span>);
+
+$qb-&gt;where(
+    $qb-&gt;expr()-&gt;eq(<span class="hljs-string">'sys_language_uid'</span>, $languageId)
+);</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Result:</strong> Each language has independent cache lifetimes based on translated content&#039;s temporal fields.</p>
+
+    </section>
+    </section>
+            <section class="section" id="extensibility">
+            <h2>Extensibility<a class="headerlink" href="#extensibility" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="custom-tables">
+            <h3>Custom Tables<a class="headerlink" href="#custom-tables" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>Register additional tables with temporal fields:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-comment">// ext_localconf.php or config/system/additional.php</span>
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Netresearch</span>\<span class="hljs-title">TemporalCache</span>\<span class="hljs-title">Service</span>\<span class="hljs-title">TemporalMonitorRegistry</span>;
+
+TemporalMonitorRegistry::registerTable(
+    tableName: <span class="hljs-string">'tx_news_domain_model_news'</span>,
+    startField: <span class="hljs-string">'datetime'</span>,  <span class="hljs-comment">// Custom field name</span>
+    endField: <span class="hljs-string">'archive'</span>      <span class="hljs-comment">// Custom field name</span>
+);</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="custom-transition-logic">
+            <h3>Custom Transition Logic<a class="headerlink" href="#custom-transition-logic" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+                
+<div class="admonition note" role="alert">
+    <p class="admonition-title">Note</p>
+            
+    <p>The TemporalCacheLifetime class is <code>final</code> and cannot be extended.
+Use custom event listeners instead.</p>
+
+</div>
+            
+    <p>For custom temporal logic, create your own PSR-14 event listener:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-keyword">namespace</span> <span class="hljs-title">YourVendor</span>\<span class="hljs-title">YourExtension</span>\<span class="hljs-title">EventListener</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">TYPO3</span>\<span class="hljs-title">CMS</span>\<span class="hljs-title">Core</span>\<span class="hljs-title">Cache</span>\<span class="hljs-title">Event</span>\<span class="hljs-title">ModifyCacheLifetimeForPageEvent</span>;
+
+<span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomTemporalLogic</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span><span class="hljs-params">(ModifyCacheLifetimeForPageEvent $event)</span>: <span class="hljs-title">void</span>
+    </span>{
+        <span class="hljs-comment">// Add your custom temporal checks</span>
+        $customTransition = <span class="hljs-keyword">$this</span>-&gt;getCustomTransition();
+        <span class="hljs-keyword">if</span> ($customTransition) {
+            $currentLifetime = $event-&gt;getCacheLifetime();
+            $lifetime = min($currentLifetime, $customTransition - time());
+            $event-&gt;setCacheLifetime($lifetime);
+        }
+    }
+
+    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getCustomTransition</span><span class="hljs-params">()</span>: ?<span class="hljs-title">int</span>
+    </span>{
+        <span class="hljs-comment">// Your custom logic here</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    }
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p>Register in <code>Configuration/Services.yaml</code>:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs yaml"><span class="hljs-attr">services:</span>
+  <span class="hljs-string">YourVendor\YourExtension\EventListener\CustomTemporalLogic:</span>
+    <span class="hljs-attr">tags:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">event.listener</span>
+        <span class="hljs-attr">identifier:</span> <span class="hljs-string">'your-extension/custom-temporal-logic'</span>
+        <span class="hljs-attr">event:</span> <span class="hljs-string">TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent</span>
+        <span class="hljs-attr">after:</span> <span class="hljs-string">'temporal-cache/modify-cache-lifetime'</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+    </section>
+            <section class="section" id="limitations-trade-offs">
+            <h2>Limitations &amp; Trade-offs<a class="headerlink" href="#limitations-trade-offs" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <section class="section" id="current-limitations">
+            <h3>Current Limitations<a class="headerlink" href="#current-limitations" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    
+<ol start="1" type="1">
+    <li value="1"><strong>Symptom Fix:</strong>
+Solves problem within current architecture but doesn&#039;t fix root cause
+(missing absolute expiration in TYPO3 core).</li>
+    <li value="2"><strong>Recalculation:</strong>
+Queries execute on every cache miss. Minimal overhead but not zero.</li>
+    <li value="3"><strong>Maximum Granularity:</strong>
+Limited to per-second precision (Unix timestamps).</li>
+    <li value="4"><strong>Cross-Page Dependencies:</strong>
+Doesn&#039;t detect when Page A&#039;s visibility affects Page B&#039;s content.</li>
+</ol>
+
+    </section>
+            <section class="section" id="when-phase-2-3-are-better">
+            <h3>When Phase 2/3 Are Better<a class="headerlink" href="#when-phase-2-3-are-better" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            
+    <p>This extension becomes obsolete when TYPO3 core implements:</p>
+
+            
+
+<ul>
+    <li class="dash"><strong>Phase 2:</strong> Absolute expiration timestamps in <code>CacheTag</code> API</li>
+    <li class="dash"><strong>Phase 3:</strong> Automatic temporal dependency detection</li>
+</ul>
+
+            
+    <p>See <a href="../Phases/Index.html#phases">Three-Phase Solution &amp; Roadmap</a> for migration path.</p>
+
+    </section>
+    </section>
+            <section class="section" id="next-steps">
+            <h2>Next Steps<a class="headerlink" href="#next-steps" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+
+<ul>
+    <li class="dash"><a href="../Phases/Index.html#phases">Three-Phase Solution &amp; Roadmap</a> - Future improvements and migration plan</li>
+    <li class="dash"><a href="https://github.com/netresearch/typo3-temporal-cache">Source Code</a> - Examine implementation</li>
+    <li class="dash"><a href="https://forge.typo3.org/issues/14277">Forge #14277</a> - Track core development</li>
+</ul>
+
+    </section>
+    </section>
+        <!-- content end -->
+    </div>
+</article>
+                        
+            <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center"><li class="page-item">
+                            <a class="page-link" href="../Administrator/ReportsModule.html"
+                               title="Accesskey Alt(+Shift)+p">
+                                <i class="fa-solid fa-chevron-left"></i> Previous
+                            </a>
+                        </li>
+                    <li class="page-item">
+                            <a class="page-link" href="../Phases/Index.html"
+                               title="Accesskey Alt(+Shift)+n">
+                                Next <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+        </nav>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="linkReferenceModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Architecture/Index">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="linkReferenceModalLabel">Reference to the headline</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="permalink-alert-success" role="alert"></div>
+                <div class="mb-3">
+                    <label for="permalink-uri" class="col-form-label">URL</label>
+                    <div class="input-group">
+                        <input class="form-control code" id="permalink-uri" readonly>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-uri"><i class="far fa-clone"></i></button>
+                    </div>
+                    <div class="permalink-short-wrapper">
+                        <label for="permalink-short" class="col-form-label">Permalink (Shortlink)</label>
+                        <div class="input-group">
+                            <input class="form-control code" id="permalink-short" readonly>
+                            <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-short"><i class="far fa-clone"></i></button>
+                        </div>
+                        <p><em>Copy and freely share the link</em></p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="alert alert-warning alert-permalink-rst" role="alert">This link target has no permanent anchor assigned.The link below can be used, but is prone to change if the page gets moved.
+                    </div>
+                    <label for="permalink-rst" class="col-form-label">Link in reStructuredText (reST)</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-rst" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-rst"><i class="far fa-clone"></i></button>
+                    </div>
+                    <p><em>Copy this link into your TYPO3 manual.</em></p>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-md" class="col-form-label">Link in Markdown</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-md" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-md"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-html" class="col-form-label">Link in HTML</label>
+                                        <div class="input-group">
+                        <textarea class="form-control code" id="permalink-html" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-html"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>    <div class="modal fade" id="generalModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Architecture/Index"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="generalModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="general-alert-success" role="alert"></div>
+                <div id="generalModalContent">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div id="generalModalCustomButtons"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i>&nbsp;Close</button>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+
+<footer class="page-footer">
+    <div class="frame frame-ruler-before frame-background-dark">
+        <div class="frame-container">
+            <div class="frame-inner">
+                                <div class="footer-additional">
+                    <p class="text-center">Last rendered: Oct 30, 2025 12:13</p>
+                </div>
+                <div class="footer-meta">
+                    <ul class="footer-meta-navigation">
+                        <li><a href="https://typo3.org/legal-notice" rel="nofollow" target="_blank" title="Legal Notice">Legal Notice</a></li>
+                        <li><a href="https://typo3.org/privacy-policy" rel="nofollow" target="_blank" title="Privacy Policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="../_resources/js/popper.min.js"></script>
+<script src="../_resources/js/bootstrap.min.js"></script>
+<script src="../_resources/js/theme.min.js"></script>
+
+<!--
+ Locally rendered. No tracking embedded.
+-->
+</body>
+</html>

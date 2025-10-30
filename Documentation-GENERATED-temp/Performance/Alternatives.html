@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <title>Alternative Approaches
+        documentation</title>
+
+    
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="phpdocumentor/guides" name="generator">
+<meta content="" name="docsearch:name">
+<meta content="" name="docsearch:package_type">
+<meta content="" name="docsearch:release">
+<meta content="" name="docsearch:version">
+<meta content="2025-10-30T12:13:45+00:00" name="docsearch:modified">
+<meta content="2025-10-30T12:13:45+00:00" name="dc.modified">
+<meta content="2025-10-30T12:13:45+00:00" property="article:modified_time">
+    <link href="http://purl.org/dc/elements/1.1/" rel="schema.dc">
+<link href="../_resources/css/theme.css" rel="stylesheet">
+<link href="https://docs.typo3.org/search/" rel="search" title="Search">
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/webcomponents-loader.js"></script>
+<script src="https://cdn.typo3.com/typo3infrastructure/universe/dist/typo3-universe.js" type="module"></script>
+                        <link href="DecisionGuide.html" rel="prev" title="Site-Specific Decision Guide"/>
+            <link href="FAQ.html" rel="next" title="Frequently Asked Questions"/>
+            <link href="../Index.html" rel="top" title="Temporal Cache Management"/>
+    </head>
+<body>
+<div class="page">
+    <header>
+    <div class="page-topbar">
+        <div class="page-topbar-inner">
+            <typo3-universe active="documentation">
+                <div style="display: block; height: 44px; background-color: #313131;"></div>
+            </typo3-universe>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="page-header-inner">
+            <div class="d-flex flex-wrap">
+                <div class="logo-wrapper">
+                    <a class="logo" href="https://docs.typo3.org/" title="TYPO3 Documentation">
+                        <img alt="TYPO3 Logo" class="logo-image" src="../_resources/img/typo3-logo.svg" width="484" height="130">
+                    </a>
+                </div>
+                <div class="align-self-center order-lg-2 order-last">
+                    
+<div class="toc-header">
+    <div class="toc-title pe-3">
+                            <a class="toc-title-project" href="../Index.html">Temporal Cache Management</a>
+            </div>
+    </div>                </div>
+                <div class="ms-auto order-lg-3 d-flex">
+                    <div class="menu-search-wrapper">
+                        <button id="toc-toggle" class="btn btn-light d-block d-lg-none" tabindex="0" aria-controls="toc-collapse" aria-expanded="false">
+                            <i class="fas fa-bars"></i> <span class="visually-hidden">Mobile Menu</span>
+                        </button>
+                        <all-documentations-menu data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu>
+                                                <search role="search">
+                            <form action="https://docs.typo3.org/search/search" id="global-search-form" method="get">
+                                <div class="sr-only"><label for="globalsearchinput">TYPO3 documentation...</label></div>
+                                <div class="input-group mb-3 mt-sm-3">
+                                    <select class="form-select search__scope" id="searchscope" name="scope">
+                                        <option value="">Search all</option>
+                                    </select>
+                                    <input autocomplete="off" class="form-control shadow-none" id="globalsearchinput" name="q" placeholder="TYPO3 documentation..." type="text" value="">
+                                    <button class="btn btn-light" type="submit"><i class="fa fa-search"></i>&nbsp;<span class="d-none d-md-inline">Search</span></button>
+                                </div>
+                            </form>
+                            <div id="global-search-root"></div>
+                        </search>
+                        <div class="position-relative d-inline-block">
+                            <button id="options-toggle" class="btn btn-light d-block" type="button" aria-expanded="false">
+                                <i class="fas fa-cog"></i> <span class="visually-hidden">Options</span>
+                            </button>
+
+                            <div id="options-panel"
+                                 class="shadow p-3"
+                                 role="menu"
+                                 aria-hidden="true">
+                                <h6 class="dropdown-header text-muted text-uppercase small mb-2">Options</h6>
+
+                                                                                                            <a class="dropdown-item d-flex align-items-center gap-2" href="../_sources/Performance/Alternatives.rst.txt" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-code"></i>
+        View source
+    </a>
+    <a class="dropdown-item d-flex align-items-center gap-2" href="https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/WritingDocsOfficial/GithubMethod.html" id="btnHowToEdit" rel="nofollow noopener" target="_blank">
+        <i class="fas fa-info-circle"></i>
+        How to edit
+    </a>
+                                                                                                                <a class="dropdown-item d-flex align-items-center gap-2" href="../singlehtml/Index.html" target="_blank" rel="noopener">
+                                            <i class="fas fa-print"></i>
+                                            Full documentation (single file)
+                                        </a>
+                                                                                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>    <main class="page-main">
+        <div class="page-main-inner">
+            <div class="page-main-navigation">
+                <nav>
+
+                    <div id="toc-collapse">
+                                                <div aria-label="main navigation" class="toc"
+                             role="navigation">
+                                <all-documentations-menu-mobile
+        data-override-url="https://render-guides.ddev.site/_resources/js/menu-proxy.php"></all-documentations-menu-mobile>
+    <div aria-label="Main navigation" class="main_menu" role="navigation">
+                <p class="caption">Temporal Cache Management</p>
+            <ul class="menu-level-1" role="menubar">
+    <li class="" role="menuitem">
+    <a href="../Introduction/Index.html">
+        Introduction
+    </a></li>    <li class=" active" role="menuitem">
+    <a href="Index.html">
+        Performance Considerations
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="Limitations.html">
+        Phase 1 Architectural Limitations
+    </a></li><li class="" role="menuitem">
+    <a href="DecisionGuide.html">
+        Site-Specific Decision Guide
+    </a></li><li class=" current active" role="menuitem">
+    <a href="#" aria-current="page">
+        Alternative Approaches
+    </a></li><li class="" role="menuitem">
+    <a href="FAQ.html">
+        Frequently Asked Questions
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Installation/Index.html">
+        Installation
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Configuration/Index.html">
+        Configuration
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Configuration/Strategies.html">
+        Optimization Strategies
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Advanced.html">
+        Advanced Options
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Examples.html">
+        Examples &amp; Presets
+    </a></li><li class="" role="menuitem">
+    <a href="../Configuration/Troubleshooting.html">
+        Troubleshooting
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Backend/Index.html">
+        Backend Module
+    </a>        <ul class="menu-level-1"><li class="" role="menuitem">
+    <a href="../Backend/Dashboard.html">
+        Dashboard Tab
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Content.html">
+        Content Tab
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Wizard.html">
+        Configuration Wizard
+    </a></li><li class="" role="menuitem">
+    <a href="../Backend/Tips.html">
+        Tips and Best Practices
+    </a></li></ul></li>    <li class="" role="menuitem">
+    <a href="../Administrator/ReportsModule.html">
+        TYPO3 Reports Module
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Architecture/Index.html">
+        Architecture
+    </a></li>    <li class="" role="menuitem">
+    <a href="../Phases/Index.html">
+        Three-Phase Solution &amp; Roadmap
+    </a></li>    </ul>
+    </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div class="page-main-content">
+                <div class="rst-content">                        <nav aria-label="breadcrumbs navigation" class="breadcrumb-bar" role="navigation">
+        
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../Index.html">Temporal Cache Management</a></li>
+        <li class="breadcrumb-item"><a href="Index.html">Performance Considerations</a></li>
+                    <li aria-current="page"  class="breadcrumb-item  active">Alternative Approaches</li>
+        </ol>
+        <div class="breadcrumb-additions"></div>
+    </nav>
+                    
+<article class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+    <div itemprop="articleBody">
+        <!-- content start -->
+                
+<section class="section" id="alternative-approaches" data-rst-anchor="performance-alternatives">
+            <a id="performance-alternatives"></a>
+            <h1>Alternative Approaches<a class="headerlink" href="#alternative-approaches" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h1>
+            <section class="section" id="overview-of-alternatives">
+            <h2>Overview of Alternatives<a class="headerlink" href="#overview-of-alternatives" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>If this extension&#039;s performance implications are unsuitable for your site, several
+alternative approaches exist to handle temporal content in TYPO3:</p>
+
+            
+    
+<ol start="1" type="1">
+    <li value="1">USER_INT menus (uncached navigation)</li>
+    <li value="2">SSI/ESI (Server/Edge Side Includes)</li>
+    <li value="3">AJAX menus (client-side fetching)</li>
+    <li value="4">Scheduled cache clearing</li>
+    <li value="5">Manual cache management</li>
+</ol>
+
+            
+    <p>Each has different trade-offs between accuracy, performance, and complexity.</p>
+
+    </section>
+            <section class="section" id="comparison-matrix">
+            <h2>Comparison Matrix<a class="headerlink" href="#comparison-matrix" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            <div class="table-responsive">
+    <table class="table table-bordered align-default colwidths-grid">
+                    <colgroup>
+                                    <col style="width: 20%">
+                        </colgroup>
+            <thead>
+            <tr>
+                            <th>Approach</th>
+                            <th>Setup Complexity</th>
+                            <th>Temporal Accuracy</th>
+                            <th>Performance Impact</th>
+                            <th>Cache Hit Ratio</th>
+                            <th>Best Use Case</th>
+                    </tr>
+        </thead>
+        <tbody>
+    <tr>
+            <td><strong>Extension</strong></td>            <td>✅ Simple</td>            <td>✅✅ Perfect</td>            <td>⚠️ Burst load</td>            <td>⚠️ Variable</td>            <td>Rare transitions</td>    </tr>    <tr>
+            <td><strong>USER_INT</strong></td>            <td>✅ Simple</td>            <td>✅✅ Perfect</td>            <td>⚠️ Steady load</td>            <td>✅ High (pages)</td>            <td>High traffic</td>    </tr>    <tr>
+            <td><strong>SSI/ESI</strong></td>            <td>⚠️ Complex</td>            <td>✅✅ Perfect</td>            <td>✅ Optimized</td>            <td>✅ High</td>            <td>Edge caching</td>    </tr>    <tr>
+            <td><strong>AJAX</strong></td>            <td>⚠️ Complex</td>            <td>✅✅ Perfect</td>            <td>✅ Client-side</td>            <td>✅✅ Very high</td>            <td>Modern SPAs</td>    </tr>    <tr>
+            <td><strong>Scheduled</strong></td>            <td>⚠️ Medium</td>            <td>❌ Delayed</td>            <td>✅ Predictable</td>            <td>✅ High</td>            <td>Low accuracy needs</td>    </tr></tbody>    </table>
+</div>
+    </section>
+            <section class="section" id="alternative-1-user-int-menus">
+            <h2>Alternative 1: USER_INT Menus<a class="headerlink" href="#alternative-1-user-int-menus" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>Make menus uncached (regenerated on every request).</p>
+
+            <section class="section" id="how-it-works">
+            <h3>How It Works<a class="headerlink" href="#how-it-works" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+                <div class="code-block-caption">
+        <span class="caption-text">TypoScript Setup</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs typoscript">lib.mainMenu = <span class="hljs-keyword">USER_INT</span>
+lib.mainMenu {
+    userFunc = MyVendor\MyExtension\Menu\MenuProcessor-&gt;render
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Advantages</strong>:</p>
+
+            
+    <p>✅ Simple TypoScript configuration
+✅ Perfect temporal accuracy for menus
+✅ Page content remains cached
+✅ Steady, predictable performance</p>
+
+            
+    <p><strong>Disadvantages</strong>:</p>
+
+            
+    <p>❌ Menu regenerated on EVERY request
+❌ Moderate per-request overhead (&nbsp;10-50ms)
+❌ Doesn&#039;t solve temporal content in page body
+❌ CDN cannot cache dynamic menus</p>
+
+            
+    <p><strong>Performance Impact</strong>:</p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Cost_per_request = menu_generation_time
+Daily_cost = requests_per_day × menu_generation_time
+
+Example:
+100,000 req/day × 20ms = 2,000 seconds/day of menu generation time</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>When to Use</strong>:</p>
+
+            
+    <p>✅ Temporal content is ONLY in menus
+✅ High-traffic sites where steady load is preferable to spikes
+✅ Site can tolerate 10-50ms per-request overhead</p>
+
+            
+    <p>See <a href="DecisionGuide.html#decision-guide">Site-Specific Decision Guide</a> for comparison formula.</p>
+
+    </section>
+    </section>
+            <section class="section" id="alternative-2-ssi-esi-server-edge-side-includes">
+            <h2>Alternative 2: SSI/ESI (Server/Edge Side Includes)<a class="headerlink" href="#alternative-2-ssi-esi-server-edge-side-includes" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>Split menus into uncached fragments included at serving time.</p>
+
+            <section class="section" id="ssi-server-side-includes">
+            <h3>SSI (Server Side Includes)<a class="headerlink" href="#ssi-server-side-includes" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+                <div class="code-block-caption">
+        <span class="caption-text">Apache .htaccess</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs apache"><span class="hljs-section">&lt;IfModule mod_include.c&gt;</span>
+    <span class="hljs-attribute"><span class="hljs-nomarkup">Options</span></span> +Includes
+    <span class="hljs-attribute">AddOutputFilter</span> INCLUDES .html
+<span class="hljs-section">&lt;/IfModule&gt;</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+                <div class="code-block-caption">
+        <span class="caption-text">Template</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navigation"</span>&gt;</span>
+    <span class="hljs-comment">&lt;!--#include virtual="/menu-fragment.php" --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="esi-edge-side-includes">
+            <h3>ESI (Edge Side Includes)<a class="headerlink" href="#esi-edge-side-includes" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+                <div class="code-block-caption">
+        <span class="caption-text">Varnish VCL</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">sub vcl_recv {
+    if (req.url ~ "^/menu-fragment") {
+        return (pass); // Don't cache menu fragments
+    }
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+                <div class="code-block-caption">
+        <span class="caption-text">Template</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"navigation"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">esi:include</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/menu-fragment.php"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Advantages</strong>:</p>
+
+            
+    <p>✅ Page body remains fully cached
+✅ Menu freshness without full page regeneration
+✅ Works with CDN (ESI supported by most CDNs)
+✅ Optimal performance characteristics</p>
+
+            
+    <p><strong>Disadvantages</strong>:</p>
+
+            
+    <p>❌ Complex server/CDN configuration
+❌ Requires SSI/ESI support in infrastructure
+❌ Debugging is more difficult
+❌ Not all CDNs support ESI</p>
+
+            
+    <p><strong>When to Use</strong>:</p>
+
+            
+    <p>✅ Using CDN with ESI support (Fastly, Akamai, Varnish)
+✅ High-traffic sites needing optimal performance
+✅ Team has infrastructure expertise</p>
+
+    </section>
+    </section>
+            <section class="section" id="alternative-3-ajax-menus">
+            <h2>Alternative 3: AJAX Menus<a class="headerlink" href="#alternative-3-ajax-menus" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>Load menus via JavaScript after page load.</p>
+
+            <section class="section" id="implementation">
+            <h3>Implementation<a class="headerlink" href="#implementation" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+                <div class="code-block-caption">
+        <span class="caption-text">Frontend JavaScript</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs javascript"><span class="hljs-comment">// Fetch fresh menu data</span>
+fetch(<span class="hljs-string">'/api/menu'</span>)
+    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.json())
+    .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> {
+        <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.navigation'</span>).innerHTML = renderMenu(data);
+    });</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+                <div class="code-block-caption">
+        <span class="caption-text">TYPO3 Menu API Endpoint</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs php"><span class="hljs-meta">&lt;?php</span>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">MyVendor</span>\<span class="hljs-title">MyExtension</span>\<span class="hljs-title">Controller</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MenuController</span> </span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">apiAction</span><span class="hljs-params">()</span>: <span class="hljs-title">ResponseInterface</span> </span>{
+        $menu = <span class="hljs-keyword">$this</span>-&gt;menuRepository-&gt;findVisible(time());
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">$this</span>-&gt;jsonResponse($menu);
+    }
+}</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Advantages</strong>:</p>
+
+            
+    <p>✅ Page HTML fully cached
+✅ Perfect temporal accuracy
+✅ No server-side rendering overhead
+✅ Client-side caching possible (Service Workers)</p>
+
+            
+    <p><strong>Disadvantages</strong>:</p>
+
+            
+    <p>❌ Requires JavaScript (accessibility concern)
+❌ Flash of empty navigation (FOUC)
+❌ SEO implications (search engines may not see menu)
+❌ More complex frontend development</p>
+
+            
+    <p><strong>When to Use</strong>:</p>
+
+            
+    <p>✅ Modern SPA or JavaScript-heavy sites
+✅ Acceptable UX trade-offs
+✅ SEO not critical for menu items</p>
+
+    </section>
+    </section>
+            <section class="section" id="alternative-4-scheduled-cache-clearing">
+            <h2>Alternative 4: Scheduled Cache Clearing<a class="headerlink" href="#alternative-4-scheduled-cache-clearing" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>Clear cache on fixed schedule (e.g., every hour).</p>
+
+            <section class="section" id="implementation">
+            <h3>Implementation<a class="headerlink" href="#implementation" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+                <div class="code-block-caption">
+        <span class="caption-text">Crontab</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs bash"><span class="hljs-comment"># Clear TYPO3 cache every hour</span>
+0 * * * * /path/to/typo3/vendor/bin/typo3 cache:flush</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p>Or with warming:</p>
+
+                <div class="code-block-caption">
+        <span class="caption-text">Crontab with warming</span>
+    </div><div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs bash"><span class="hljs-comment"># Clear cache and warm critical pages</span>
+0 * * * * /path/to/typo3/vendor/bin/typo3 cache:flush &amp;&amp; \
+          /path/to/scripts/warm-cache.sh</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Advantages</strong>:</p>
+
+            
+    <p>✅ Extremely simple
+✅ Zero code changes
+✅ Predictable resource usage</p>
+
+            
+    <p><strong>Disadvantages</strong>:</p>
+
+            
+    <p>❌ Temporal content can be stale (up to 1 hour)
+❌ Doesn&#039;t solve Forge #14277 (menus show wrong content)
+❌ Manual configuration required
+❌ Cache warming creates load spikes</p>
+
+            
+    <p><strong>When to Use</strong>:</p>
+
+            
+    <p>⚠️ <strong>Only suitable for</strong>:</p>
+
+            
+
+<ul>
+    <li class="dash">Sites that can tolerate temporal inaccuracy</li>
+    <li class="dash">Regular content schedules (e.g., always publish at 09:00, 12:00, 17:00)</li>
+    <li class="dash">Low temporal content frequency</li>
+</ul>
+
+    </section>
+    </section>
+            <section class="section" id="alternative-5-manual-cache-management">
+            <h2>Alternative 5: Manual Cache Management<a class="headerlink" href="#alternative-5-manual-cache-management" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p>Editors manually clear cache after scheduling content.</p>
+
+            <section class="section" id="implementation">
+            <h3>Implementation<a class="headerlink" href="#implementation" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h3>
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">Editor workflow:
+1. Edit page, set starttime = 10:00 AM
+2. Save page
+3. Wait until 10:00 AM
+4. Go to Admin Tools → Clear Cache
+5. Clear "Pages" cache</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Advantages</strong>:</p>
+
+            
+    <p>✅ Zero technical implementation
+✅ Complete editorial control</p>
+
+            
+    <p><strong>Disadvantages</strong>:</p>
+
+            
+    <p>❌ Error-prone (editors forget)
+❌ High editorial overhead
+❌ Doesn&#039;t scale with multiple editors
+❌ Doesn&#039;t solve the core problem</p>
+
+            
+    <p><strong>When to Use</strong>:</p>
+
+            
+    <p>❌ <strong>Not recommended</strong> - defeats the purpose of automatic scheduling</p>
+
+    </section>
+    </section>
+            <section class="section" id="decision-framework">
+            <h2>Decision Framework<a class="headerlink" href="#decision-framework" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p><strong>Step 1: Identify Temporal Content Location</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">If temporal content is ONLY in menus:
+    → Consider USER_INT menu (simplest solution)
+
+If temporal content is in main page body:
+    → Extension or AJAX required</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Step 2: Calculate Your Metrics</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">A = Requests_per_day
+B = Temporal_transitions_per_day
+C = Number_of_pages
+D = Menu_render_time (ms)
+E = Page_regeneration_time (ms)</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Step 3: Apply Decision Formula</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">USER_INT cost = A × D
+Extension cost = B × C × E
+
+If (A × D) &lt; (B × C × E):
+    → Use USER_INT
+Else:
+    → Use Extension</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+            
+    <p><strong>Step 4: Consider Infrastructure</strong></p>
+
+            <div class="code-block-wrapper" translate="no">
+            
+    <pre class="code-block"><code class="hljs plaintext">If has_CDN &amp;&amp; complex_menus:
+    → Consider SSI/ESI
+
+If SPA || modern_frontend:
+    → Consider AJAX</code></pre>
+    <div class="code-block-actions">        <button class="code-block-copy" title="Copy to clipboard">
+            <i class="icon fa-regular fa-copy code-block-copy-icon"></i>
+            <i class="fa-solid fa-check code-block-check-icon code-block-hide"></i>
+        </button>
+        <span class="code-block-check-tooltip code-block-hide" aria-live="polite">Copied!</span>
+    </div>
+</div>
+    </section>
+            <section class="section" id="recommendation-by-site-profile">
+            <h2>Recommendation by Site Profile<a class="headerlink" href="#recommendation-by-site-profile" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+    <p><strong>Profile 1: Traditional Corporate Site</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Pages: &lt;500</li>
+    <li class="dash">Traffic: &lt;50,000 req/day</li>
+    <li class="dash">Temporal: &lt;5 transitions/day</li>
+</ul>
+
+            
+    <p>→ <strong>Recommendation</strong>: Extension (simple, effective)</p>
+
+            
+    <p><strong>Profile 2: News/Magazine Site</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Pages: 500-5,000</li>
+    <li class="dash">Traffic: 100,000-1M req/day</li>
+    <li class="dash">Temporal: 10-50 transitions/day</li>
+</ul>
+
+            
+    <p>→ <strong>Recommendation</strong>: USER_INT menu or SSI (better performance)</p>
+
+            
+    <p><strong>Profile 3: Enterprise Portal</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Pages: &gt;10,000</li>
+    <li class="dash">Traffic: &gt;1M req/day</li>
+    <li class="dash">Temporal: &gt;50 transitions/day</li>
+</ul>
+
+            
+    <p>→ <strong>Recommendation</strong>: Wait for Phase 2/3 or custom solution</p>
+
+            
+    <p><strong>Profile 4: E-commerce/SPA</strong></p>
+
+            
+
+<ul>
+    <li class="dash">Pages: Variable</li>
+    <li class="dash">Traffic: High</li>
+    <li class="dash">Modern frontend: Yes</li>
+</ul>
+
+            
+    <p>→ <strong>Recommendation</strong>: AJAX menu with client-side caching</p>
+
+    </section>
+            <section class="section" id="next-steps">
+            <h2>Next Steps<a class="headerlink" href="#next-steps" data-bs-toggle="modal" data-bs-target="#linkReferenceModal"  title="Reference this headline">&nbsp;<i class="fa-solid fa-link"></i></a></h2>
+            
+
+<ul>
+    <li class="dash"><a href="DecisionGuide.html#decision-guide">Site-Specific Decision Guide</a> - Site-specific decision matrix</li>
+    <li class="dash"><a href="../Phases/Index.html#phases">Three-Phase Solution &amp; Roadmap</a> - Future Phase 2/3 improvements</li>
+    <li class="dash"><a href="../Installation/Index.html#installation">Installation</a> - Install this extension</li>
+    <li class="dash"><a href="../Configuration/Index.html#configuration">Configuration</a> - Configure optimization strategies</li>
+</ul>
+
+    </section>
+    </section>
+        <!-- content end -->
+    </div>
+</article>
+                        
+            <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center"><li class="page-item">
+                            <a class="page-link" href="DecisionGuide.html"
+                               title="Accesskey Alt(+Shift)+p">
+                                <i class="fa-solid fa-chevron-left"></i> Previous
+                            </a>
+                        </li>
+                    <li class="page-item">
+                            <a class="page-link" href="FAQ.html"
+                               title="Accesskey Alt(+Shift)+n">
+                                Next <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+        </nav>
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal fade" id="linkReferenceModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Performance/Alternatives">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="linkReferenceModalLabel">Reference to the headline</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="permalink-alert-success" role="alert"></div>
+                <div class="mb-3">
+                    <label for="permalink-uri" class="col-form-label">URL</label>
+                    <div class="input-group">
+                        <input class="form-control code" id="permalink-uri" readonly>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-uri"><i class="far fa-clone"></i></button>
+                    </div>
+                    <div class="permalink-short-wrapper">
+                        <label for="permalink-short" class="col-form-label">Permalink (Shortlink)</label>
+                        <div class="input-group">
+                            <input class="form-control code" id="permalink-short" readonly>
+                            <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-short"><i class="far fa-clone"></i></button>
+                        </div>
+                        <p><em>Copy and freely share the link</em></p>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="alert alert-warning alert-permalink-rst" role="alert">This link target has no permanent anchor assigned.The link below can be used, but is prone to change if the page gets moved.
+                    </div>
+                    <label for="permalink-rst" class="col-form-label">Link in reStructuredText (reST)</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-rst" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-rst"><i class="far fa-clone"></i></button>
+                    </div>
+                    <p><em>Copy this link into your TYPO3 manual.</em></p>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-md" class="col-form-label">Link in Markdown</label>
+                    <div class="input-group">
+                        <textarea class="form-control code" id="permalink-md" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-md"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="permalink-html" class="col-form-label">Link in HTML</label>
+                                        <div class="input-group">
+                        <textarea class="form-control code" id="permalink-html" readonly></textarea>
+                        <button type="button" class="btn btn-outline-secondary copy-button" data-target="permalink-html"><i class="far fa-clone"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>    <div class="modal fade" id="generalModal" tabindex="-1" aria-labelledby="linkReferenceModalLabel"
+    aria-hidden="true" data-current-filename="Performance/Alternatives"
+>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="generalModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-success d-none" id="general-alert-success" role="alert"></div>
+                <div id="generalModalContent">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div id="generalModalCustomButtons"></div>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-regular fa-circle-xmark"></i>&nbsp;Close</button>
+            </div>
+        </div>
+    </div>
+</div></div>
+
+
+<footer class="page-footer">
+    <div class="frame frame-ruler-before frame-background-dark">
+        <div class="frame-container">
+            <div class="frame-inner">
+                                <div class="footer-additional">
+                    <p class="text-center">Last rendered: Oct 30, 2025 12:13</p>
+                </div>
+                <div class="footer-meta">
+                    <ul class="footer-meta-navigation">
+                        <li><a href="https://typo3.org/legal-notice" rel="nofollow" target="_blank" title="Legal Notice">Legal Notice</a></li>
+                        <li><a href="https://typo3.org/privacy-policy" rel="nofollow" target="_blank" title="Privacy Policy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="../_resources/js/popper.min.js"></script>
+<script src="../_resources/js/bootstrap.min.js"></script>
+<script src="../_resources/js/theme.min.js"></script>
+
+<!--
+ Locally rendered. No tracking embedded.
+-->
+</body>
+</html>
