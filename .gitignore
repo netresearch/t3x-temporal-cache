@@ -1,9 +1,42 @@
+# Build artifacts
 .Build/
-.ddev/.gitignore
-.ddev/.global_commands/
-.idea/
-.vscode/
-.phpunit.cache/
-.php-cs-fixer.cache
 composer.lock
 vendor/
+
+# IDE
+.idea/
+.vscode/
+
+# DDEV
+.ddev/.gitignore
+.ddev/.global_commands/
+
+# Testing
+.phpunit.cache/
+.php-cs-fixer.cache
+
+# Documentation build output
+Documentation-GENERATED-temp/
+Documentation/_build/
+
+# Claude-generated analysis (internal only)
+claudedocs/
+
+# Development/analysis docs (not for end users)
+AGENTS.md
+BUG_REPORT.md
+DEVELOPMENT.md
+GITHUB_ISSUE_UPDATE.md
+MARKETPLACE_ANALYSIS.md
+REFACTORING_SUMMARY.md
+SUMMARY.md
+WORKAROUND_*.md
+
+# Debug/test files
+test/
+phpstatus.php
+
+# Local TYPO3 instance files
+typo3conf/
+v12/
+v13/

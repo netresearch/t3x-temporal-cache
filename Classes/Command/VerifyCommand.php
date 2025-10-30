@@ -58,7 +58,9 @@ final class VerifyCommand extends Command
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly ExtensionConfiguration $configuration,
+        /** @phpstan-ignore-next-line */
         private readonly SchemaMigrator $schemaMigrator,
+        /** @phpstan-ignore-next-line */
         private readonly SqlReader $sqlReader
     ) {
         parent::__construct('temporalcache:verify');

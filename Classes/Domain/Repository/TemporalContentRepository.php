@@ -204,7 +204,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             ) {
                 $transitions[] = new TransitionEvent(
                     content: $content,
-                    transitionTime: $content->starttime,
+                    timestamp: $content->starttime,
                     transitionType: 'start'
                 );
             }
@@ -216,7 +216,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             ) {
                 $transitions[] = new TransitionEvent(
                     content: $content,
-                    transitionTime: $content->endtime,
+                    timestamp: $content->endtime,
                     transitionType: 'end'
                 );
             }
@@ -226,7 +226,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         \usort(
             $transitions,
             fn (TransitionEvent $a, TransitionEvent $b) =>
-            $a->transitionTime <=> $b->transitionTime
+            $a->timestamp <=> $b->timestamp
         );
 
         return $transitions;
@@ -441,7 +441,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $countsPerDay = [];
 
         foreach ($transitions as $transition) {
-            $date = \date('Y-m-d', $transition->transitionTime);
+            $date = \date('Y-m-d', $transition->timestamp);
             $countsPerDay[$date] = ($countsPerDay[$date] ?? 0) + 1;
         }
 

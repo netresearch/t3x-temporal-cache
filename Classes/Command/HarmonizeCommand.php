@@ -50,6 +50,7 @@ final class HarmonizeCommand extends Command
         private readonly HarmonizationService $harmonizationService,
         private readonly ExtensionConfiguration $configuration,
         private readonly ConnectionPool $connectionPool,
+        /** @phpstan-ignore-next-line */
         private readonly DataHandler $dataHandler
     ) {
         parent::__construct('temporalcache:harmonize');

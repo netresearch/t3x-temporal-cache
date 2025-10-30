@@ -166,7 +166,7 @@ final class TemporalCacheStatisticsService
 
         // Group transitions by day
         foreach ($transitions as $transition) {
-            $dayKey = \date('Y-m-d', $transition->transitionTime);
+            $dayKey = \date('Y-m-d', $transition->timestamp);
             if (!isset($timeline[$dayKey])) {
                 $timeline[$dayKey] = [
                     'date' => $dayKey,

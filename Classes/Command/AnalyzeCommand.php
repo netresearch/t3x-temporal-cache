@@ -194,7 +194,7 @@ HELP
         // Group transitions by day
         $transitionsPerDay = [];
         foreach ($transitions as $transition) {
-            $date = date('Y-m-d', $transition->transitionTime);
+            $date = date('Y-m-d', $transition->timestamp);
             if (!isset($transitionsPerDay[$date])) {
                 $transitionsPerDay[$date] = 0;
             }
@@ -205,7 +205,7 @@ HELP
         arsort($transitionsPerDay);
         $peakDays = array_slice($transitionsPerDay, 0, 5, true);
 
-        if (!empty($peakDays)) {
+        if (count($peakDays) > 0) {
             $io->writeln("\n<comment>Peak Transition Days:</comment>");
             $table = new Table($io);
             $table->setHeaders(['Date', 'Transitions', 'Impact']);
@@ -219,7 +219,7 @@ HELP
         }
 
         // Show next 10 transitions in verbose mode
-        if ($io->isVerbose() && !empty($transitions)) {
+        if ($io->isVerbose() && count($transitions) > 0) {
             $io->writeln("\n<comment>Next 10 Transitions:</comment>");
             $table = new Table($io);
             $table->setHeaders(['Time', 'Type', 'Table', 'Title']);
@@ -231,7 +231,7 @@ HELP
                 }
 
                 $table->addRow([
-                    date('Y-m-d H:i', $transition->transitionTime),
+                    date('Y-m-d H:i', $transition->timestamp),
                     ucfirst($transition->transitionType),
                     $transition->content->tableName,
                     mb_substr($transition->content->title, 0, 40),
@@ -278,7 +278,7 @@ HELP
 
         // Extract timestamps
         $timestamps = array_map(
-            fn($transition) => $transition->transitionTime,
+            fn($transition) => $transition->timestamp,
             $transitions
         );
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Service;
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -180,7 +181,7 @@ final class RefindexService implements SingletonInterface
                 ),
                 $queryBuilder->expr()->in(
                     'mount_pid',
-                    $queryBuilder->createNamedParameter($pageIds, ConnectionPool::PARAM_INT_ARRAY)
+                    $queryBuilder->createNamedParameter($pageIds, Connection::PARAM_INT_ARRAY)
                 ),
                 $queryBuilder->expr()->eq('hidden', 0)
             )
@@ -220,11 +221,11 @@ final class RefindexService implements SingletonInterface
             ->where(
                 $queryBuilder->expr()->in(
                     'doktype',
-                    $queryBuilder->createNamedParameter([3, 4], ConnectionPool::PARAM_INT_ARRAY) // Shortcut doktypes
+                    $queryBuilder->createNamedParameter([3, 4], Connection::PARAM_INT_ARRAY) // Shortcut doktypes
                 ),
                 $queryBuilder->expr()->in(
                     'shortcut',
-                    $queryBuilder->createNamedParameter($pageIds, ConnectionPool::PARAM_INT_ARRAY)
+                    $queryBuilder->createNamedParameter($pageIds, Connection::PARAM_INT_ARRAY)
                 ),
                 $queryBuilder->expr()->eq('hidden', 0)
             )

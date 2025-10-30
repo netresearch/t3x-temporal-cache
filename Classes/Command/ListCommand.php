@@ -54,6 +54,7 @@ final class ListCommand extends Command
 
     public function __construct(
         private readonly TemporalContentRepository $repository,
+        /** @phpstan-ignore-next-line */
         private readonly HarmonizationService $harmonizationService
     ) {
         parent::__construct('temporalcache:list');
