@@ -629,7 +629,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
         $data = $this->parseJsonResponse($response);
         self::assertTrue($data['success']);
         // Should process existing content only
-        self::assertLessThan(2, count($data['results']));
+        self::assertLessThan(2, \count($data['results']));
     }
 
     /**
@@ -708,7 +708,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
         $response = $this->controller->harmonizeAction($request);
 
         $body = (string)$response->getBody();
-        $data = json_decode($body, true);
+        $data = \json_decode($body, true);
 
         self::assertNotNull($data);
         self::assertIsArray($data);
@@ -757,7 +757,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     private function parseJsonResponse(ResponseInterface $response): array
     {
         $body = (string)$response->getBody();
-        $data = json_decode($body, true);
+        $data = \json_decode($body, true);
 
         self::assertIsArray($data, 'Response body should be valid JSON');
 

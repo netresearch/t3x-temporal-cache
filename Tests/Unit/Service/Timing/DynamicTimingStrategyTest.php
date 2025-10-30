@@ -7,7 +7,6 @@ namespace Netresearch\TemporalCache\Tests\Unit\Service\Timing;
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Domain\Model\TemporalContent;
 use Netresearch\TemporalCache\Domain\Model\TransitionEvent;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy;
 use PHPUnit\Framework\MockObject\Stub;
