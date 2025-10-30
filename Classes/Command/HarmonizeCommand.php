@@ -50,6 +50,7 @@ final class HarmonizeCommand extends Command
         private readonly HarmonizationService $harmonizationService,
         private readonly ExtensionConfiguration $configuration,
         private readonly ConnectionPool $connectionPool,
+        /** @phpstan-ignore-next-line */
         private readonly DataHandler $dataHandler
     ) {
         parent::__construct('temporalcache:harmonize');
@@ -60,44 +61,44 @@ final class HarmonizeCommand extends Command
         $this->setDescription('Harmonize temporal fields to configured time slots');
         $this->setHelp(
             <<<'HELP'
-This command harmonizes (rounds) starttime and endtime fields to configured
-time slots, reducing the number of unique transition timestamps and improving
-cache efficiency.
+                This command harmonizes (rounds) starttime and endtime fields to configured
+                time slots, reducing the number of unique transition timestamps and improving
+                cache efficiency.
 
-<info>How it works:</info>
-  1. Scans all temporal content (pages and content elements)
-  2. Calculates harmonized timestamps for each starttime/endtime
-  3. Updates records where harmonization makes a difference
-  4. Reports statistics about changes made
+                <info>How it works:</info>
+                  1. Scans all temporal content (pages and content elements)
+                  2. Calculates harmonized timestamps for each starttime/endtime
+                  3. Updates records where harmonization makes a difference
+                  4. Reports statistics about changes made
 
-<info>Examples:</info>
+                <info>Examples:</info>
 
-  # Preview changes without making modifications
-  <comment>vendor/bin/typo3 temporalcache:harmonize --dry-run</comment>
+                  # Preview changes without making modifications
+                  <comment>vendor/bin/typo3 temporalcache:harmonize --dry-run</comment>
 
-  # Apply harmonization to all temporal content
-  <comment>vendor/bin/typo3 temporalcache:harmonize</comment>
+                  # Apply harmonization to all temporal content
+                  <comment>vendor/bin/typo3 temporalcache:harmonize</comment>
 
-  # Harmonize only pages
-  <comment>vendor/bin/typo3 temporalcache:harmonize --table=pages</comment>
+                  # Harmonize only pages
+                  <comment>vendor/bin/typo3 temporalcache:harmonize --table=pages</comment>
 
-  # Harmonize with verbose output
-  <comment>vendor/bin/typo3 temporalcache:harmonize --verbose</comment>
+                  # Harmonize with verbose output
+                  <comment>vendor/bin/typo3 temporalcache:harmonize --verbose</comment>
 
-  # Harmonize specific workspace
-  <comment>vendor/bin/typo3 temporalcache:harmonize --workspace=1</comment>
+                  # Harmonize specific workspace
+                  <comment>vendor/bin/typo3 temporalcache:harmonize --workspace=1</comment>
 
-<info>Safety recommendations:</info>
-  1. ALWAYS run with --dry-run first
-  2. Backup your database before running
-  3. Test on staging environment first
-  4. Review harmonization configuration before running
+                <info>Safety recommendations:</info>
+                  1. ALWAYS run with --dry-run first
+                  2. Backup your database before running
+                  3. Test on staging environment first
+                  4. Review harmonization configuration before running
 
-<info>Requirements:</info>
-  - Harmonization must be enabled in extension configuration
-  - Time slots must be configured
-  - Tolerance must be set appropriately
-HELP
+                <info>Requirements:</info>
+                  - Harmonization must be enabled in extension configuration
+                  - Time slots must be configured
+                  - Tolerance must be set appropriately
+                HELP
         );
 
         $this->addOption(
@@ -150,7 +151,7 @@ HELP
         }
 
         // Validate table filter
-        if ($tableFilter !== null && !in_array($tableFilter, ['pages', 'tt_content'], true)) {
+        if ($tableFilter !== null && !\in_array($tableFilter, ['pages', 'tt_content'], true)) {
             $io->error("Invalid table name: {$tableFilter}. Must be 'pages' or 'tt_content'.");
             return Command::FAILURE;
         }
@@ -171,7 +172,7 @@ HELP
                 ['Workspace', $workspaceUid === 0 ? 'Live (0)' : "Workspace {$workspaceUid}"],
                 ['Language', "Language {$languageUid}"],
                 ['Table Filter', $tableFilter ?? 'All tables'],
-                ['Time Slots', implode(', ', $this->configuration->getHarmonizationSlots())],
+                ['Time Slots', \implode(', ', $this->configuration->getHarmonizationSlots())],
                 ['Tolerance', $this->configuration->getHarmonizationTolerance() . ' seconds'],
             ]
         );
@@ -185,15 +186,15 @@ HELP
             return Command::SUCCESS;
         }
 
-        $io->writeln(sprintf('Found <info>%d</info> temporal records', count($allContent)));
+        $io->writeln(\sprintf('Found <info>%d</info> temporal records', \count($allContent)));
 
         // Filter by table if specified
         if ($tableFilter !== null) {
-            $allContent = array_filter(
+            $allContent = \array_filter(
                 $allContent,
-                fn($content) => $content->tableName === $tableFilter
+                fn ($content) => $content->tableName === $tableFilter
             );
-            $io->writeln(sprintf('Filtered to <info>%d</info> records from table: %s', count($allContent), $tableFilter));
+            $io->writeln(\sprintf('Filtered to <info>%d</info> records from table: %s', \count($allContent), $tableFilter));
         }
 
         // Analyze and harmonize
@@ -284,15 +285,15 @@ HELP
      */
     private function displayChangeSummary(SymfonyStyle $io, array $changes): void
     {
-        $pageChanges = array_filter($changes, fn($c) => $c['table'] === 'pages');
-        $contentChanges = array_filter($changes, fn($c) => $c['table'] === 'tt_content');
+        $pageChanges = \array_filter($changes, fn ($c) => $c['table'] === 'pages');
+        $contentChanges = \array_filter($changes, fn ($c) => $c['table'] === 'tt_content');
 
         $io->table(
             ['Table', 'Changes'],
             [
-                ['pages', count($pageChanges)],
-                ['tt_content', count($contentChanges)],
-                ['<info>Total</info>', '<info>' . count($changes) . '</info>'],
+                ['pages', \count($pageChanges)],
+                ['tt_content', \count($contentChanges)],
+                ['<info>Total</info>', '<info>' . \count($changes) . '</info>'],
             ]
         );
 
@@ -315,9 +316,9 @@ HELP
                     $change['table'],
                     $change['uid'],
                     $change['field'],
-                    date('Y-m-d H:i', $change['old']),
-                    date('Y-m-d H:i', $change['new']),
-                    sprintf('%+d min', $shiftMin),
+                    \date('Y-m-d H:i', $change['old']),
+                    \date('Y-m-d H:i', $change['new']),
+                    \sprintf('%+d min', $shiftMin),
                 ]);
 
                 $displayed++;
@@ -325,8 +326,8 @@ HELP
 
             $table->render();
 
-            if (count($changes) > 10) {
-                $io->writeln(sprintf("\n<info>... and %d more changes</info>", count($changes) - 10));
+            if (\count($changes) > 10) {
+                $io->writeln(\sprintf("\n<info>... and %d more changes</info>", \count($changes) - 10));
             }
         }
     }
@@ -338,7 +339,7 @@ HELP
      */
     private function applyHarmonization(SymfonyStyle $io, array $changes, int $workspaceUid): void
     {
-        $progressBar = new ProgressBar($io, count($changes));
+        $progressBar = new ProgressBar($io, \count($changes));
         $progressBar->setFormat('verbose');
         $progressBar->start();
 
@@ -358,7 +359,7 @@ HELP
                 $failed++;
                 if ($io->isVerbose()) {
                     $io->writeln('');
-                    $io->error(sprintf(
+                    $io->error(\sprintf(
                         'Failed to update %s:%d - %s',
                         $change['table'],
                         $change['uid'],
@@ -383,7 +384,7 @@ HELP
         );
 
         if ($failed > 0) {
-            $io->warning(sprintf('%d records failed to update. Check error messages above.', $failed));
+            $io->warning(\sprintf('%d records failed to update. Check error messages above.', $failed));
         }
     }
 
@@ -397,26 +398,26 @@ HELP
         $io->section('Impact Analysis');
 
         // Calculate unique timestamps before and after
-        $oldTimestamps = array_unique(array_column($changes, 'old'));
-        $newTimestamps = array_unique(array_column($changes, 'new'));
+        $oldTimestamps = \array_unique(\array_column($changes, 'old'));
+        $newTimestamps = \array_unique(\array_column($changes, 'new'));
 
-        $reduction = count($oldTimestamps) > 0
-            ? (count($oldTimestamps) - count($newTimestamps)) / count($oldTimestamps) * 100
+        $reduction = \count($oldTimestamps) > 0
+            ? (\count($oldTimestamps) - \count($newTimestamps)) / \count($oldTimestamps) * 100
             : 0;
 
         $io->table(
             ['Metric', 'Value'],
             [
-                ['Total Changes', count($changes)],
-                ['Unique Timestamps (Before)', count($oldTimestamps)],
-                ['Unique Timestamps (After)', count($newTimestamps)],
-                ['Timestamp Reduction', sprintf('%.1f%%', $reduction)],
-                ['Cache Invalidations Saved', count($oldTimestamps) - count($newTimestamps)],
+                ['Total Changes', \count($changes)],
+                ['Unique Timestamps (Before)', \count($oldTimestamps)],
+                ['Unique Timestamps (After)', \count($newTimestamps)],
+                ['Timestamp Reduction', \sprintf('%.1f%%', $reduction)],
+                ['Cache Invalidations Saved', \count($oldTimestamps) - \count($newTimestamps)],
             ]
         );
 
         if ($reduction > 0) {
-            $message = sprintf(
+            $message = \sprintf(
                 'Harmonization %s reduce cache invalidations by %.1f%%!',
                 $dryRun ? 'would' : 'will',
                 $reduction

@@ -34,7 +34,7 @@ final class TemporalCacheSchedulerTask extends AbstractTask
     private ?ExtensionConfiguration $extensionConfiguration = null;
     private ?Context $context = null;
     private ?Registry $registry = null;
-    private ?LoggerInterface $logger = null;
+    protected ?LoggerInterface $logger = null;
 
     /**
      * Inject dependencies via setter methods for scheduler compatibility.
@@ -84,6 +84,14 @@ final class TemporalCacheSchedulerTask extends AbstractTask
         }
 
         try {
+            // After validation, properties are guaranteed non-null
+            \assert($this->repository !== null);
+            \assert($this->timingStrategy !== null);
+            \assert($this->extensionConfiguration !== null);
+            \assert($this->context !== null);
+            \assert($this->registry !== null);
+            \assert($this->logger !== null);
+
             $lastRun = $this->getLastRunTimestamp();
             $now = \time();
 
@@ -106,23 +114,15 @@ final class TemporalCacheSchedulerTask extends AbstractTask
             $processedCount = 0;
             $errorCount = 0;
 
-            foreach ($transitions as $temporalContent) {
+            foreach ($transitions as $event) {
                 try {
-                    $event = new TransitionEvent(
-                        content: $temporalContent,
-                        timestamp: $now, // Simplified - actual transition time may vary
-                        transitionType: $temporalContent->getTransitionType($now) ?? 'unknown',
-                        workspaceId: $this->context->getPropertyFromAspect('workspace', 'id'),
-                        languageId: $this->context->getPropertyFromAspect('language', 'id')
-                    );
-
                     $this->timingStrategy->processTransition($event);
                     $processedCount++;
                 } catch (\Throwable $e) {
                     $errorCount++;
                     $this->logError('Failed to process transition', [
-                        'content_uid' => $temporalContent->uid,
-                        'table' => $temporalContent->tableName,
+                        'content_uid' => $event->content->uid,
+                        'table' => $event->content->tableName,
                         'exception' => $e->getMessage(),
                     ]);
                 }
@@ -189,6 +189,10 @@ final class TemporalCacheSchedulerTask extends AbstractTask
             return 'Dependencies not initialized';
         }
 
+        // After validation, properties are guaranteed non-null
+        \assert($this->timingStrategy !== null);
+        \assert($this->registry !== null);
+
         $lastRun = $this->getLastRunTimestamp();
         $strategy = $this->timingStrategy->getName();
 
@@ -207,6 +211,8 @@ final class TemporalCacheSchedulerTask extends AbstractTask
 
     /**
      * Log debug message if debug logging enabled.
+     *
+     * @param array<string, mixed> $context
      */
     private function logDebug(string $message, array $context = []): void
     {
@@ -217,6 +223,8 @@ final class TemporalCacheSchedulerTask extends AbstractTask
 
     /**
      * Log info message.
+     *
+     * @param array<string, mixed> $context
      */
     private function logInfo(string $message, array $context = []): void
     {
@@ -225,6 +233,8 @@ final class TemporalCacheSchedulerTask extends AbstractTask
 
     /**
      * Log error message.
+     *
+     * @param array<string, mixed> $context
      */
     private function logError(string $message, array $context = []): void
     {

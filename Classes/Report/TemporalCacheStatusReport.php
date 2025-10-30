@@ -58,6 +58,16 @@ final class TemporalCacheStatusReport implements StatusProviderInterface
     }
 
     /**
+     * Get the label for this status provider (displayed in Reports module).
+     *
+     * @return string Label for the status provider section
+     */
+    public function getLabel(): string
+    {
+        return 'LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_reports.xlf:status.title';
+    }
+
+    /**
      * Get status reports for TYPO3 Reports module.
      *
      * This method is called by TYPO3's Reports module to retrieve all status
@@ -356,7 +366,7 @@ final class TemporalCacheStatusReport implements StatusProviderInterface
             // Group by day
             $transitionsByDay = [];
             foreach ($transitions as $transition) {
-                $day = \date('Y-m-d', $transition->transitionTime);
+                $day = \date('Y-m-d', $transition->timestamp);
                 if (!isset($transitionsByDay[$day])) {
                     $transitionsByDay[$day] = 0;
                 }

@@ -7,10 +7,10 @@ namespace Netresearch\TemporalCache\Tests\Unit\Service\Scoping;
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Service\Scoping\GlobalScopingStrategy;
 use Netresearch\TemporalCache\Service\Scoping\PerContentScopingStrategy;
-use PHPUnit\Framework\MockObject\Stub;
 use Netresearch\TemporalCache\Service\Scoping\PerPageScopingStrategy;
 use Netresearch\TemporalCache\Service\Scoping\ScopingStrategyFactory;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Service;
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\SingletonInterface;
@@ -21,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * - Shortcut page references
  * - Multi-language scenarios
  */
-final class RefindexService implements SingletonInterface
+class RefindexService implements SingletonInterface
 {
     public function __construct(
         private readonly ConnectionPool $connectionPool
@@ -87,7 +88,7 @@ final class RefindexService implements SingletonInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($contentUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($contentUid, Connection::PARAM_INT)
                 )
             )
             ->executeQuery()
@@ -123,11 +124,11 @@ final class RefindexService implements SingletonInterface
                 ),
                 $queryBuilder->expr()->eq(
                     'ref_uid',
-                    $queryBuilder->createNamedParameter($contentUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($contentUid, Connection::PARAM_INT)
                 ),
                 $queryBuilder->expr()->eq(
                     'sys_language_uid',
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 )
             )
             ->executeQuery();
@@ -176,11 +177,11 @@ final class RefindexService implements SingletonInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'doktype',
-                    $queryBuilder->createNamedParameter(7, \PDO::PARAM_INT) // Mountpoint doktype
+                    $queryBuilder->createNamedParameter(7, Connection::PARAM_INT) // Mountpoint doktype
                 ),
                 $queryBuilder->expr()->in(
                     'mount_pid',
-                    $queryBuilder->createNamedParameter($pageIds, ConnectionPool::PARAM_INT_ARRAY)
+                    $queryBuilder->createNamedParameter($pageIds, Connection::PARAM_INT_ARRAY)
                 ),
                 $queryBuilder->expr()->eq('hidden', 0)
             )
@@ -220,11 +221,11 @@ final class RefindexService implements SingletonInterface
             ->where(
                 $queryBuilder->expr()->in(
                     'doktype',
-                    $queryBuilder->createNamedParameter([3, 4], ConnectionPool::PARAM_INT_ARRAY) // Shortcut doktypes
+                    $queryBuilder->createNamedParameter([3, 4], Connection::PARAM_INT_ARRAY) // Shortcut doktypes
                 ),
                 $queryBuilder->expr()->in(
                     'shortcut',
-                    $queryBuilder->createNamedParameter($pageIds, ConnectionPool::PARAM_INT_ARRAY)
+                    $queryBuilder->createNamedParameter($pageIds, Connection::PARAM_INT_ARRAY)
                 ),
                 $queryBuilder->expr()->eq('hidden', 0)
             )
@@ -278,11 +279,11 @@ final class RefindexService implements SingletonInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'pid',
-                    $queryBuilder->createNamedParameter($pageId, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($pageId, Connection::PARAM_INT)
                 ),
                 $queryBuilder->expr()->eq(
                     'sys_language_uid',
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 )
             )
             ->executeQuery();

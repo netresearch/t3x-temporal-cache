@@ -36,7 +36,7 @@ use TYPO3\CMS\Core\Context\Context;
  * - Sites with many content elements but few page transitions
  * - Sites needing precision for pages but efficiency for content
  */
-final class HybridTimingStrategy implements TimingStrategyInterface
+class HybridTimingStrategy implements TimingStrategyInterface
 {
     /**
      * Timing rules: maps content type to strategy name.
@@ -46,8 +46,8 @@ final class HybridTimingStrategy implements TimingStrategyInterface
     private array $timingRules;
 
     public function __construct(
-        private readonly DynamicTimingStrategy $dynamicStrategy,
-        private readonly SchedulerTimingStrategy $schedulerStrategy,
+        private readonly TimingStrategyInterface $dynamicStrategy,
+        private readonly TimingStrategyInterface $schedulerStrategy,
         private readonly ExtensionConfiguration $configuration
     ) {
         $this->timingRules = $this->configuration->getTimingRules();

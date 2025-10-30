@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Service\Scoping;
 
 use Netresearch\TemporalCache\Domain\Model\TemporalContent;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use TYPO3\CMS\Core\Context\Context;
 
 /**
@@ -25,10 +25,10 @@ use TYPO3\CMS\Core\Context\Context;
  * - May miss pages that reference content via CONTENT/RECORDS cObjects
  * - Use per-content strategy if content is referenced across pages
  */
-final class PerPageScopingStrategy implements ScopingStrategyInterface
+class PerPageScopingStrategy implements ScopingStrategyInterface
 {
     public function __construct(
-        private readonly TemporalContentRepository $temporalContentRepository
+        private readonly TemporalContentRepositoryInterface $temporalContentRepository
     ) {
     }
 

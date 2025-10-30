@@ -12,10 +12,11 @@ use TYPO3\CMS\Core\SingletonInterface;
  *
  * Provides type-safe access to all extension configuration with sensible defaults.
  */
-final class ExtensionConfiguration implements SingletonInterface
+class ExtensionConfiguration implements SingletonInterface
 {
     private const EXT_KEY = 'nr_temporal_cache';
 
+    /** @var array<string, mixed> */
     private array $config;
 
     public function __construct(
@@ -48,6 +49,9 @@ final class ExtensionConfiguration implements SingletonInterface
         return \max(60, (int)($this->config['timing']['scheduler_interval'] ?? 60));
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function getTimingRules(): array
     {
         return [
@@ -63,6 +67,9 @@ final class ExtensionConfiguration implements SingletonInterface
         return (bool)($this->config['harmonization']['enabled'] ?? false);
     }
 
+    /**
+     * @return string[]
+     */
     public function getHarmonizationSlots(): array
     {
         $slots = $this->config['harmonization']['slots'] ?? '00:00,06:00,12:00,18:00';
@@ -113,6 +120,9 @@ final class ExtensionConfiguration implements SingletonInterface
         return $this->getTimingStrategy() === 'dynamic';
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getAll(): array
     {
         return $this->config;

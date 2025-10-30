@@ -37,7 +37,7 @@ use TYPO3\CMS\Core\Context\Context;
  * - Sites with irregular traffic patterns
  * - Sites where precision timing is critical
  */
-final class DynamicTimingStrategy implements TimingStrategyInterface
+class DynamicTimingStrategy implements TimingStrategyInterface
 {
     public function __construct(
         private readonly TemporalContentRepository $temporalContentRepository,

@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  * - Tolerance: Max seconds to round (e.g., 3600 = 1 hour)
  * - Auto-round: Automatically apply on save (backend integration)
  */
-final class HarmonizationService implements SingletonInterface
+class HarmonizationService implements SingletonInterface
 {
     /**
      * Parsed time slots in seconds since midnight.

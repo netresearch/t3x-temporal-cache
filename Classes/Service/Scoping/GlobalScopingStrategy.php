@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Service\Scoping;
 
 use Netresearch\TemporalCache\Domain\Model\TemporalContent;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use TYPO3\CMS\Core\Context\Context;
 
 /**
@@ -24,10 +24,10 @@ use TYPO3\CMS\Core\Context\Context;
  * - High cache churn (all pages cleared even if only one affected)
  * - Lower cache hit rate compared to per-page or per-content strategies
  */
-final class GlobalScopingStrategy implements ScopingStrategyInterface
+class GlobalScopingStrategy implements ScopingStrategyInterface
 {
     public function __construct(
-        private readonly TemporalContentRepository $temporalContentRepository
+        private readonly TemporalContentRepositoryInterface $temporalContentRepository
     ) {
     }
 

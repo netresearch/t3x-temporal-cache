@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Tests\Unit\Task;
 
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface;
 use Netresearch\TemporalCache\Task\TemporalCacheSchedulerTask;

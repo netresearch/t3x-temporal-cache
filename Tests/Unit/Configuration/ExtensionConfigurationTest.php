@@ -37,7 +37,7 @@ final class ExtensionConfigurationTest extends UnitTestCase
         $this->typo3ExtensionConfiguration
             ->expects(self::once())
             ->method('get')
-            ->with('temporal_cache')
+            ->with('nr_temporal_cache')
             ->willReturn($config);
 
         $subject = new ExtensionConfiguration($this->typo3ExtensionConfiguration);

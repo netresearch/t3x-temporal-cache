@@ -50,30 +50,30 @@ final class AnalyzeCommand extends Command
         $this->setDescription('Analyze temporal content and provide cache statistics');
         $this->setHelp(
             <<<'HELP'
-This command analyzes all temporal content in the TYPO3 system and provides
-comprehensive statistics about cache behavior and upcoming transitions.
+                This command analyzes all temporal content in the TYPO3 system and provides
+                comprehensive statistics about cache behavior and upcoming transitions.
 
-<info>Examples:</info>
+                <info>Examples:</info>
 
-  # Basic analysis (default workspace, all languages)
-  <comment>vendor/bin/typo3 temporalcache:analyze</comment>
+                  # Basic analysis (default workspace, all languages)
+                  <comment>vendor/bin/typo3 temporalcache:analyze</comment>
 
-  # Analyze specific workspace
-  <comment>vendor/bin/typo3 temporalcache:analyze --workspace=1</comment>
+                  # Analyze specific workspace
+                  <comment>vendor/bin/typo3 temporalcache:analyze --workspace=1</comment>
 
-  # Analyze next 60 days with verbose output
-  <comment>vendor/bin/typo3 temporalcache:analyze --days=60 --verbose</comment>
+                  # Analyze next 60 days with verbose output
+                  <comment>vendor/bin/typo3 temporalcache:analyze --days=60 --verbose</comment>
 
-  # Analyze specific language
-  <comment>vendor/bin/typo3 temporalcache:analyze --language=1</comment>
+                  # Analyze specific language
+                  <comment>vendor/bin/typo3 temporalcache:analyze --language=1</comment>
 
-<info>Output includes:</info>
-  - Temporal content distribution (pages, content elements)
-  - Temporal field usage (starttime, endtime, both)
-  - Upcoming transitions timeline
-  - Harmonization impact analysis
-  - Peak transition days
-HELP
+                <info>Output includes:</info>
+                  - Temporal content distribution (pages, content elements)
+                  - Temporal field usage (starttime, endtime, both)
+                  - Upcoming transitions timeline
+                  - Harmonization impact analysis
+                  - Peak transition days
+                HELP
         );
 
         $this->addOption(
@@ -118,7 +118,7 @@ HELP
                 ['Workspace', $workspaceUid === 0 ? 'Live (0)' : "Workspace {$workspaceUid}"],
                 ['Language', $languageUid === -1 ? 'All languages' : "Language {$languageUid}"],
                 ['Analysis Period', "{$days} days from now"],
-                ['Current Time', date('Y-m-d H:i:s')],
+                ['Current Time', \date('Y-m-d H:i:s')],
             ]
         );
 
@@ -174,7 +174,7 @@ HELP
     ): void {
         $io->section('Upcoming Transitions');
 
-        $now = time();
+        $now = \time();
         $endTime = $now + ($days * 86400);
 
         $transitions = $this->repository->findTransitionsInRange(
@@ -189,12 +189,12 @@ HELP
             return;
         }
 
-        $io->writeln(sprintf('<info>Found %d transitions</info>', count($transitions)));
+        $io->writeln(\sprintf('<info>Found %d transitions</info>', \count($transitions)));
 
         // Group transitions by day
         $transitionsPerDay = [];
         foreach ($transitions as $transition) {
-            $date = date('Y-m-d', $transition->transitionTime);
+            $date = \date('Y-m-d', $transition->timestamp);
             if (!isset($transitionsPerDay[$date])) {
                 $transitionsPerDay[$date] = 0;
             }
@@ -202,10 +202,10 @@ HELP
         }
 
         // Find peak days
-        arsort($transitionsPerDay);
-        $peakDays = array_slice($transitionsPerDay, 0, 5, true);
+        \arsort($transitionsPerDay);
+        $peakDays = \array_slice($transitionsPerDay, 0, 5, true);
 
-        if (!empty($peakDays)) {
+        if (\count($peakDays) > 0) {
             $io->writeln("\n<comment>Peak Transition Days:</comment>");
             $table = new Table($io);
             $table->setHeaders(['Date', 'Transitions', 'Impact']);
@@ -219,7 +219,7 @@ HELP
         }
 
         // Show next 10 transitions in verbose mode
-        if ($io->isVerbose() && !empty($transitions)) {
+        if ($io->isVerbose() && \count($transitions) > 0) {
             $io->writeln("\n<comment>Next 10 Transitions:</comment>");
             $table = new Table($io);
             $table->setHeaders(['Time', 'Type', 'Table', 'Title']);
@@ -231,10 +231,10 @@ HELP
                 }
 
                 $table->addRow([
-                    date('Y-m-d H:i', $transition->transitionTime),
-                    ucfirst($transition->transitionType),
+                    \date('Y-m-d H:i', $transition->timestamp),
+                    \ucfirst($transition->transitionType),
                     $transition->content->tableName,
-                    mb_substr($transition->content->title, 0, 40),
+                    \mb_substr($transition->content->title, 0, 40),
                 ]);
 
                 $displayed++;
@@ -242,10 +242,10 @@ HELP
 
             $table->render();
 
-            if (count($transitions) > 10) {
-                $io->writeln(sprintf(
+            if (\count($transitions) > 10) {
+                $io->writeln(\sprintf(
                     "\n<info>... and %d more transitions</info>",
-                    count($transitions) - 10
+                    \count($transitions) - 10
                 ));
             }
         }
@@ -262,7 +262,7 @@ HELP
     ): void {
         $io->section('Harmonization Impact Analysis');
 
-        $now = time();
+        $now = \time();
         $endTime = $now + ($days * 86400);
 
         $transitions = $this->repository->findTransitionsInRange(
@@ -277,8 +277,8 @@ HELP
         }
 
         // Extract timestamps
-        $timestamps = array_map(
-            fn($transition) => $transition->transitionTime,
+        $timestamps = \array_map(
+            fn ($transition) => $transition->timestamp,
             $transitions
         );
 
@@ -296,7 +296,7 @@ HELP
         );
 
         if ($impact['reduction'] > 0) {
-            $io->success(sprintf(
+            $io->success(\sprintf(
                 'Harmonization reduces cache invalidations by %.1f%%!',
                 $impact['reduction']
             ));
@@ -311,7 +311,7 @@ HELP
             $io->listing($slots);
 
             $tolerance = $this->configuration->getHarmonizationTolerance();
-            $io->writeln(sprintf(
+            $io->writeln(\sprintf(
                 "<info>Tolerance: %d seconds (%d minutes)</info>\n",
                 $tolerance,
                 (int)($tolerance / 60)
@@ -332,7 +332,7 @@ HELP
                 ['Scoping Strategy', $this->configuration->getScopingStrategy()],
                 ['Timing Strategy', $this->configuration->getTimingStrategy()],
                 ['Harmonization Enabled', $this->configuration->isHarmonizationEnabled() ? 'Yes' : 'No'],
-                ['Harmonization Slots', implode(', ', $this->configuration->getHarmonizationSlots())],
+                ['Harmonization Slots', \implode(', ', $this->configuration->getHarmonizationSlots())],
                 ['Harmonization Tolerance', $this->configuration->getHarmonizationTolerance() . ' seconds'],
                 ['Auto-round Enabled', $this->configuration->isAutoRoundEnabled() ? 'Yes' : 'No'],
             ]

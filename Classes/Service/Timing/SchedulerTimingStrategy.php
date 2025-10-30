@@ -39,7 +39,7 @@ use TYPO3\CMS\Core\Context\Context;
  * - scheduler_interval: How often task runs (default 60 seconds)
  * - Works with all scoping strategies
  */
-final class SchedulerTimingStrategy implements TimingStrategyInterface
+class SchedulerTimingStrategy implements TimingStrategyInterface
 {
     public function __construct(
         private readonly ScopingStrategyInterface $scopingStrategy,

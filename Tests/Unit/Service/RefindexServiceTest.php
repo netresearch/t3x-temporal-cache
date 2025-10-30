@@ -21,11 +21,26 @@ final class RefindexServiceTest extends UnitTestCase
 {
     private ConnectionPool&MockObject $connectionPool;
     private RefindexService $subject;
+    /** @var array<string, QueryBuilder[]> Queue of query builders by table name */
+    private array $queryBuilders = [];
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->connectionPool = $this->createMock(ConnectionPool::class);
+
+        // Set up callback to return query builders by table name from queue
+        $this->connectionPool
+            ->method('getQueryBuilderForTable')
+            ->willReturnCallback(function (string $table) {
+                // If we have a queue for this table, shift the first one off
+                if (!empty($this->queryBuilders[$table])) {
+                    return \array_shift($this->queryBuilders[$table]);
+                }
+                // Otherwise create a default mock
+                return $this->createMockQueryBuilder();
+            });
+
         $this->subject = new RefindexService($this->connectionPool);
     }
 
@@ -140,37 +155,16 @@ final class RefindexServiceTest extends UnitTestCase
         $referencingContentUid = 456;
         $referencingContentPage = 10;
 
+        // Queue order: tt_content (parent), sys_refindex, tt_content (referencing), pages (mount), pages (shortcut)
         $this->mockTtContentQuery($contentUid, ['pid' => $parentPageId]);
 
-        // First refindex query for original content
-        $queryBuilder1 = $this->createMockQueryBuilder();
-        $result1 = $this->createMock(\Doctrine\DBAL\Result::class);
-        $result1->method('fetchAssociative')
-            ->willReturnOnConsecutiveCalls(
-                ['tablename' => 'tt_content', 'recuid' => $referencingContentUid],
-                false
-            );
-        $queryBuilder1->method('executeQuery')->willReturn($result1);
+        // Refindex query returns a content reference
+        $this->mockRefindexQuery($contentUid, 0, [
+            ['tablename' => 'tt_content', 'recuid' => $referencingContentUid],
+        ]);
 
-        // Second tt_content query for referencing content
-        $queryBuilder2 = $this->createMockQueryBuilder();
-        $result2 = $this->createMock(\Doctrine\DBAL\Result::class);
-        $result2->method('fetchOne')->willReturn($referencingContentPage);
-        $queryBuilder2->method('executeQuery')->willReturn($result2);
-
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->willReturnCallback(function ($table) use ($queryBuilder1, $queryBuilder2) {
-                static $callCount = 0;
-                $callCount++;
-                if ($table === 'sys_refindex' && $callCount === 2) {
-                    return $queryBuilder1;
-                }
-                if ($table === 'tt_content' && $callCount === 3) {
-                    return $queryBuilder2;
-                }
-                return $this->createMockQueryBuilder();
-            });
+        // Second tt_content query for the referencing content's page
+        $this->mockTtContentQuery($referencingContentUid, ['pid' => $referencingContentPage]);
 
         $this->mockPagesQuery('mount_pid', [], []);
         $this->mockPagesQuery('shortcut', [], []);
@@ -270,9 +264,8 @@ final class RefindexServiceTest extends UnitTestCase
             );
         $queryBuilder->method('executeQuery')->willReturn($result);
 
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->willReturn($queryBuilder);
+        // Store in queryBuilders queue so setUp() callback can return it
+        $this->queryBuilders['tt_content'][] = $queryBuilder;
 
         $result = $this->subject->getContentElementsOnPage($pageId, $languageUid);
 
@@ -291,9 +284,8 @@ final class RefindexServiceTest extends UnitTestCase
         $result->method('fetchAssociative')->willReturn(false);
         $queryBuilder->method('executeQuery')->willReturn($result);
 
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->willReturn($queryBuilder);
+        // Store in queryBuilders queue so setUp() callback can return it
+        $this->queryBuilders['tt_content'][] = $queryBuilder;
 
         $result = $this->subject->getContentElementsOnPage($pageId);
 
@@ -313,8 +305,8 @@ final class RefindexServiceTest extends UnitTestCase
         $queryBuilder->method('where')->willReturnSelf();
         $queryBuilder->method('createNamedParameter')->willReturn(':param');
 
-        $expressionBuilder->method('eq')->willReturnSelf();
-        $expressionBuilder->method('in')->willReturnSelf();
+        $expressionBuilder->method('eq')->willReturn('eq_expr');
+        $expressionBuilder->method('in')->willReturn('in_expr');
         $restrictions->method('removeAll')->willReturnSelf();
         $restrictions->method('add')->willReturnSelf();
 
@@ -328,10 +320,7 @@ final class RefindexServiceTest extends UnitTestCase
         $result->method('fetchOne')->willReturn($row['pid'] ?? false);
         $queryBuilder->method('executeQuery')->willReturn($result);
 
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->with('tt_content')
-            ->willReturn($queryBuilder);
+        $this->queryBuilders['tt_content'][] = $queryBuilder;
     }
 
     private function mockRefindexQuery(int $contentUid, int $languageUid, array $rows): void
@@ -345,10 +334,7 @@ final class RefindexServiceTest extends UnitTestCase
         $result->method('fetchAssociative')->willReturnOnConsecutiveCalls(...$calls);
         $queryBuilder->method('executeQuery')->willReturn($result);
 
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->with('sys_refindex')
-            ->willReturn($queryBuilder);
+        $this->queryBuilders['sys_refindex'][] = $queryBuilder;
     }
 
     private function mockPagesQuery(string $field, array $pageIds, array $resultRows): void
@@ -362,9 +348,6 @@ final class RefindexServiceTest extends UnitTestCase
         $result->method('fetchAssociative')->willReturnOnConsecutiveCalls(...$calls);
         $queryBuilder->method('executeQuery')->willReturn($result);
 
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->with('pages')
-            ->willReturn($queryBuilder);
+        $this->queryBuilders['pages'][] = $queryBuilder;
     }
 }

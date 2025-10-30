@@ -7,10 +7,10 @@ namespace Netresearch\TemporalCache\Tests\Unit\Service\Timing;
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy;
 use Netresearch\TemporalCache\Service\Timing\HybridTimingStrategy;
-use PHPUnit\Framework\MockObject\Stub;
 use Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy;
 use Netresearch\TemporalCache\Service\Timing\TimingStrategyFactory;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**

@@ -6,7 +6,7 @@ namespace Netresearch\TemporalCache\Service\Scoping;
 
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Domain\Model\TemporalContent;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\RefindexService;
 use TYPO3\CMS\Core\Context\Context;
 
@@ -40,11 +40,11 @@ use TYPO3\CMS\Core\Context\Context;
  * - Requires sys_refindex maintenance
  * - Slightly more complex invalidation logic
  */
-final class PerContentScopingStrategy implements ScopingStrategyInterface
+class PerContentScopingStrategy implements ScopingStrategyInterface
 {
     public function __construct(
         private readonly RefindexService $refindexService,
-        private readonly TemporalContentRepository $temporalContentRepository,
+        private readonly TemporalContentRepositoryInterface $temporalContentRepository,
         private readonly ExtensionConfiguration $configuration
     ) {
     }

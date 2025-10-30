@@ -54,6 +54,7 @@ final class ListCommand extends Command
 
     public function __construct(
         private readonly TemporalContentRepository $repository,
+        /** @phpstan-ignore-next-line */
         private readonly HarmonizationService $harmonizationService
     ) {
         parent::__construct('temporalcache:list');
@@ -64,40 +65,40 @@ final class ListCommand extends Command
         $this->setDescription('List all temporal content with transition information');
         $this->setHelp(
             <<<'HELP'
-This command displays a comprehensive list of all temporal content in the
-TYPO3 system, including pages and content elements with starttime or endtime.
+                This command displays a comprehensive list of all temporal content in the
+                TYPO3 system, including pages and content elements with starttime or endtime.
 
-<info>Examples:</info>
+                <info>Examples:</info>
 
-  # List all temporal content
-  <comment>vendor/bin/typo3 temporalcache:list</comment>
+                  # List all temporal content
+                  <comment>vendor/bin/typo3 temporalcache:list</comment>
 
-  # List only pages
-  <comment>vendor/bin/typo3 temporalcache:list --table=pages</comment>
+                  # List only pages
+                  <comment>vendor/bin/typo3 temporalcache:list --table=pages</comment>
 
-  # List only content with upcoming transitions
-  <comment>vendor/bin/typo3 temporalcache:list --upcoming</comment>
+                  # List only content with upcoming transitions
+                  <comment>vendor/bin/typo3 temporalcache:list --upcoming</comment>
 
-  # Sort by start time
-  <comment>vendor/bin/typo3 temporalcache:list --sort=starttime</comment>
+                  # Sort by start time
+                  <comment>vendor/bin/typo3 temporalcache:list --sort=starttime</comment>
 
-  # Export to JSON
-  <comment>vendor/bin/typo3 temporalcache:list --format=json > temporal-content.json</comment>
+                  # Export to JSON
+                  <comment>vendor/bin/typo3 temporalcache:list --format=json > temporal-content.json</comment>
 
-  # Export to CSV
-  <comment>vendor/bin/typo3 temporalcache:list --format=csv > temporal-content.csv</comment>
+                  # Export to CSV
+                  <comment>vendor/bin/typo3 temporalcache:list --format=csv > temporal-content.csv</comment>
 
-  # Filter by workspace
-  <comment>vendor/bin/typo3 temporalcache:list --workspace=1</comment>
+                  # Filter by workspace
+                  <comment>vendor/bin/typo3 temporalcache:list --workspace=1</comment>
 
-<info>Output formats:</info>
-  table = Human-readable table (default)
-  json  = Machine-readable JSON
-  csv   = CSV for spreadsheet import
+                <info>Output formats:</info>
+                  table = Human-readable table (default)
+                  json  = Machine-readable JSON
+                  csv   = CSV for spreadsheet import
 
-<info>Sort options:</info>
-  uid, title, starttime, endtime, table
-HELP
+                <info>Sort options:</info>
+                  uid, title, starttime, endtime, table
+                HELP
         );
 
         $this->addOption(
@@ -168,20 +169,20 @@ HELP
         $limit = $input->getOption('limit') !== null ? (int)$input->getOption('limit') : null;
 
         // Validate table filter
-        if ($tableFilter !== null && !in_array($tableFilter, ['pages', 'tt_content'], true)) {
+        if ($tableFilter !== null && !\in_array($tableFilter, ['pages', 'tt_content'], true)) {
             $io->error("Invalid table name: {$tableFilter}. Must be 'pages' or 'tt_content'.");
             return Command::FAILURE;
         }
 
         // Validate sort field
-        if (!in_array($sortField, self::VALID_SORT_FIELDS, true)) {
-            $io->error("Invalid sort field: {$sortField}. Must be one of: " . implode(', ', self::VALID_SORT_FIELDS));
+        if (!\in_array($sortField, self::VALID_SORT_FIELDS, true)) {
+            $io->error("Invalid sort field: {$sortField}. Must be one of: " . \implode(', ', self::VALID_SORT_FIELDS));
             return Command::FAILURE;
         }
 
         // Validate format
-        if (!in_array($format, self::VALID_FORMATS, true)) {
-            $io->error("Invalid format: {$format}. Must be one of: " . implode(', ', self::VALID_FORMATS));
+        if (!\in_array($format, self::VALID_FORMATS, true)) {
+            $io->error("Invalid format: {$format}. Must be one of: " . \implode(', ', self::VALID_FORMATS));
             return Command::FAILURE;
         }
 
@@ -215,7 +216,7 @@ HELP
 
         // Apply limit if specified
         if ($limit !== null && $limit > 0) {
-            $content = array_slice($content, 0, $limit);
+            $content = \array_slice($content, 0, $limit);
         }
 
         // Output in requested format
@@ -245,23 +246,23 @@ HELP
     {
         // Filter by table
         if ($tableFilter !== null) {
-            $content = array_filter(
+            $content = \array_filter(
                 $content,
-                fn($item) => $item->tableName === $tableFilter
+                fn ($item) => $item->tableName === $tableFilter
             );
         }
 
         // Filter by upcoming transitions
         if ($upcomingOnly) {
-            $now = time();
-            $content = array_filter(
+            $now = \time();
+            $content = \array_filter(
                 $content,
-                fn($item) => ($item->starttime !== null && $item->starttime > $now) ||
+                fn ($item) => ($item->starttime !== null && $item->starttime > $now) ||
                              ($item->endtime !== null && $item->endtime > $now)
             );
         }
 
-        return array_values($content);
+        return \array_values($content);
     }
 
     /**
@@ -272,11 +273,11 @@ HELP
      */
     private function sortContent(array $content, string $sortField): array
     {
-        usort($content, function ($a, $b) use ($sortField) {
+        \usort($content, function ($a, $b) use ($sortField) {
             return match ($sortField) {
                 'uid' => $a->uid <=> $b->uid,
-                'title' => strcasecmp($a->title, $b->title),
-                'table' => strcasecmp($a->tableName, $b->tableName),
+                'title' => \strcasecmp($a->title, $b->title),
+                'table' => \strcasecmp($a->tableName, $b->tableName),
                 'starttime' => ($a->starttime ?? PHP_INT_MAX) <=> ($b->starttime ?? PHP_INT_MAX),
                 'endtime' => ($a->endtime ?? PHP_INT_MAX) <=> ($b->endtime ?? PHP_INT_MAX),
                 default => 0,
@@ -295,17 +296,17 @@ HELP
     {
         // Display context
         $io->section('Filters');
-        $io->writeln(sprintf('Workspace: %d | Language: %d | Total: %d records', $workspaceUid, $languageUid, count($content)));
+        $io->writeln(\sprintf('Workspace: %d | Language: %d | Total: %d records', $workspaceUid, $languageUid, \count($content)));
 
         // Create table
         $table = new Table($io);
         $table->setHeaders(['Table', 'UID', 'Title', 'Start Time', 'End Time', 'Next Transition']);
 
-        $now = time();
+        $now = \time();
 
         foreach ($content as $item) {
-            $startTime = $item->starttime !== null ? date('Y-m-d H:i', $item->starttime) : '-';
-            $endTime = $item->endtime !== null ? date('Y-m-d H:i', $item->endtime) : '-';
+            $startTime = $item->starttime !== null ? \date('Y-m-d H:i', $item->starttime) : '-';
+            $endTime = $item->endtime !== null ? \date('Y-m-d H:i', $item->endtime) : '-';
 
             // Calculate next transition
             $nextTransition = $this->calculateNextTransition($item, $now);
@@ -313,7 +314,7 @@ HELP
             $table->addRow([
                 $item->tableName,
                 $item->uid,
-                mb_substr($item->title, 0, 30),
+                \mb_substr($item->title, 0, 30),
                 $startTime,
                 $endTime,
                 $nextTransition,
@@ -324,7 +325,7 @@ HELP
 
         // Summary
         $io->newLine();
-        $io->writeln(sprintf('<info>Total: %d records</info>', count($content)));
+        $io->writeln(\sprintf('<info>Total: %d records</info>', \count($content)));
     }
 
     /**
@@ -334,16 +335,16 @@ HELP
      */
     private function outputJson(OutputInterface $output, array $content): void
     {
-        $data = array_map(function ($item) {
+        $data = \array_map(function ($item) {
             return [
                 'table' => $item->tableName,
                 'uid' => $item->uid,
                 'pid' => $item->pid,
                 'title' => $item->title,
                 'starttime' => $item->starttime,
-                'starttime_formatted' => $item->starttime !== null ? date('Y-m-d H:i:s', $item->starttime) : null,
+                'starttime_formatted' => $item->starttime !== null ? \date('Y-m-d H:i:s', $item->starttime) : null,
                 'endtime' => $item->endtime,
-                'endtime_formatted' => $item->endtime !== null ? date('Y-m-d H:i:s', $item->endtime) : null,
+                'endtime_formatted' => $item->endtime !== null ? \date('Y-m-d H:i:s', $item->endtime) : null,
                 'language_uid' => $item->languageUid,
                 'workspace_uid' => $item->workspaceUid,
                 'hidden' => $item->hidden,
@@ -351,7 +352,7 @@ HELP
             ];
         }, $content);
 
-        $output->writeln(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $output->writeln(\json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     }
 
     /**
@@ -370,16 +371,16 @@ HELP
                 $item->tableName,
                 $item->uid,
                 $item->pid,
-                '"' . str_replace('"', '""', $item->title) . '"',
-                $item->starttime !== null ? date('Y-m-d H:i:s', $item->starttime) : '',
-                $item->endtime !== null ? date('Y-m-d H:i:s', $item->endtime) : '',
+                '"' . \str_replace('"', '""', $item->title) . '"',
+                $item->starttime !== null ? \date('Y-m-d H:i:s', $item->starttime) : '',
+                $item->endtime !== null ? \date('Y-m-d H:i:s', $item->endtime) : '',
                 $item->languageUid,
                 $item->workspaceUid,
                 $item->hidden ? '1' : '0',
                 $item->deleted ? '1' : '0',
             ];
 
-            $output->writeln(implode(',', $row));
+            $output->writeln(\implode(',', $row));
         }
     }
 
@@ -418,7 +419,7 @@ HELP
 
         $timeUntil = $this->formatTimeUntil($nextTransition - $now);
 
-        return sprintf(
+        return \sprintf(
             '<fg=cyan>%s</> in %s',
             $type,
             $timeUntil
@@ -431,17 +432,17 @@ HELP
     private function formatTimeUntil(int $seconds): string
     {
         if ($seconds < 60) {
-            return sprintf('%d sec', $seconds);
+            return \sprintf('%d sec', $seconds);
         }
 
         if ($seconds < 3600) {
-            return sprintf('%d min', (int)($seconds / 60));
+            return \sprintf('%d min', (int)($seconds / 60));
         }
 
         if ($seconds < 86400) {
-            return sprintf('%d hours', (int)($seconds / 3600));
+            return \sprintf('%d hours', (int)($seconds / 3600));
         }
 
-        return sprintf('%d days', (int)($seconds / 86400));
+        return \sprintf('%d days', (int)($seconds / 86400));
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Tests\Unit\Service\Scoping;
 
 use Netresearch\TemporalCache\Domain\Model\TemporalContent;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\Scoping\GlobalScopingStrategy;
 use PHPUnit\Framework\MockObject\Stub;

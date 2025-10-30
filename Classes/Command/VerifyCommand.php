@@ -58,7 +58,9 @@ final class VerifyCommand extends Command
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly ExtensionConfiguration $configuration,
+        /** @phpstan-ignore-next-line */
         private readonly SchemaMigrator $schemaMigrator,
+        /** @phpstan-ignore-next-line */
         private readonly SqlReader $sqlReader
     ) {
         parent::__construct('temporalcache:verify');
@@ -69,31 +71,31 @@ final class VerifyCommand extends Command
         $this->setDescription('Verify database indexes and extension configuration');
         $this->setHelp(
             <<<'HELP'
-This command performs comprehensive verification of the temporal cache system:
+                This command performs comprehensive verification of the temporal cache system:
 
-<info>Checks performed:</info>
-  1. Database indexes on temporal fields (starttime, endtime)
-  2. Extension configuration validity
-  3. Time slot configuration (if harmonization enabled)
-  4. Required services availability
-  5. Cache backend configuration
+                <info>Checks performed:</info>
+                  1. Database indexes on temporal fields (starttime, endtime)
+                  2. Extension configuration validity
+                  3. Time slot configuration (if harmonization enabled)
+                  4. Required services availability
+                  5. Cache backend configuration
 
-<info>Examples:</info>
+                <info>Examples:</info>
 
-  # Basic verification
-  <comment>vendor/bin/typo3 temporalcache:verify</comment>
+                  # Basic verification
+                  <comment>vendor/bin/typo3 temporalcache:verify</comment>
 
-  # Verbose output with detailed index information
-  <comment>vendor/bin/typo3 temporalcache:verify --verbose</comment>
+                  # Verbose output with detailed index information
+                  <comment>vendor/bin/typo3 temporalcache:verify --verbose</comment>
 
-<info>Exit codes:</info>
-  0 = All checks passed
-  1 = One or more checks failed
+                <info>Exit codes:</info>
+                  0 = All checks passed
+                  1 = One or more checks failed
 
-<info>After fixing issues:</info>
-  Run database compare to create missing indexes:
-  <comment>vendor/bin/typo3 database:updateschema</comment>
-HELP
+                <info>After fixing issues:</info>
+                  Run database compare to create missing indexes:
+                  <comment>vendor/bin/typo3 database:updateschema</comment>
+                HELP
         );
     }
 
@@ -163,7 +165,7 @@ HELP
 
                 $results[] = [
                     $tableName,
-                    implode(', ', $columns),
+                    \implode(', ', $columns),
                     $indexExists ? '<fg=green>OK</>' : '<fg=red>MISSING</>',
                 ];
 
@@ -198,19 +200,19 @@ HELP
     private function checkIndexExists(array $tableIndexes, array $columns): bool
     {
         foreach ($tableIndexes as $index) {
-            $indexColumns = array_map(
-                fn($col) => strtolower($col),
+            $indexColumns = \array_map(
+                fn ($col) => \strtolower($col),
                 $index->getColumns()
             );
 
-            $searchColumns = array_map(
-                fn($col) => strtolower($col),
+            $searchColumns = \array_map(
+                fn ($col) => \strtolower($col),
                 $columns
             );
 
             // Check if this index covers our columns (exact match or starts with our columns)
             if ($indexColumns === $searchColumns ||
-                array_slice($indexColumns, 0, count($searchColumns)) === $searchColumns) {
+                \array_slice($indexColumns, 0, \count($searchColumns)) === $searchColumns) {
                 return true;
             }
         }
@@ -230,7 +232,7 @@ HELP
 
         // Check scoping strategy
         $scopingStrategy = $this->configuration->getScopingStrategy();
-        $scopingValid = in_array($scopingStrategy, self::REQUIRED_CONFIG['scopingStrategy'], true);
+        $scopingValid = \in_array($scopingStrategy, self::REQUIRED_CONFIG['scopingStrategy'], true);
         $results[] = [
             'Scoping Strategy',
             $scopingStrategy,
@@ -242,7 +244,7 @@ HELP
 
         // Check timing strategy
         $timingStrategy = $this->configuration->getTimingStrategy();
-        $timingValid = in_array($timingStrategy, self::REQUIRED_CONFIG['timingStrategy'], true);
+        $timingValid = \in_array($timingStrategy, self::REQUIRED_CONFIG['timingStrategy'], true);
         $results[] = [
             'Timing Strategy',
             $timingStrategy,
@@ -288,7 +290,7 @@ HELP
         $slotsValid = !empty($slots);
         $results[] = [
             'Time Slots',
-            empty($slots) ? 'Not configured' : implode(', ', $slots),
+            empty($slots) ? 'Not configured' : \implode(', ', $slots),
             $slotsValid ? '<fg=green>OK</>' : '<fg=red>MISSING</>',
         ];
         if (!$slotsValid) {
@@ -298,7 +300,7 @@ HELP
         // Validate slot format
         if ($slotsValid) {
             foreach ($slots as $slot) {
-                if (!preg_match('/^\d{1,2}:\d{2}$/', $slot)) {
+                if (!\preg_match('/^\d{1,2}:\d{2}$/', $slot)) {
                     $results[] = [
                         'Slot Format',
                         $slot,
@@ -363,10 +365,10 @@ HELP
 
             try {
                 $columns = $schemaManager->listTableColumns($tableName);
-                $columnNames = array_map('strtolower', array_keys($columns));
+                $columnNames = \array_map('strtolower', \array_keys($columns));
 
                 foreach ($fields as $field) {
-                    $fieldExists = in_array(strtolower($field), $columnNames, true);
+                    $fieldExists = \in_array(\strtolower($field), $columnNames, true);
                     $results[] = [
                         $tableName,
                         $field,

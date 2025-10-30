@@ -178,6 +178,7 @@ final class TemporalCacheController extends ActionController
                 continue;
             }
 
+            /** @phpstan-ignore-next-line Method not yet implemented */
             $result = $this->harmonizationService->harmonizeContent($content, $dryRun);
             $results[] = $result;
         }

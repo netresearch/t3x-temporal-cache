@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Context\Context;
  * This factory acts as a proxy that delegates to the configured strategy.
  * It implements the ScopingStrategyInterface so it can be injected directly.
  */
-final class ScopingStrategyFactory implements ScopingStrategyInterface
+class ScopingStrategyFactory implements ScopingStrategyInterface
 {
     private ScopingStrategyInterface $activeStrategy;
 
