@@ -22,19 +22,11 @@ Documentation/_build/
 # Claude-generated analysis (internal only)
 claudedocs/
 
-# Development/analysis docs (not for end users)
-AGENTS.md
-BUG_REPORT.md
-DEVELOPMENT.md
-GITHUB_ISSUE_UPDATE.md
-MARKETPLACE_ANALYSIS.md
-REFACTORING_SUMMARY.md
-SUMMARY.md
-WORKAROUND_*.md
+# Temporary documentation build artifacts
+Documentation-GENERATED-temp/
 
-# Debug/test files
-test/
-phpstatus.php
+# Debug files (lowercase test/ only - Tests/ is for actual unit tests)
+test/phpstatus.php
 
 # Local TYPO3 instance files
 typo3conf/
