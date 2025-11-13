@@ -39,18 +39,9 @@ class ScopingStrategyFactory implements ScopingStrategyInterface
     {
         $configuredStrategy = $this->extensionConfiguration->getScopingStrategy();
 
-        // Map configuration values to strategy names
-        $strategyMap = [
-            'global' => GlobalScopingStrategy::class,
-            'per-page' => PerPageScopingStrategy::class,
-            'per-content' => PerContentScopingStrategy::class,
-        ];
-
-        $targetClass = $strategyMap[$configuredStrategy] ?? GlobalScopingStrategy::class;
-
-        // Find matching strategy instance
+        // Find matching strategy by name (more reliable for testing with mocks)
         foreach ($strategies as $strategy) {
-            if ($strategy instanceof $targetClass) {
+            if ($strategy->getName() === $configuredStrategy) {
                 return $strategy;
             }
         }

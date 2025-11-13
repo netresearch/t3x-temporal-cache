@@ -99,7 +99,11 @@ final class PermissionService implements SingletonInterface
         }
 
         // Check if module is hidden via TSconfig
-        $hiddenModules = $user->getTSConfig()['options.']['hideModules'] ?? '';
+        $tsConfig = $user->getTSConfig();
+        $options = $tsConfig['options.'] ?? [];
+        \assert(\is_array($options));
+        $hiddenModules = $options['hideModules'] ?? '';
+        \assert(\is_string($hiddenModules));
         $hiddenModulesList = \array_filter(\array_map('trim', \explode(',', $hiddenModules)));
 
         return !\in_array('tools_TemporalCache', $hiddenModulesList, true);
@@ -172,6 +176,8 @@ final class PermissionService implements SingletonInterface
      */
     private function getBackendUser(): BackendUserAuthentication
     {
-        return $GLOBALS['BE_USER'];
+        $user = $GLOBALS['BE_USER'];
+        \assert($user instanceof BackendUserAuthentication);
+        return $user;
     }
 }

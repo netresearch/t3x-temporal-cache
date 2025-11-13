@@ -6,11 +6,13 @@ namespace Netresearch\TemporalCache\Tests\Unit\Domain\Repository;
 
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
 use Netresearch\TemporalCache\Service\Cache\TransitionCache;
+use Netresearch\TemporalCache\Service\TemporalMonitorRegistry;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -21,6 +23,8 @@ final class TemporalContentRepositoryTest extends UnitTestCase
 {
     private ConnectionPool&MockObject $connectionPool;
     private TransitionCache $transitionCache;
+    private TemporalMonitorRegistry $monitorRegistry;
+    private DeletedRestriction&MockObject $deletedRestriction;
     private TemporalContentRepository $subject;
 
     protected function setUp(): void
@@ -29,7 +33,15 @@ final class TemporalContentRepositoryTest extends UnitTestCase
         $this->connectionPool = $this->createMock(ConnectionPool::class);
         // Use real TransitionCache instance (it's just in-memory, no side effects)
         $this->transitionCache = new TransitionCache();
-        $this->subject = new TemporalContentRepository($this->connectionPool, $this->transitionCache);
+        // Use real TemporalMonitorRegistry instance (it's a final class, can't be mocked)
+        $this->monitorRegistry = new TemporalMonitorRegistry();
+        $this->deletedRestriction = $this->createMock(DeletedRestriction::class);
+        $this->subject = new TemporalContentRepository(
+            $this->connectionPool,
+            $this->transitionCache,
+            $this->monitorRegistry,
+            $this->deletedRestriction
+        );
     }
 
     /**
@@ -119,7 +131,10 @@ final class TemporalContentRepositoryTest extends UnitTestCase
                 'hidden' => 0,
                 'deleted' => 0,
             ],
-            false  // End of result set
+            false,  // End of first table result set
+            false,  // Additional tables return no results
+            false,
+            false
         );
         $queryBuilder->method('executeQuery')->willReturn($result);
 

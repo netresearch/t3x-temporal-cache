@@ -11,8 +11,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Schema\SchemaMigrator;
-use TYPO3\CMS\Core\Database\Schema\SqlReader;
 
 /**
  * CLI Command: Verify database indexes and configuration.
@@ -57,11 +55,7 @@ final class VerifyCommand extends Command
 
     public function __construct(
         private readonly ConnectionPool $connectionPool,
-        private readonly ExtensionConfiguration $configuration,
-        /** @phpstan-ignore-next-line */
-        private readonly SchemaMigrator $schemaMigrator,
-        /** @phpstan-ignore-next-line */
-        private readonly SqlReader $sqlReader
+        private readonly ExtensionConfiguration $configuration
     ) {
         parent::__construct('temporalcache:verify');
     }
@@ -200,13 +194,23 @@ final class VerifyCommand extends Command
     private function checkIndexExists(array $tableIndexes, array $columns): bool
     {
         foreach ($tableIndexes as $index) {
+            // Type guard: ensure $index has getColumns method
+            if (!\is_object($index) || !\method_exists($index, 'getColumns')) {
+                continue;
+            }
+
+            $columns_data = $index->getColumns();
+            \assert(\is_array($columns_data));
             $indexColumns = \array_map(
-                fn ($col) => \strtolower($col),
-                $index->getColumns()
+                function ($col): string {
+                    \assert(\is_string($col));
+                    return \strtolower($col);
+                },
+                $columns_data
             );
 
             $searchColumns = \array_map(
-                fn ($col) => \strtolower($col),
+                fn (string $col): string => \strtolower($col),
                 $columns
             );
 

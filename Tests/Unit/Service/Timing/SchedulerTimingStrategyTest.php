@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Tests\Unit\Service\Timing;
 
+use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Domain\Model\TemporalContent;
 use Netresearch\TemporalCache\Domain\Model\TransitionEvent;
 use Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface;
 use Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 use TYPO3\CMS\Core\Context\Context;
@@ -19,9 +21,13 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 final class SchedulerTimingStrategyTest extends UnitTestCase
 {
+    protected bool $resetSingletonInstances = true;
+
     private ScopingStrategyInterface&MockObject $scopingStrategy;
     private CacheManager&MockObject $cacheManager;
     private Context&MockObject $context;
+    private LoggerInterface&MockObject $logger;
+    private ExtensionConfiguration&MockObject $configuration;
     private SchedulerTimingStrategy $subject;
 
     protected function setUp(): void
@@ -30,10 +36,15 @@ final class SchedulerTimingStrategyTest extends UnitTestCase
         $this->scopingStrategy = $this->createMock(ScopingStrategyInterface::class);
         $this->cacheManager = $this->createMock(CacheManager::class);
         $this->context = $this->createMock(Context::class);
+        $this->logger = $this->createMock(LoggerInterface::class);
+        $this->configuration = $this->createMock(ExtensionConfiguration::class);
 
         $this->subject = new SchedulerTimingStrategy(
             $this->scopingStrategy,
-            $this->cacheManager
+            $this->cacheManager,
+            $this->context,
+            $this->logger,
+            $this->configuration
         );
     }
 
@@ -83,9 +94,12 @@ final class SchedulerTimingStrategyTest extends UnitTestCase
             ->willReturn(['pageId_5', 'pageId_10']);
 
         $cache = $this->createMock(FrontendInterface::class);
-        $cache->expects(self::once())
-            ->method('flushByTags')
-            ->with(['pageId_5', 'pageId_10']);
+        // Code calls flushByTag() in a loop, not flushByTags() once
+        $cache->expects(self::exactly(2))
+            ->method('flushByTag')
+            ->willReturnCallback(function ($tag) {
+                self::assertContains($tag, ['pageId_5', 'pageId_10']);
+            });
 
         $this->cacheManager
             ->method('getCache')

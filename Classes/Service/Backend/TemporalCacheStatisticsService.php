@@ -103,9 +103,12 @@ final class TemporalCacheStatisticsService
         // Get transition statistics
         $startDate = \date('Y-m-d', $currentTime);
         $endDate = \date('Y-m-d', $currentTime + 86400 * 30);
+        $startTimestamp = \strtotime($startDate);
+        $endTimestamp = \strtotime($endDate);
+        \assert($startTimestamp !== false && $endTimestamp !== false);
         $transitionsPerDay = $this->contentRepository->countTransitionsPerDay(
-            \strtotime($startDate),
-            \strtotime($endDate),
+            $startTimestamp,
+            $endTimestamp,
             $workspaceUid
         );
 
@@ -145,7 +148,7 @@ final class TemporalCacheStatisticsService
      * @return array<array{
      *     date: string,
      *     timestamp: int,
-     *     transitions: array<TransitionEvent>
+     *     transitions: array<\Netresearch\TemporalCache\Domain\Model\TransitionEvent>
      * }> Timeline data grouped by day
      */
     public function buildTimeline(
@@ -168,9 +171,11 @@ final class TemporalCacheStatisticsService
         foreach ($transitions as $transition) {
             $dayKey = \date('Y-m-d', $transition->timestamp);
             if (!isset($timeline[$dayKey])) {
+                $dayTimestamp = \strtotime($dayKey . ' 00:00:00');
+                \assert($dayTimestamp !== false);
                 $timeline[$dayKey] = [
                     'date' => $dayKey,
-                    'timestamp' => \strtotime($dayKey . ' 00:00:00'),
+                    'timestamp' => $dayTimestamp,
                     'transitions' => [],
                 ];
             }
@@ -244,7 +249,7 @@ final class TemporalCacheStatisticsService
         $totalTransitions = \array_sum($transitionsPerDay);
         $dayCount = \count($transitionsPerDay);
 
-        return $dayCount > 0 ? $totalTransitions / $dayCount : 0.0;
+        return $totalTransitions / $dayCount;
     }
 
     /**

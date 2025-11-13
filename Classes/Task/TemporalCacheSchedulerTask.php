@@ -102,6 +102,9 @@ final class TemporalCacheSchedulerTask extends AbstractTask
             ]);
 
             // Find all transitions that occurred since last run
+            if ($this->repository === null) {
+                throw new \RuntimeException('TemporalContentRepository not injected', 1699876543);
+            }
             $transitions = $this->repository->findTransitionsInRange($lastRun ?? 0, $now);
 
             if (empty($transitions)) {
@@ -116,6 +119,9 @@ final class TemporalCacheSchedulerTask extends AbstractTask
 
             foreach ($transitions as $event) {
                 try {
+                    if ($this->timingStrategy === null) {
+                        throw new \RuntimeException('TimingStrategy not injected', 1699876544);
+                    }
                     $this->timingStrategy->processTransition($event);
                     $processedCount++;
                 } catch (\Throwable $e) {
@@ -166,6 +172,9 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function getLastRunTimestamp(): ?int
     {
+        if ($this->registry === null) {
+            throw new \RuntimeException('Registry not injected', 1699876545);
+        }
         $lastRun = $this->registry->get(self::REGISTRY_NAMESPACE, self::REGISTRY_KEY_LAST_RUN);
         return \is_int($lastRun) ? $lastRun : null;
     }
@@ -175,6 +184,9 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function setLastRunTimestamp(int $timestamp): void
     {
+        if ($this->registry === null) {
+            throw new \RuntimeException('Registry not injected', 1699876546);
+        }
         $this->registry->set(self::REGISTRY_NAMESPACE, self::REGISTRY_KEY_LAST_RUN, $timestamp);
     }
 
@@ -216,6 +228,12 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function logDebug(string $message, array $context = []): void
     {
+        if ($this->extensionConfiguration === null) {
+            throw new \RuntimeException('ExtensionConfiguration not injected', 1699876547);
+        }
+        if ($this->logger === null) {
+            throw new \RuntimeException('Logger not injected', 1699876548);
+        }
         if ($this->extensionConfiguration->isDebugLoggingEnabled()) {
             $this->logger->debug($message, $context);
         }
@@ -228,6 +246,9 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function logInfo(string $message, array $context = []): void
     {
+        if ($this->logger === null) {
+            throw new \RuntimeException('Logger not injected', 1699876549);
+        }
         $this->logger->info($message, $context);
     }
 
@@ -238,6 +259,9 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function logError(string $message, array $context = []): void
     {
+        if ($this->logger === null) {
+            throw new \RuntimeException('Logger not injected', 1699876550);
+        }
         $this->logger->error($message, $context);
     }
 }

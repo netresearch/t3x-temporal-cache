@@ -8,10 +8,10 @@ use Netresearch\TemporalCache\Domain\Model\TemporalContent;
 use Netresearch\TemporalCache\Domain\Model\TransitionEvent;
 use Netresearch\TemporalCache\Service\Cache\TransitionCache;
 use Netresearch\TemporalCache\Service\TemporalMonitorRegistry;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Repository for finding and managing temporal content across all registered tables.
@@ -32,7 +32,8 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
     public function __construct(
         private readonly ConnectionPool $connectionPool,
         private readonly TransitionCache $transitionCache,
-        private readonly TemporalMonitorRegistry $monitorRegistry
+        private readonly TemporalMonitorRegistry $monitorRegistry,
+        private readonly DeletedRestriction $deletedRestriction
     ) {
     }
 
@@ -84,7 +85,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($tableName);
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         // Select only fields that exist in the registry configuration
         $queryBuilder
@@ -109,7 +110,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq(
                     't3ver_wsid',
-                    $queryBuilder->createNamedParameter($workspaceUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($workspaceUid, Connection::PARAM_INT)
                 )
             );
         }
@@ -119,7 +120,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq(
                     'sys_language_uid',
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 )
             );
         }
@@ -131,17 +132,34 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $titleField = $this->determineTitleField($tableName, $fields);
 
         while ($row = $result->fetchAssociative()) {
+            $uid = $row['uid'];
+            \assert(\is_int($uid));
+            $title = $row[$titleField] ?? '';
+            \assert(\is_string($title));
+            $pid = $row['pid'] ?? 0;
+            \assert(\is_int($pid));
+            $starttime = $row['starttime'];
+            \assert(\is_int($starttime));
+            $endtime = $row['endtime'];
+            \assert(\is_int($endtime));
+            $languageUid = $row['sys_language_uid'] ?? 0;
+            \assert(\is_int($languageUid));
+            $hidden = $row['hidden'] ?? false;
+            \assert(\is_int($hidden));
+            $deleted = $row['deleted'] ?? false;
+            \assert(\is_int($deleted));
+
             $records[] = new TemporalContent(
-                uid: (int)$row['uid'],
+                uid: $uid,
                 tableName: $tableName,
-                title: (string)($row[$titleField] ?? ''),
-                pid: (int)($row['pid'] ?? 0),
-                starttime: $row['starttime'] > 0 ? (int)$row['starttime'] : null,
-                endtime: $row['endtime'] > 0 ? (int)$row['endtime'] : null,
-                languageUid: (int)($row['sys_language_uid'] ?? 0),
+                title: $title,
+                pid: $pid,
+                starttime: $starttime > 0 ? $starttime : null,
+                endtime: $endtime > 0 ? $endtime : null,
+                languageUid: $languageUid,
                 workspaceUid: $workspaceUid,
-                hidden: (bool)($row['hidden'] ?? false),
-                deleted: (bool)($row['deleted'] ?? false)
+                hidden: (bool)$hidden,
+                deleted: (bool)$deleted
             );
         }
 
@@ -384,7 +402,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             ->where(
                 $queryBuilder->expr()->gt(
                     $fieldName,
-                    $queryBuilder->createNamedParameter($currentTimestamp, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($currentTimestamp, Connection::PARAM_INT)
                 )
             );
 
@@ -400,7 +418,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq(
                     't3ver_wsid',
-                    $queryBuilder->createNamedParameter($workspaceUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($workspaceUid, Connection::PARAM_INT)
                 )
             );
         }
@@ -410,7 +428,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             $queryBuilder->andWhere(
                 $queryBuilder->expr()->eq(
                     'sys_language_uid',
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 )
             );
         }
@@ -418,7 +436,11 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $result = $queryBuilder->executeQuery()->fetchOne();
 
         // Return null if no result or result is null
-        return ($result !== false && $result !== null) ? (int)$result : null;
+        if ($result === false || $result === null) {
+            return null;
+        }
+        \assert(\is_int($result));
+        return $result;
     }
 
     /**
@@ -510,7 +532,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         $queryBuilder
             ->select('uid', 'pid', 'header', 'starttime', 'endtime', 'sys_language_uid', 'hidden', 'deleted')
@@ -518,7 +540,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             ->where(
                 $queryBuilder->expr()->eq(
                     'pid',
-                    $queryBuilder->createNamedParameter($pageId, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($pageId, Connection::PARAM_INT)
                 ),
                 $queryBuilder->expr()->or(
                     $queryBuilder->expr()->gt('starttime', 0),
@@ -526,7 +548,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
                 ),
                 $queryBuilder->expr()->eq(
                     'sys_language_uid',
-                    $queryBuilder->createNamedParameter($languageUid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($languageUid, Connection::PARAM_INT)
                 )
             );
 
@@ -544,17 +566,34 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $contentElements = [];
 
         while ($row = $result->fetchAssociative()) {
+            $uid = $row['uid'];
+            \assert(\is_int($uid));
+            $header = $row['header'] ?? '';
+            \assert(\is_string($header));
+            $pid = $row['pid'];
+            \assert(\is_int($pid));
+            $starttime = $row['starttime'];
+            \assert(\is_int($starttime));
+            $endtime = $row['endtime'];
+            \assert(\is_int($endtime));
+            $languageUid = $row['sys_language_uid'] ?? 0;
+            \assert(\is_int($languageUid));
+            $hidden = $row['hidden'] ?? false;
+            \assert(\is_int($hidden));
+            $deleted = $row['deleted'] ?? false;
+            \assert(\is_int($deleted));
+
             $contentElements[] = new TemporalContent(
-                uid: (int)$row['uid'],
+                uid: $uid,
                 tableName: 'tt_content',
-                title: (string)($row['header'] ?? ''),
-                pid: (int)$row['pid'],
-                starttime: $row['starttime'] > 0 ? (int)$row['starttime'] : null,
-                endtime: $row['endtime'] > 0 ? (int)$row['endtime'] : null,
-                languageUid: (int)($row['sys_language_uid'] ?? 0),
+                title: $header,
+                pid: $pid,
+                starttime: $starttime > 0 ? $starttime : null,
+                endtime: $endtime > 0 ? $endtime : null,
+                languageUid: $languageUid,
                 workspaceUid: $workspaceUid,
-                hidden: (bool)($row['hidden'] ?? false),
-                deleted: (bool)($row['deleted'] ?? false)
+                hidden: (bool)$hidden,
+                deleted: (bool)$deleted
             );
         }
 
@@ -585,7 +624,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable($tableName);
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         $queryBuilder
             ->select(...$fields)
@@ -593,7 +632,7 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
             ->where(
                 $queryBuilder->expr()->eq(
                     'uid',
-                    $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT)
+                    $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT)
                 )
             );
 
@@ -615,17 +654,34 @@ final class TemporalContentRepository implements TemporalContentRepositoryInterf
 
         $titleField = $this->determineTitleField($tableName, $fields);
 
+        $uid = $row['uid'];
+        \assert(\is_int($uid));
+        $title = $row[$titleField] ?? '';
+        \assert(\is_string($title));
+        $pid = $row['pid'] ?? 0;
+        \assert(\is_int($pid));
+        $starttime = $row['starttime'];
+        \assert(\is_int($starttime));
+        $endtime = $row['endtime'];
+        \assert(\is_int($endtime));
+        $languageUid = $row['sys_language_uid'] ?? 0;
+        \assert(\is_int($languageUid));
+        $hidden = $row['hidden'] ?? false;
+        \assert(\is_int($hidden));
+        $deleted = $row['deleted'] ?? false;
+        \assert(\is_int($deleted));
+
         return new TemporalContent(
-            uid: (int)$row['uid'],
+            uid: $uid,
             tableName: $tableName,
-            title: (string)($row[$titleField] ?? ''),
-            pid: (int)($row['pid'] ?? 0),
-            starttime: $row['starttime'] > 0 ? (int)$row['starttime'] : null,
-            endtime: $row['endtime'] > 0 ? (int)$row['endtime'] : null,
-            languageUid: (int)($row['sys_language_uid'] ?? 0),
+            title: $title,
+            pid: $pid,
+            starttime: $starttime > 0 ? $starttime : null,
+            endtime: $endtime > 0 ? $endtime : null,
+            languageUid: $languageUid,
             workspaceUid: $workspaceUid,
-            hidden: (bool)($row['hidden'] ?? false),
-            deleted: (bool)($row['deleted'] ?? false)
+            hidden: (bool)$hidden,
+            deleted: (bool)$deleted
         );
     }
 }

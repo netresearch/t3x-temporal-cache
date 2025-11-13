@@ -1,13 +1,11 @@
 parameters:
-    level: 5
+    level: 10
     paths:
         - ../Classes
     excludePaths:
         - ../.Build/*
     bootstrapFiles:
         - ../.Build/vendor/autoload.php
-    reportUnmatchedIgnoredErrors: true
-    ignoreErrors:
-        # TYPO3 core classes not fully loaded in PHPStan environment
-        - '#Parameter \$event of method .+::__invoke\(\) has invalid type TYPO3\\CMS\\Core\\Cache\\Event\\ModifyCacheLifetimeForPageEvent#'
-        - '#Call to method setCacheLifetime\(\) on an unknown class TYPO3\\CMS\\Core\\Cache\\Event\\ModifyCacheLifetimeForPageEvent#'
+        - ../Tests/Unit/Bootstrap.php
+    scanDirectories:
+        - ../Tests/Unit/Fixtures

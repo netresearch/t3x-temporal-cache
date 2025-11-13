@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Tests\Unit\EventListener;
 
+use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\EventListener\TemporalCacheLifetime;
+use Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface;
+use Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent;
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -21,42 +22,60 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 final class TemporalCacheLifetimeTest extends UnitTestCase
 {
     private TemporalCacheLifetime $subject;
-    private ConnectionPool&MockObject $connectionPool;
+    private ExtensionConfiguration&MockObject $extensionConfiguration;
+    private ScopingStrategyInterface&MockObject $scopingStrategy;
+    private TimingStrategyInterface&MockObject $timingStrategy;
     private Context&MockObject $context;
+    private LoggerInterface&MockObject $logger;
     private ModifyCacheLifetimeForPageEvent&MockObject $event;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->connectionPool = $this->createMock(ConnectionPool::class);
+        $this->extensionConfiguration = $this->createMock(ExtensionConfiguration::class);
+        $this->scopingStrategy = $this->createMock(ScopingStrategyInterface::class);
+        $this->timingStrategy = $this->createMock(TimingStrategyInterface::class);
         $this->context = $this->createMock(Context::class);
+        $this->logger = $this->createMock(LoggerInterface::class);
         $this->event = $this->createMock(ModifyCacheLifetimeForPageEvent::class);
 
+        // Configure default mock behaviors
+        $this->extensionConfiguration
+            ->method('getDefaultMaxLifetime')
+            ->willReturn(86400);
+        $this->extensionConfiguration
+            ->method('isDebugLoggingEnabled')
+            ->willReturn(false);
+        $this->scopingStrategy
+            ->method('getName')
+            ->willReturn('test-scoping');
+        $this->timingStrategy
+            ->method('getName')
+            ->willReturn('test-timing');
+
         $this->subject = new TemporalCacheLifetime(
-            $this->connectionPool,
-            $this->context
+            $this->extensionConfiguration,
+            $this->scopingStrategy,
+            $this->timingStrategy,
+            $this->context,
+            $this->logger
         );
     }
 
     /**
      * @test
      */
-    public function invokeDoesNotModifyCacheLifetimeWhenNoTemporalContentExists(): void
+    public function invokeDoesNotModifyCacheLifetimeWhenTimingStrategyReturnsNull(): void
     {
-        // Arrange: Mock context
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
+        // Arrange: Timing strategy returns null (scheduler mode)
+        $this->timingStrategy
+            ->expects(self::once())
+            ->method('getCacheLifetime')
+            ->with($this->context)
+            ->willReturn(null);
 
-        // Arrange: Mock empty query results
-        $this->mockQueryBuilderWithResults('pages', []);
-        $this->mockQueryBuilderWithResults('tt_content', []);
-
-        // Assert: Event should not be called
+        // Assert: Event should not be modified
         $this->event
             ->expects(self::never())
             ->method('setCacheLifetime');
@@ -68,66 +87,26 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function invokeSetsLifetimeToNextPageStarttime(): void
+    public function invokeSetsLifetimeWhenTimingStrategyReturnsValue(): void
     {
-        $now = \time();
-        $futureStarttime = $now + 3600; // 1 hour from now
-
-        // Arrange: Mock context
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
-
-        // Arrange: Mock page with future starttime
-        $this->mockQueryBuilderWithResults('pages', [
-            ['starttime' => $futureStarttime, 'endtime' => 0],
-        ]);
-        $this->mockQueryBuilderWithResults('tt_content', []);
-
-        // Assert: Lifetime should be set to seconds until starttime
-        $this->event
-            ->expects(self::once())
-            ->method('setCacheLifetime')
-            ->with(self::callback(function ($lifetime) use ($futureStarttime, $now) {
-                // Allow 1 second tolerance for test execution time
-                return \abs($lifetime - ($futureStarttime - $now)) <= 1;
-            }));
-
-        // Act
-        ($this->subject)($this->event);
-    }
-
-    /**
-     * @test
-     */
-    public function invokeSetsLifetimeToNextContentEndtime(): void
-    {
-        $now = \time();
-        $futureEndtime = $now + 7200; // 2 hours from now
+        $lifetime = 3600;
 
         // Arrange
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
+        $this->timingStrategy
+            ->expects(self::once())
+            ->method('getCacheLifetime')
+            ->with($this->context)
+            ->willReturn($lifetime);
 
-        $this->mockQueryBuilderWithResults('pages', []);
-        $this->mockQueryBuilderWithResults('tt_content', [
-            ['starttime' => 0, 'endtime' => $futureEndtime],
-        ]);
+        $this->event
+            ->method('getRenderingInstructions')
+            ->willReturn([]);
 
-        // Assert
+        // Assert: Lifetime should be set
         $this->event
             ->expects(self::once())
             ->method('setCacheLifetime')
-            ->with(self::callback(function ($lifetime) use ($futureEndtime, $now) {
-                return \abs($lifetime - ($futureEndtime - $now)) <= 1;
-            }));
+            ->with($lifetime);
 
         // Act
         ($this->subject)($this->event);
@@ -136,68 +115,25 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function invokeSetsLifetimeToNearestTransition(): void
+    public function invokeCapsLifetimeAtDefaultMaximum(): void
     {
-        $now = \time();
-        $nearTransition = $now + 1800;  // 30 minutes
-        $farTransition = $now + 7200;   // 2 hours
-
-        // Arrange: Multiple temporal transitions
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
-
-        $this->mockQueryBuilderWithResults('pages', [
-            ['starttime' => $farTransition, 'endtime' => 0],
-        ]);
-        $this->mockQueryBuilderWithResults('tt_content', [
-            ['starttime' => $nearTransition, 'endtime' => 0],
-        ]);
-
-        // Assert: Should use nearest (earliest) transition
-        $this->event
-            ->expects(self::once())
-            ->method('setCacheLifetime')
-            ->with(self::callback(function ($lifetime) use ($nearTransition, $now) {
-                return \abs($lifetime - ($nearTransition - $now)) <= 1;
-            }));
-
-        // Act
-        ($this->subject)($this->event);
-    }
-
-    /**
-     * @test
-     */
-    public function invokeIgnoresPastStarttimes(): void
-    {
-        $now = \time();
-        $pastStarttime = $now - 3600;   // 1 hour ago
-        $futureEndtime = $now + 3600;   // 1 hour from now
+        $requestedLifetime = 100000; // More than default 86400
+        $expectedLifetime = 86400;
 
         // Arrange
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
+        $this->timingStrategy
+            ->method('getCacheLifetime')
+            ->willReturn($requestedLifetime);
 
-        $this->mockQueryBuilderWithResults('pages', [
-            ['starttime' => $pastStarttime, 'endtime' => $futureEndtime],
-        ]);
-        $this->mockQueryBuilderWithResults('tt_content', []);
+        $this->event
+            ->method('getRenderingInstructions')
+            ->willReturn([]);
 
-        // Assert: Should only consider future endtime, not past starttime
+        // Assert: Lifetime should be capped
         $this->event
             ->expects(self::once())
             ->method('setCacheLifetime')
-            ->with(self::callback(function ($lifetime) use ($futureEndtime, $now) {
-                return \abs($lifetime - ($futureEndtime - $now)) <= 1;
-            }));
+            ->with($expectedLifetime);
 
         // Act
         ($this->subject)($this->event);
@@ -206,32 +142,25 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function invokeIgnoresZeroTimestamps(): void
+    public function invokeRespectsTypoScriptCachePeriod(): void
     {
-        $now = \time();
-        $futureTransition = $now + 3600;
+        $typoScriptMaxLifetime = 7200;
+        $requestedLifetime = 10000;
 
-        // Arrange: Mix of zero and valid timestamps
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
+        // Arrange
+        $this->timingStrategy
+            ->method('getCacheLifetime')
+            ->willReturn($requestedLifetime);
 
-        $this->mockQueryBuilderWithResults('pages', [
-            ['starttime' => 0, 'endtime' => 0],  // Should be ignored
-            ['starttime' => $futureTransition, 'endtime' => 0],
-        ]);
-        $this->mockQueryBuilderWithResults('tt_content', []);
+        $this->event
+            ->method('getRenderingInstructions')
+            ->willReturn(['cache_period' => $typoScriptMaxLifetime]);
 
-        // Assert
+        // Assert: Should use TypoScript cache_period as max
         $this->event
             ->expects(self::once())
             ->method('setCacheLifetime')
-            ->with(self::callback(function ($lifetime) use ($futureTransition, $now) {
-                return \abs($lifetime - ($futureTransition - $now)) <= 1;
-            }));
+            ->with($typoScriptMaxLifetime);
 
         // Act
         ($this->subject)($this->event);
@@ -240,141 +169,90 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
     /**
      * @test
      */
-    public function invokeRespectsWorkspaceContext(): void
+    public function invokeHandlesExceptionsGracefully(): void
     {
-        $workspaceId = 1;
+        // Arrange: Timing strategy throws exception
+        $this->timingStrategy
+            ->method('getCacheLifetime')
+            ->willThrowException(new \RuntimeException('Test exception'));
 
-        // Arrange
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', $workspaceId],
-                ['language', 'id', 0],
-            ]);
-
-        // Mock query builder to verify workspace filter is applied
-        $queryBuilder = $this->createMockQueryBuilder();
-        $expressionBuilder = $this->createMock(ExpressionBuilder::class);
-
-        $queryBuilder->method('expr')->willReturn($expressionBuilder);
-        $queryBuilder->method('select')->willReturnSelf();
-        $queryBuilder->method('from')->willReturnSelf();
-        $queryBuilder->method('where')->willReturnSelf();
-
-        // Expect workspace-aware query
-        $result = $this->createMock(\Doctrine\DBAL\Result::class);
-        $result->method('fetchAllAssociative')->willReturn([]);
-
-        $queryBuilder->method('executeQuery')->willReturn($result);
-
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->willReturn($queryBuilder);
-
-        // Act
-        ($this->subject)($this->event);
-
-        // Workspace handling verified through query builder interaction
-        self::assertTrue(true);
-    }
-
-    /**
-     * @test
-     */
-    public function invokeRespectsLanguageContext(): void
-    {
-        $languageId = 2;
-
-        // Arrange
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', $languageId],
-            ]);
-
-        $this->mockQueryBuilderWithResults('pages', []);
-        $this->mockQueryBuilderWithResults('tt_content', []);
-
-        // Act
-        ($this->subject)($this->event);
-
-        // Language handling verified through query builder interaction
-        self::assertTrue(true);
-    }
-
-    /**
-     * @test
-     */
-    public function invokeHandlesMultipleContentElements(): void
-    {
-        $now = \time();
-        $transitions = [
-            $now + 1800,  // 30 min
-            $now + 3600,  // 1 hour
-            $now + 5400,  // 1.5 hours
-        ];
-
-        // Arrange
-        $this->context
-            ->method('getPropertyFromAspect')
-            ->willReturnMap([
-                ['workspace', 'id', 0],
-                ['language', 'id', 0],
-            ]);
-
-        $this->mockQueryBuilderWithResults('pages', []);
-        $this->mockQueryBuilderWithResults('tt_content', [
-            ['starttime' => $transitions[0], 'endtime' => 0],
-            ['starttime' => 0, 'endtime' => $transitions[1]],
-            ['starttime' => $transitions[2], 'endtime' => 0],
-        ]);
-
-        // Assert: Should use earliest transition
-        $this->event
+        // Assert: Should log error but not throw
+        $this->logger
             ->expects(self::once())
-            ->method('setCacheLifetime')
-            ->with(self::callback(function ($lifetime) use ($transitions, $now) {
-                return \abs($lifetime - ($transitions[0] - $now)) <= 1;
-            }));
+            ->method('error');
+
+        $this->event
+            ->expects(self::never())
+            ->method('setCacheLifetime');
+
+        // Act: Should not throw
+        ($this->subject)($this->event);
+
+        self::assertTrue(true); // Reached here without exception
+    }
+
+    /**
+     * @test
+     */
+    public function invokeLogsDebugInfoWhenDebugEnabled(): void
+    {
+        $lifetime = 3600;
+
+        // Arrange: Need fresh subject with debug enabled
+        $debugConfig = $this->createMock(ExtensionConfiguration::class);
+        $debugConfig->method('getDefaultMaxLifetime')->willReturn(86400);
+        $debugConfig->method('isDebugLoggingEnabled')->willReturn(true);
+
+        $debugLogger = $this->createMock(LoggerInterface::class);
+        $debugTimingStrategy = $this->createMock(TimingStrategyInterface::class);
+        $debugTimingStrategy->method('getName')->willReturn('test-timing');
+        $debugTimingStrategy->method('getCacheLifetime')->willReturn($lifetime);
+
+        $debugScopingStrategy = $this->createMock(ScopingStrategyInterface::class);
+        $debugScopingStrategy->method('getName')->willReturn('test-scoping');
+
+        $subject = new TemporalCacheLifetime(
+            $debugConfig,
+            $debugScopingStrategy,
+            $debugTimingStrategy,
+            $this->context,
+            $debugLogger
+        );
+
+        $this->event
+            ->method('getRenderingInstructions')
+            ->willReturn([]);
+
+        // Assert: Should log debug info
+        $debugLogger
+            ->expects(self::once())
+            ->method('debug')
+            ->with(
+                'Temporal cache lifetime set',
+                self::isType('array')
+            );
 
         // Act
-        ($this->subject)($this->event);
+        $subject($this->event);
     }
 
-    private function mockQueryBuilderWithResults(string $table, array $results): void
+    /**
+     * @test
+     */
+    public function getScopingStrategyReturnsInjectedStrategy(): void
     {
-        $queryBuilder = $this->createMockQueryBuilder();
-        $result = $this->createMock(\Doctrine\DBAL\Result::class);
+        $result = $this->subject->getScopingStrategy();
 
-        $result->method('fetchAllAssociative')->willReturn($results);
-        $queryBuilder->method('executeQuery')->willReturn($result);
-
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->with($table)
-            ->willReturn($queryBuilder);
+        self::assertSame($this->scopingStrategy, $result);
     }
 
-    private function createMockQueryBuilder(): QueryBuilder&MockObject
+    /**
+     * @test
+     */
+    public function getTimingStrategyReturnsInjectedStrategy(): void
     {
-        $queryBuilder = $this->createMock(QueryBuilder::class);
-        $expressionBuilder = $this->createMock(ExpressionBuilder::class);
+        $result = $this->subject->getTimingStrategy();
 
-        // Configure fluent interface
-        $queryBuilder->method('select')->willReturnSelf();
-        $queryBuilder->method('from')->willReturnSelf();
-        $queryBuilder->method('where')->willReturnSelf();
-        $queryBuilder->method('expr')->willReturn($expressionBuilder);
-
-        // Configure expression builder
-        $expressionBuilder->method('or')->willReturnSelf();
-        $expressionBuilder->method('and')->willReturnSelf();
-        $expressionBuilder->method('gt')->willReturnSelf();
-        $expressionBuilder->method('neq')->willReturnSelf();
-        $expressionBuilder->method('eq')->willReturnSelf();
-        $expressionBuilder->method('createNamedParameter')->willReturn(':param');
-
-        return $queryBuilder;
+        self::assertSame($this->timingStrategy, $result);
     }
 }

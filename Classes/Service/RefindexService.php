@@ -8,7 +8,6 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Service for finding page references using sys_refindex.
@@ -25,7 +24,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class RefindexService implements SingletonInterface
 {
     public function __construct(
-        private readonly ConnectionPool $connectionPool
+        private readonly ConnectionPool $connectionPool,
+        private readonly DeletedRestriction $deletedRestriction
     ) {
     }
 
@@ -80,7 +80,7 @@ class RefindexService implements SingletonInterface
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         $result = $queryBuilder
             ->select('pid')
@@ -94,7 +94,11 @@ class RefindexService implements SingletonInterface
             ->executeQuery()
             ->fetchOne();
 
-        return $result !== false ? (int)$result : null;
+        if ($result === false) {
+            return null;
+        }
+        \assert(\is_int($result) || \is_numeric($result));
+        return (int)$result;
     }
 
     /**
@@ -135,12 +139,15 @@ class RefindexService implements SingletonInterface
 
         $pageIds = [];
         while ($row = $result->fetchAssociative()) {
+            \assert(isset($row['tablename']) && isset($row['recuid']));
             // If the reference is from a page, add it directly
             if ($row['tablename'] === 'pages') {
+                \assert(\is_int($row['recuid']) || \is_numeric($row['recuid']));
                 $pageIds[] = (int)$row['recuid'];
             }
             // If the reference is from other content, get its parent page
             elseif ($row['tablename'] === 'tt_content') {
+                \assert(\is_int($row['recuid']) || \is_numeric($row['recuid']));
                 $parentPage = $this->getDirectParentPage((int)$row['recuid']);
                 if ($parentPage !== null) {
                     $pageIds[] = $parentPage;
@@ -169,7 +176,7 @@ class RefindexService implements SingletonInterface
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         $result = $queryBuilder
             ->select('uid')
@@ -189,6 +196,8 @@ class RefindexService implements SingletonInterface
 
         $mountPoints = [];
         while ($row = $result->fetchAssociative()) {
+            \assert(isset($row['uid']));
+            \assert(\is_int($row['uid']) || \is_numeric($row['uid']));
             $mountPoints[] = (int)$row['uid'];
         }
 
@@ -213,7 +222,7 @@ class RefindexService implements SingletonInterface
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         $result = $queryBuilder
             ->select('uid')
@@ -233,6 +242,8 @@ class RefindexService implements SingletonInterface
 
         $shortcuts = [];
         while ($row = $result->fetchAssociative()) {
+            \assert(isset($row['uid']));
+            \assert(\is_int($row['uid']) || \is_numeric($row['uid']));
             $shortcuts[] = (int)$row['uid'];
         }
 
@@ -271,7 +282,7 @@ class RefindexService implements SingletonInterface
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
         $queryBuilder->getRestrictions()
             ->removeAll()
-            ->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+            ->add($this->deletedRestriction);
 
         $result = $queryBuilder
             ->select('uid')
@@ -290,6 +301,8 @@ class RefindexService implements SingletonInterface
 
         $contentUids = [];
         while ($row = $result->fetchAssociative()) {
+            \assert(isset($row['uid']));
+            \assert(\is_int($row['uid']) || \is_numeric($row['uid']));
             $contentUids[] = (int)$row['uid'];
         }
 

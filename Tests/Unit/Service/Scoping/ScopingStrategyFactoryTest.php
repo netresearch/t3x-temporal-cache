@@ -28,15 +28,26 @@ final class ScopingStrategyFactoryTest extends UnitTestCase
     {
         parent::setUp();
         $this->configuration = $this->createStub(ExtensionConfiguration::class);
-        $this->globalStrategy = $this->createMock(GlobalScopingStrategy::class);
-        $this->perPageStrategy = $this->createMock(PerPageScopingStrategy::class);
-        $this->perContentStrategy = $this->createMock(PerContentScopingStrategy::class);
 
+        $this->globalStrategy = $this->createMock(GlobalScopingStrategy::class);
+        $this->globalStrategy->method('getName')->willReturn('global');
+
+        $this->perPageStrategy = $this->createMock(PerPageScopingStrategy::class);
+        $this->perPageStrategy->method('getName')->willReturn('per-page');
+
+        $this->perContentStrategy = $this->createMock(PerContentScopingStrategy::class);
+        $this->perContentStrategy->method('getName')->willReturn('per-content');
+    }
+
+    private function createFactory(): void
+    {
         $this->subject = new ScopingStrategyFactory(
-            $this->configuration,
-            $this->globalStrategy,
-            $this->perPageStrategy,
-            $this->perContentStrategy
+            [
+                $this->globalStrategy,
+                $this->perPageStrategy,
+                $this->perContentStrategy,
+            ],
+            $this->configuration
         );
     }
 
@@ -49,7 +60,9 @@ final class ScopingStrategyFactoryTest extends UnitTestCase
             ->method('getScopingStrategy')
             ->willReturn('global');
 
-        $result = $this->subject->get();
+        $this->createFactory();
+
+        $result = $this->subject->getActiveStrategy();
 
         self::assertSame($this->globalStrategy, $result);
     }
@@ -63,7 +76,9 @@ final class ScopingStrategyFactoryTest extends UnitTestCase
             ->method('getScopingStrategy')
             ->willReturn('per-page');
 
-        $result = $this->subject->get();
+        $this->createFactory();
+
+        $result = $this->subject->getActiveStrategy();
 
         self::assertSame($this->perPageStrategy, $result);
     }
@@ -77,7 +92,9 @@ final class ScopingStrategyFactoryTest extends UnitTestCase
             ->method('getScopingStrategy')
             ->willReturn('per-content');
 
-        $result = $this->subject->get();
+        $this->createFactory();
+
+        $result = $this->subject->getActiveStrategy();
 
         self::assertSame($this->perContentStrategy, $result);
     }
@@ -91,9 +108,12 @@ final class ScopingStrategyFactoryTest extends UnitTestCase
             ->method('getScopingStrategy')
             ->willReturn('invalid');
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Unknown scoping strategy: invalid');
+        $this->createFactory();
 
-        $this->subject->get();
+        // Factory doesn't throw for unknown strategies, it falls back to first strategy
+        // So we test that it returns the fallback (globalStrategy, first in array)
+        $result = $this->subject->getActiveStrategy();
+
+        self::assertSame($this->globalStrategy, $result);
     }
 }

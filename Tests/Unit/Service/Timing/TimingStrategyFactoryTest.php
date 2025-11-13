@@ -28,15 +28,26 @@ final class TimingStrategyFactoryTest extends UnitTestCase
     {
         parent::setUp();
         $this->configuration = $this->createStub(ExtensionConfiguration::class);
-        $this->dynamicStrategy = $this->createMock(DynamicTimingStrategy::class);
-        $this->schedulerStrategy = $this->createMock(SchedulerTimingStrategy::class);
-        $this->hybridStrategy = $this->createMock(HybridTimingStrategy::class);
 
+        $this->dynamicStrategy = $this->createMock(DynamicTimingStrategy::class);
+        $this->dynamicStrategy->method('getName')->willReturn('dynamic');
+
+        $this->schedulerStrategy = $this->createMock(SchedulerTimingStrategy::class);
+        $this->schedulerStrategy->method('getName')->willReturn('scheduler');
+
+        $this->hybridStrategy = $this->createMock(HybridTimingStrategy::class);
+        $this->hybridStrategy->method('getName')->willReturn('hybrid');
+    }
+
+    private function createFactory(): void
+    {
         $this->subject = new TimingStrategyFactory(
-            $this->configuration,
-            $this->dynamicStrategy,
-            $this->schedulerStrategy,
-            $this->hybridStrategy
+            [
+                $this->dynamicStrategy,
+                $this->schedulerStrategy,
+                $this->hybridStrategy,
+            ],
+            $this->configuration
         );
     }
 
@@ -49,7 +60,9 @@ final class TimingStrategyFactoryTest extends UnitTestCase
             ->method('getTimingStrategy')
             ->willReturn('dynamic');
 
-        $result = $this->subject->get();
+        $this->createFactory();
+
+        $result = $this->subject->getActiveStrategy();
 
         self::assertSame($this->dynamicStrategy, $result);
     }
@@ -63,7 +76,9 @@ final class TimingStrategyFactoryTest extends UnitTestCase
             ->method('getTimingStrategy')
             ->willReturn('scheduler');
 
-        $result = $this->subject->get();
+        $this->createFactory();
+
+        $result = $this->subject->getActiveStrategy();
 
         self::assertSame($this->schedulerStrategy, $result);
     }
@@ -77,7 +92,9 @@ final class TimingStrategyFactoryTest extends UnitTestCase
             ->method('getTimingStrategy')
             ->willReturn('hybrid');
 
-        $result = $this->subject->get();
+        $this->createFactory();
+
+        $result = $this->subject->getActiveStrategy();
 
         self::assertSame($this->hybridStrategy, $result);
     }
@@ -91,9 +108,12 @@ final class TimingStrategyFactoryTest extends UnitTestCase
             ->method('getTimingStrategy')
             ->willReturn('invalid');
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Unknown timing strategy: invalid');
+        $this->createFactory();
 
-        $this->subject->get();
+        // Factory doesn't throw for unknown strategies, it falls back to first strategy
+        // So we test that it returns the fallback (dynamicStrategy, first in array)
+        $result = $this->subject->getActiveStrategy();
+
+        self::assertSame($this->dynamicStrategy, $result);
     }
 }

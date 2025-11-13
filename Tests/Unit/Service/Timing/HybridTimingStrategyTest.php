@@ -32,7 +32,10 @@ final class HybridTimingStrategyTest extends UnitTestCase
         $this->schedulerStrategy = $this->createMock(TimingStrategyInterface::class);
         $this->configuration = $this->createStub(ExtensionConfiguration::class);
         $this->context = $this->createMock(Context::class);
+    }
 
+    private function createSubject(): void
+    {
         $this->subject = new HybridTimingStrategy(
             $this->dynamicStrategy,
             $this->schedulerStrategy,
@@ -52,6 +55,8 @@ final class HybridTimingStrategyTest extends UnitTestCase
         $this->configuration
             ->method('getTimingRules')
             ->willReturn($timingRules);
+
+        $this->createSubject();
 
         $result = $this->subject->handlesContentType($contentType);
 
@@ -83,6 +88,8 @@ final class HybridTimingStrategyTest extends UnitTestCase
         $this->configuration
             ->method('getTimingRules')
             ->willReturn(['pages' => 'dynamic', 'content' => 'scheduler']);
+
+        $this->createSubject();
 
         $this->dynamicStrategy
             ->expects(self::once())
@@ -121,6 +128,8 @@ final class HybridTimingStrategyTest extends UnitTestCase
             ->method('getTimingRules')
             ->willReturn(['pages' => 'dynamic', 'content' => 'scheduler']);
 
+        $this->createSubject();
+
         $this->schedulerStrategy
             ->expects(self::once())
             ->method('processTransition')
@@ -134,6 +143,12 @@ final class HybridTimingStrategyTest extends UnitTestCase
      */
     public function getNameReturnsCorrectIdentifier(): void
     {
+        $this->configuration
+            ->method('getTimingRules')
+            ->willReturn([]);
+
+        $this->createSubject();
+
         self::assertSame('hybrid', $this->subject->getName());
     }
 }

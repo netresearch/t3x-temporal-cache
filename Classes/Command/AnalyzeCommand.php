@@ -104,9 +104,17 @@ final class AnalyzeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $workspaceUid = (int)$input->getOption('workspace');
-        $languageUid = (int)$input->getOption('language');
-        $days = (int)$input->getOption('days');
+        $workspaceOption = $input->getOption('workspace');
+        $languageOption = $input->getOption('language');
+        $daysOption = $input->getOption('days');
+
+        \assert(\is_string($workspaceOption) || \is_int($workspaceOption));
+        \assert(\is_string($languageOption) || \is_int($languageOption));
+        \assert(\is_string($daysOption) || \is_int($daysOption));
+
+        $workspaceUid = (int)$workspaceOption;
+        $languageUid = (int)$languageOption;
+        $days = (int)$daysOption;
 
         $io->title('Temporal Cache Analysis');
 
@@ -205,21 +213,19 @@ final class AnalyzeCommand extends Command
         \arsort($transitionsPerDay);
         $peakDays = \array_slice($transitionsPerDay, 0, 5, true);
 
-        if (\count($peakDays) > 0) {
-            $io->writeln("\n<comment>Peak Transition Days:</comment>");
-            $table = new Table($io);
-            $table->setHeaders(['Date', 'Transitions', 'Impact']);
+        $io->writeln("\n<comment>Peak Transition Days:</comment>");
+        $table = new Table($io);
+        $table->setHeaders(['Date', 'Transitions', 'Impact']);
 
-            foreach ($peakDays as $date => $count) {
-                $impact = $this->getImpactLevel($count);
-                $table->addRow([$date, $count, $impact]);
-            }
-
-            $table->render();
+        foreach ($peakDays as $date => $count) {
+            $impact = $this->getImpactLevel($count);
+            $table->addRow([$date, $count, $impact]);
         }
 
+        $table->render();
+
         // Show next 10 transitions in verbose mode
-        if ($io->isVerbose() && \count($transitions) > 0) {
+        if ($io->isVerbose()) {
             $io->writeln("\n<comment>Next 10 Transitions:</comment>");
             $table = new Table($io);
             $table->setHeaders(['Time', 'Type', 'Table', 'Title']);

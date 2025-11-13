@@ -20,43 +20,70 @@ class ExtensionConfiguration implements SingletonInterface
     private array $config;
 
     public function __construct(
-        private readonly Typo3ExtensionConfiguration $extensionConfiguration
+        private readonly ?Typo3ExtensionConfiguration $extensionConfiguration = null
     ) {
-        $this->config = $this->extensionConfiguration->get(self::EXT_KEY) ?? [];
+        $rawConfig = $this->extensionConfiguration?->get(self::EXT_KEY);
+        \assert(\is_array($rawConfig) || $rawConfig === null);
+        /** @var array<string, mixed> $config */
+        $config = $rawConfig ?? [];
+        $this->config = $config;
     }
 
     // Scoping Configuration
 
     public function getScopingStrategy(): string
     {
-        return $this->config['scoping']['strategy'] ?? 'global';
+        $scoping = $this->config['scoping'] ?? [];
+        \assert(\is_array($scoping));
+        $strategy = $scoping['strategy'] ?? 'global';
+        \assert(\is_string($strategy));
+        return $strategy;
     }
 
     public function useRefindex(): bool
     {
-        return (bool)($this->config['scoping']['use_refindex'] ?? true);
+        $scoping = $this->config['scoping'] ?? [];
+        \assert(\is_array($scoping));
+        return (bool)($scoping['use_refindex'] ?? true);
     }
 
     // Timing Configuration
 
     public function getTimingStrategy(): string
     {
-        return $this->config['timing']['strategy'] ?? 'dynamic';
+        $timing = $this->config['timing'] ?? [];
+        \assert(\is_array($timing));
+        $strategy = $timing['strategy'] ?? 'dynamic';
+        \assert(\is_string($strategy));
+        return $strategy;
     }
 
     public function getSchedulerInterval(): int
     {
-        return \max(60, (int)($this->config['timing']['scheduler_interval'] ?? 60));
+        $timing = $this->config['timing'] ?? [];
+        \assert(\is_array($timing));
+        $interval = $timing['scheduler_interval'] ?? 60;
+        \assert(\is_int($interval) || \is_string($interval));
+        return \max(60, (int)$interval);
     }
 
     /**
-     * @return array<string, string>
+     * @return array{pages: string, content: string}
      */
     public function getTimingRules(): array
     {
+        $timing = $this->config['timing'] ?? [];
+        \assert(\is_array($timing));
+        $hybrid = $timing['hybrid'] ?? [];
+        \assert(\is_array($hybrid));
+        $pages = $hybrid['pages'] ?? 'dynamic';
+        \assert(\is_string($pages));
+        $content = $hybrid['content'] ?? 'scheduler';
+        \assert(\is_string($content));
+
         return [
-            'pages' => $this->config['timing']['hybrid']['pages'] ?? 'dynamic',
-            'content' => $this->config['timing']['hybrid']['content'] ?? 'scheduler',
+            'pages' => $pages,
+            'content' => $content,
         ];
     }
 
@@ -64,7 +91,9 @@ class ExtensionConfiguration implements SingletonInterface
 
     public function isHarmonizationEnabled(): bool
     {
-        return (bool)($this->config['harmonization']['enabled'] ?? false);
+        $harmonization = $this->config['harmonization'] ?? [];
+        \assert(\is_array($harmonization));
+        return (bool)($harmonization['enabled'] ?? false);
     }
 
     /**
@@ -72,30 +101,45 @@ class ExtensionConfiguration implements SingletonInterface
      */
     public function getHarmonizationSlots(): array
     {
-        $slots = $this->config['harmonization']['slots'] ?? '00:00,06:00,12:00,18:00';
+        $harmonization = $this->config['harmonization'] ?? [];
+        \assert(\is_array($harmonization));
+        $slots = $harmonization['slots'] ?? '00:00,06:00,12:00,18:00';
+        \assert(\is_string($slots));
         return \array_map('trim', \explode(',', $slots));
     }
 
     public function getHarmonizationTolerance(): int
     {
-        return (int)($this->config['harmonization']['tolerance'] ?? 3600);
+        $harmonization = $this->config['harmonization'] ?? [];
+        \assert(\is_array($harmonization));
+        $tolerance = $harmonization['tolerance'] ?? 3600;
+        \assert(\is_int($tolerance) || \is_string($tolerance));
+        return (int)$tolerance;
     }
 
     public function isAutoRoundEnabled(): bool
     {
-        return (bool)($this->config['harmonization']['auto_round'] ?? false);
+        $harmonization = $this->config['harmonization'] ?? [];
+        \assert(\is_array($harmonization));
+        return (bool)($harmonization['auto_round'] ?? false);
     }
 
     // Advanced Configuration
 
     public function getDefaultMaxLifetime(): int
     {
-        return (int)($this->config['advanced']['default_max_lifetime'] ?? 86400);
+        $advanced = $this->config['advanced'] ?? [];
+        \assert(\is_array($advanced));
+        $lifetime = $advanced['default_max_lifetime'] ?? 86400;
+        \assert(\is_int($lifetime) || \is_string($lifetime));
+        return (int)$lifetime;
     }
 
     public function isDebugLoggingEnabled(): bool
     {
-        return (bool)($this->config['advanced']['debug_logging'] ?? false);
+        $advanced = $this->config['advanced'] ?? [];
+        \assert(\is_array($advanced));
+        return (bool)($advanced['debug_logging'] ?? false);
     }
 
     // Convenience Methods

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Command;
 
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
-use Netresearch\TemporalCache\Service\HarmonizationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,9 +52,7 @@ final class ListCommand extends Command
     private const VALID_SORT_FIELDS = ['uid', 'title', 'starttime', 'endtime', 'table'];
 
     public function __construct(
-        private readonly TemporalContentRepository $repository,
-        /** @phpstan-ignore-next-line */
-        private readonly HarmonizationService $harmonizationService
+        private readonly TemporalContentRepository $repository
     ) {
         parent::__construct('temporalcache:list');
     }
@@ -160,27 +157,42 @@ final class ListCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $workspaceUid = (int)$input->getOption('workspace');
-        $languageUid = (int)$input->getOption('language');
+        $workspaceOption = $input->getOption('workspace');
+        $languageOption = $input->getOption('language');
         $tableFilter = $input->getOption('table');
-        $upcomingOnly = (bool)$input->getOption('upcoming');
+        $upcomingOption = $input->getOption('upcoming');
         $sortField = $input->getOption('sort');
         $format = $input->getOption('format');
-        $limit = $input->getOption('limit') !== null ? (int)$input->getOption('limit') : null;
+        $limitOption = $input->getOption('limit');
+
+        \assert(\is_string($workspaceOption) || \is_int($workspaceOption));
+        \assert(\is_string($languageOption) || \is_int($languageOption));
+        \assert(\is_bool($upcomingOption) || \is_string($upcomingOption) || \is_int($upcomingOption) || $upcomingOption === null);
+
+        $workspaceUid = (int)$workspaceOption;
+        $languageUid = (int)$languageOption;
+        $upcomingOnly = (bool)$upcomingOption;
+        \assert(\is_string($limitOption) || \is_int($limitOption) || $limitOption === null);
+        $limit = $limitOption !== null ? (int)$limitOption : null;
 
         // Validate table filter
-        if ($tableFilter !== null && !\in_array($tableFilter, ['pages', 'tt_content'], true)) {
-            $io->error("Invalid table name: {$tableFilter}. Must be 'pages' or 'tt_content'.");
-            return Command::FAILURE;
+        if ($tableFilter !== null) {
+            \assert(\is_string($tableFilter));
+            if (!\in_array($tableFilter, ['pages', 'tt_content'], true)) {
+                $io->error("Invalid table name: {$tableFilter}. Must be 'pages' or 'tt_content'.");
+                return Command::FAILURE;
+            }
         }
 
         // Validate sort field
+        \assert(\is_string($sortField));
         if (!\in_array($sortField, self::VALID_SORT_FIELDS, true)) {
             $io->error("Invalid sort field: {$sortField}. Must be one of: " . \implode(', ', self::VALID_SORT_FIELDS));
             return Command::FAILURE;
         }
 
         // Validate format
+        \assert(\is_string($format));
         if (!\in_array($format, self::VALID_FORMATS, true)) {
             $io->error("Invalid format: {$format}. Must be one of: " . \implode(', ', self::VALID_FORMATS));
             return Command::FAILURE;
@@ -352,7 +364,9 @@ final class ListCommand extends Command
             ];
         }, $content);
 
-        $output->writeln(\json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+        $jsonOutput = \json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        \assert(\is_string($jsonOutput), 'JSON encoding failed');
+        $output->writeln($jsonOutput);
     }
 
     /**

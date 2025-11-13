@@ -387,7 +387,9 @@ final class TemporalCacheStatusReport implements StatusProviderInterface
                     }
                     break;
                 }
-                $dayName = \date('l', \strtotime($day));
+                $dayTimestamp = \strtotime($day);
+                \assert($dayTimestamp !== false);
+                $dayName = \date('l', $dayTimestamp);
                 $message .= '• ' . $day . ' (' . $dayName . '): ' . $count . ' transition' . ($count !== 1 ? 's' : '') . \chr(10);
                 $dayCount++;
             }
@@ -430,13 +432,19 @@ final class TemporalCacheStatusReport implements StatusProviderInterface
     private function checkIndexExists(array $tableIndexes, array $columns): bool
     {
         foreach ($tableIndexes as $index) {
+            \assert(\is_object($index) && \method_exists($index, 'getColumns'));
+            $columns_data = $index->getColumns();
+            \assert(\is_array($columns_data));
             $indexColumns = \array_map(
-                fn ($col) => \strtolower($col),
-                $index->getColumns()
+                function ($col): string {
+                    \assert(\is_string($col));
+                    return \strtolower($col);
+                },
+                $columns_data
             );
 
             $searchColumns = \array_map(
-                fn ($col) => \strtolower($col),
+                fn (string $col): string => \strtolower($col),
                 $columns
             );
 
@@ -503,19 +511,19 @@ final class TemporalCacheStatusReport implements StatusProviderInterface
         }
 
         if ($seconds < 3600) {
-            $minutes = \floor($seconds / 60);
+            $minutes = (int)\floor($seconds / 60);
             return $minutes . ' minute' . ($minutes !== 1 ? 's' : '');
         }
 
         if ($seconds < 86400) {
-            $hours = \floor($seconds / 3600);
-            $minutes = \floor(($seconds % 3600) / 60);
+            $hours = (int)\floor($seconds / 3600);
+            $minutes = (int)\floor(($seconds % 3600) / 60);
             return $hours . ' hour' . ($hours !== 1 ? 's' : '') .
                    ($minutes > 0 ? ' ' . $minutes . ' minute' . ($minutes !== 1 ? 's' : '') : '');
         }
 
-        $days = \floor($seconds / 86400);
-        $hours = \floor(($seconds % 86400) / 3600);
+        $days = (int)\floor($seconds / 86400);
+        $hours = (int)\floor(($seconds % 86400) / 3600);
         return $days . ' day' . ($days !== 1 ? 's' : '') .
                ($hours > 0 ? ' ' . $hours . ' hour' . ($hours !== 1 ? 's' : '') : '');
     }

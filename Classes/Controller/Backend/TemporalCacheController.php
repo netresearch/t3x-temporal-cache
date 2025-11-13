@@ -16,7 +16,6 @@ use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
@@ -48,8 +47,7 @@ final class TemporalCacheController extends ActionController
         private readonly HarmonizationAnalysisService $harmonizationAnalysisService,
         private readonly HarmonizationService $harmonizationService,
         private readonly PermissionService $permissionService,
-        private readonly CacheManager $cacheManager,
-        private readonly IconFactory $iconFactory
+        private readonly CacheManager $cacheManager
     ) {
     }
 
@@ -89,8 +87,9 @@ final class TemporalCacheController extends ActionController
         $filteredContent = $this->filterContent($allContent, $filter, $currentTime);
 
         // Add harmonization suggestions
+        /** @var array<int, array<string, mixed>> $contentWithSuggestions */
         $contentWithSuggestions = \array_map(
-            fn ($content) => $this->harmonizationAnalysisService->generateHarmonizationSuggestion($content, $currentTime),
+            fn (\Netresearch\TemporalCache\Domain\Model\TemporalContent $content) => $this->harmonizationAnalysisService->generateHarmonizationSuggestion($content, $currentTime),
             $filteredContent
         );
 
@@ -142,43 +141,51 @@ final class TemporalCacheController extends ActionController
     public function harmonizeAction(ServerRequestInterface $request): ResponseInterface
     {
         $parsedBody = $request->getParsedBody();
+        \assert(\is_array($parsedBody));
         $contentUids = $parsedBody['content'] ?? [];
+        \assert(\is_array($contentUids));
         $dryRun = (bool)($parsedBody['dryRun'] ?? true);
 
         if (empty($contentUids)) {
-            return $this->jsonResponse([
+            $json = \json_encode([
                 'success' => false,
                 'message' => $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.no_content'),
             ]);
+            \assert(\is_string($json));
+            return $this->jsonResponse($json);
         }
 
         if (!$this->extensionConfiguration->isHarmonizationEnabled()) {
-            return $this->jsonResponse([
+            $json = \json_encode([
                 'success' => false,
                 'message' => $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.disabled'),
             ]);
+            \assert(\is_string($json));
+            return $this->jsonResponse($json);
         }
 
         // Check write permissions
         if (!$this->permissionService->canModifyTemporalContent()) {
             $unmodifiableTables = $this->permissionService->getUnmodifiableTables();
-            return $this->jsonResponse([
+            $json = \json_encode([
                 'success' => false,
                 'message' => \sprintf(
                     $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.no_permission'),
                     \implode(', ', $unmodifiableTables)
                 ),
             ]);
+            \assert(\is_string($json));
+            return $this->jsonResponse($json);
         }
 
         $results = [];
         foreach ($contentUids as $uid) {
+            \assert(\is_int($uid) || \is_string($uid));
             $content = $this->contentRepository->findByUid((int)$uid);
             if ($content === null) {
                 continue;
             }
 
-            /** @phpstan-ignore-next-line Method not yet implemented */
             $result = $this->harmonizationService->harmonizeContent($content, $dryRun);
             $results[] = $result;
         }
@@ -191,7 +198,7 @@ final class TemporalCacheController extends ActionController
             $this->cacheManager->flushCachesInGroup('pages');
         }
 
-        return $this->jsonResponse([
+        $json = \json_encode([
             'success' => true,
             'message' => \sprintf(
                 $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.success'),
@@ -201,6 +208,8 @@ final class TemporalCacheController extends ActionController
             'results' => $results,
             'dryRun' => $dryRun,
         ]);
+        \assert(\is_string($json));
+        return $this->jsonResponse($json);
     }
 
     /**
@@ -233,6 +242,9 @@ final class TemporalCacheController extends ActionController
 
     /**
      * Filter content based on selected filter.
+     *
+     * @param array<\Netresearch\TemporalCache\Domain\Model\TemporalContent> $content
+     * @return array<\Netresearch\TemporalCache\Domain\Model\TemporalContent>
      */
     private function filterContent(array $content, string $filter, int $currentTime): array
     {
@@ -249,6 +261,8 @@ final class TemporalCacheController extends ActionController
 
     /**
      * Get available filter options.
+     *
+     * @return array<string, string>
      */
     private function getFilterOptions(): array
     {
@@ -266,6 +280,8 @@ final class TemporalCacheController extends ActionController
 
     /**
      * Get configuration presets for wizard.
+     *
+     * @return array<string, array<string, mixed>>
      */
     private function getConfigurationPresets(): array
     {
@@ -302,6 +318,8 @@ final class TemporalCacheController extends ActionController
 
     /**
      * Analyze current configuration and provide recommendations.
+     *
+     * @return array<int, array<string, string>>
      */
     private function analyzeConfiguration(): array
     {
@@ -343,6 +361,8 @@ final class TemporalCacheController extends ActionController
      */
     private function getLanguageService(): LanguageService
     {
-        return $GLOBALS['LANG'];
+        $lang = $GLOBALS['LANG'];
+        \assert($lang instanceof LanguageService);
+        return $lang;
     }
 }

@@ -201,7 +201,6 @@ services:
       $harmonizationAnalysisService: '@Netresearch\TemporalCache\Service\Backend\HarmonizationAnalysisService'
       $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
       $cacheManager: '@TYPO3\CMS\Core\Cache\CacheManager'
-      $iconFactory: '@TYPO3\CMS\Core\Imaging\IconFactory'
 
   # ============================================================================
   # Reports Module Integration

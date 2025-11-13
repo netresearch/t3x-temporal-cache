@@ -9,6 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\QueryRestrictionContainerInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -20,6 +21,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 final class RefindexServiceTest extends UnitTestCase
 {
     private ConnectionPool&MockObject $connectionPool;
+    private DeletedRestriction&MockObject $deletedRestriction;
     private RefindexService $subject;
     /** @var array<string, QueryBuilder[]> Queue of query builders by table name */
     private array $queryBuilders = [];
@@ -28,6 +30,7 @@ final class RefindexServiceTest extends UnitTestCase
     {
         parent::setUp();
         $this->connectionPool = $this->createMock(ConnectionPool::class);
+        $this->deletedRestriction = $this->createMock(DeletedRestriction::class);
 
         // Set up callback to return query builders by table name from queue
         $this->connectionPool
@@ -41,7 +44,7 @@ final class RefindexServiceTest extends UnitTestCase
                 return $this->createMockQueryBuilder();
             });
 
-        $this->subject = new RefindexService($this->connectionPool);
+        $this->subject = new RefindexService($this->connectionPool, $this->deletedRestriction);
     }
 
     /**
@@ -182,14 +185,33 @@ final class RefindexServiceTest extends UnitTestCase
     {
         $contentUid = 999;
 
-        $queryBuilder = $this->createMockQueryBuilder();
-        $result = $this->createMock(\Doctrine\DBAL\Result::class);
-        $result->method('fetchOne')->willReturn(false);
-        $queryBuilder->method('executeQuery')->willReturn($result);
+        // Mock for tt_content (getDirectParentPage)
+        $qb1 = $this->createMockQueryBuilder();
+        $result1 = $this->createMock(\Doctrine\DBAL\Result::class);
+        $result1->method('fetchOne')->willReturn(false);
+        $qb1->method('executeQuery')->willReturn($result1);
+        $this->queryBuilders['tt_content'][] = $qb1;
 
-        $this->connectionPool
-            ->method('getQueryBuilderForTable')
-            ->willReturn($queryBuilder);
+        // Mock for sys_refindex (findReferencesFromRefindex)
+        $qb2 = $this->createMockQueryBuilder();
+        $result2 = $this->createMock(\Doctrine\DBAL\Result::class);
+        $result2->method('fetchAssociative')->willReturn(false);
+        $qb2->method('executeQuery')->willReturn($result2);
+        $this->queryBuilders['sys_refindex'][] = $qb2;
+
+        // Mock for pages (findMountPointReferences)
+        $qb3 = $this->createMockQueryBuilder();
+        $result3 = $this->createMock(\Doctrine\DBAL\Result::class);
+        $result3->method('fetchAssociative')->willReturn(false);
+        $qb3->method('executeQuery')->willReturn($result3);
+        $this->queryBuilders['pages'][] = $qb3;
+
+        // Mock for pages (findShortcutReferences)
+        $qb4 = $this->createMockQueryBuilder();
+        $result4 = $this->createMock(\Doctrine\DBAL\Result::class);
+        $result4->method('fetchAssociative')->willReturn(false);
+        $qb4->method('executeQuery')->willReturn($result4);
+        $this->queryBuilders['pages'][] = $qb4;
 
         $result = $this->subject->findPagesWithContent($contentUid);
 

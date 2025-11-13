@@ -61,6 +61,8 @@ class PerPageScopingStrategy implements ScopingStrategyInterface
     {
         $workspaceId = $context->getPropertyFromAspect('workspace', 'id', 0);
         $languageId = $context->getPropertyFromAspect('language', 'id', 0);
+        \assert(\is_int($workspaceId));
+        \assert(\is_int($languageId));
 
         return $this->temporalContentRepository->getNextTransition(
             \time(),

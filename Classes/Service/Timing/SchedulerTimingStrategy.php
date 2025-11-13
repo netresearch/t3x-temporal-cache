@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Service\Timing;
 
+use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Domain\Model\TransitionEvent;
 use Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface;
+use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Context\Context;
 
@@ -43,7 +45,10 @@ class SchedulerTimingStrategy implements TimingStrategyInterface
 {
     public function __construct(
         private readonly ScopingStrategyInterface $scopingStrategy,
-        private readonly CacheManager $cacheManager
+        private readonly CacheManager $cacheManager,
+        private readonly Context $context,
+        private readonly LoggerInterface $logger,
+        private readonly ExtensionConfiguration $configuration
     ) {
     }
 
@@ -78,13 +83,10 @@ class SchedulerTimingStrategy implements TimingStrategyInterface
     public function processTransition(TransitionEvent $event): void
     {
         try {
-            // Create context for scoping strategy
-            $context = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Context::class);
-
             // Get cache tags from scoping strategy
             $cacheTags = $this->scopingStrategy->getCacheTagsToFlush(
                 $event->content,
-                $context
+                $this->context
             );
 
             // Flush page caches for those tags
@@ -134,11 +136,7 @@ class SchedulerTimingStrategy implements TimingStrategyInterface
      */
     private function logTransitionProcessing(TransitionEvent $event, array $cacheTags): void
     {
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Log\LogManager::class
-        )->getLogger(__CLASS__);
-
-        $logger->info(
+        $this->logger->info(
             'Processed temporal transition',
             [
                 'event' => $event->getLogMessage(),
@@ -156,11 +154,7 @@ class SchedulerTimingStrategy implements TimingStrategyInterface
      */
     private function logError(TransitionEvent $event, \Exception $exception): void
     {
-        $logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Log\LogManager::class
-        )->getLogger(__CLASS__);
-
-        $logger->error(
+        $this->logger->error(
             'Failed to process temporal transition',
             [
                 'event' => $event->getLogMessage(),
@@ -178,10 +172,7 @@ class SchedulerTimingStrategy implements TimingStrategyInterface
     private function isDebugLoggingEnabled(): bool
     {
         try {
-            $config = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-                \Netresearch\TemporalCache\Configuration\ExtensionConfiguration::class
-            );
-            return $config->isDebugLoggingEnabled();
+            return $this->configuration->isDebugLoggingEnabled();
         } catch (\Exception $e) {
             return false;
         }

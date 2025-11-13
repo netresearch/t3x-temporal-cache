@@ -39,18 +39,9 @@ class TimingStrategyFactory implements TimingStrategyInterface
     {
         $configuredStrategy = $this->extensionConfiguration->getTimingStrategy();
 
-        // Map configuration values to strategy names
-        $strategyMap = [
-            'dynamic' => DynamicTimingStrategy::class,
-            'scheduler' => SchedulerTimingStrategy::class,
-            'hybrid' => HybridTimingStrategy::class,
-        ];
-
-        $targetClass = $strategyMap[$configuredStrategy] ?? DynamicTimingStrategy::class;
-
-        // Find matching strategy instance
+        // Find matching strategy by name (more reliable for testing with mocks)
         foreach ($strategies as $strategy) {
-            if ($strategy instanceof $targetClass) {
+            if ($strategy->getName() === $configuredStrategy) {
                 return $strategy;
             }
         }

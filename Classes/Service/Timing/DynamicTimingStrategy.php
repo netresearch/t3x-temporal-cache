@@ -6,8 +6,7 @@ namespace Netresearch\TemporalCache\Service\Timing;
 
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Domain\Model\TransitionEvent;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
-use TYPO3\CMS\Core\Cache\CacheManager;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use TYPO3\CMS\Core\Context\Context;
 
 /**
@@ -40,9 +39,8 @@ use TYPO3\CMS\Core\Context\Context;
 class DynamicTimingStrategy implements TimingStrategyInterface
 {
     public function __construct(
-        private readonly TemporalContentRepository $temporalContentRepository,
-        private readonly ExtensionConfiguration $configuration,
-        private readonly CacheManager $cacheManager
+        private readonly TemporalContentRepositoryInterface $temporalContentRepository,
+        private readonly ExtensionConfiguration $configuration
     ) {
     }
 
@@ -90,6 +88,8 @@ class DynamicTimingStrategy implements TimingStrategyInterface
         $currentTime = \time();
         $workspaceId = $context->getPropertyFromAspect('workspace', 'id', 0);
         $languageId = $context->getPropertyFromAspect('language', 'id', 0);
+        \assert(\is_int($workspaceId));
+        \assert(\is_int($languageId));
 
         // Find next transition
         $nextTransition = $this->temporalContentRepository->getNextTransition(

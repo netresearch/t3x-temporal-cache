@@ -15,7 +15,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
  * CLI Command: Perform harmonization of temporal fields.
@@ -49,9 +48,7 @@ final class HarmonizeCommand extends Command
         private readonly TemporalContentRepository $repository,
         private readonly HarmonizationService $harmonizationService,
         private readonly ExtensionConfiguration $configuration,
-        private readonly ConnectionPool $connectionPool,
-        /** @phpstan-ignore-next-line */
-        private readonly DataHandler $dataHandler
+        private readonly ConnectionPool $connectionPool
     ) {
         parent::__construct('temporalcache:harmonize');
     }
@@ -136,10 +133,18 @@ final class HarmonizeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $dryRun = (bool)$input->getOption('dry-run');
-        $workspaceUid = (int)$input->getOption('workspace');
-        $languageUid = (int)$input->getOption('language');
+        $dryRunOption = $input->getOption('dry-run');
+        $workspaceOption = $input->getOption('workspace');
+        $languageOption = $input->getOption('language');
         $tableFilter = $input->getOption('table');
+
+        \assert(\is_bool($dryRunOption) || \is_string($dryRunOption) || \is_int($dryRunOption) || $dryRunOption === null);
+        \assert(\is_string($workspaceOption) || \is_int($workspaceOption));
+        \assert(\is_string($languageOption) || \is_int($languageOption));
+
+        $dryRun = (bool)$dryRunOption;
+        $workspaceUid = (int)$workspaceOption;
+        $languageUid = (int)$languageOption;
 
         $io->title('Temporal Field Harmonization');
 
@@ -151,9 +156,12 @@ final class HarmonizeCommand extends Command
         }
 
         // Validate table filter
-        if ($tableFilter !== null && !\in_array($tableFilter, ['pages', 'tt_content'], true)) {
-            $io->error("Invalid table name: {$tableFilter}. Must be 'pages' or 'tt_content'.");
-            return Command::FAILURE;
+        if ($tableFilter !== null) {
+            \assert(\is_string($tableFilter));
+            if (!\in_array($tableFilter, ['pages', 'tt_content'], true)) {
+                $io->error("Invalid table name: {$tableFilter}. Must be 'pages' or 'tt_content'.");
+                return Command::FAILURE;
+            }
         }
 
         // Display mode

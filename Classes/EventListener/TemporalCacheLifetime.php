@@ -104,8 +104,13 @@ final class TemporalCacheLifetime
     private function determineMaxLifetime(array $renderingInstructions): int
     {
         // 1. Try TypoScript config.cache_period (site-wide configuration)
-        if (isset($renderingInstructions['cache_period']) && $renderingInstructions['cache_period'] > 0) {
-            return (int)$renderingInstructions['cache_period'];
+        if (isset($renderingInstructions['cache_period'])) {
+            $cachePeriod = $renderingInstructions['cache_period'];
+            \assert(\is_int($cachePeriod) || \is_numeric($cachePeriod));
+            $cachePeriodInt = (int)$cachePeriod;
+            if ($cachePeriodInt > 0) {
+                return $cachePeriodInt;
+            }
         }
 
         // 2. Fall back to extension configuration

@@ -10,7 +10,6 @@ use Netresearch\TemporalCache\Domain\Model\TransitionEvent;
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy;
 use PHPUnit\Framework\MockObject\Stub;
-use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -21,7 +20,6 @@ final class DynamicTimingStrategyTest extends UnitTestCase
 {
     private TemporalContentRepositoryInterface&Stub $repository;
     private ExtensionConfiguration&Stub $configuration;
-    private CacheManager&Stub $cacheManager;
     private Context&Stub $context;
     private DynamicTimingStrategy $subject;
 
@@ -30,13 +28,11 @@ final class DynamicTimingStrategyTest extends UnitTestCase
         parent::setUp();
         $this->repository = $this->createStub(TemporalContentRepositoryInterface::class);
         $this->configuration = $this->createStub(ExtensionConfiguration::class);
-        $this->cacheManager = $this->createStub(CacheManager::class);
         $this->context = $this->createStub(Context::class);
 
         $this->subject = new DynamicTimingStrategy(
             $this->repository,
-            $this->configuration,
-            $this->cacheManager
+            $this->configuration
         );
     }
 
@@ -91,6 +87,10 @@ final class DynamicTimingStrategyTest extends UnitTestCase
                 ['workspace', 'id', 0, 0],
                 ['language', 'id', 0, 0],
             ]);
+
+        $this->configuration
+            ->method('getDefaultMaxLifetime')
+            ->willReturn(86400); // 24 hours max
 
         $this->repository
             ->method('getNextTransition')
