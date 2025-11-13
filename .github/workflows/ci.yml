@@ -55,7 +55,7 @@ jobs:
 
     services:
       mariadb:
-        image: mariadb:10.11
+        image: mariadb:12.0
         env:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: typo3
