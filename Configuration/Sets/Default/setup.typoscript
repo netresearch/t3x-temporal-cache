@@ -1,0 +1,19 @@
+# Default Temporal Cache Configuration
+# Balanced settings for most use cases
+
+config {
+    cache {
+        temporal {
+            # Global scoping for simple cache invalidation
+            scoping = global
+
+            # Dynamic timing for automatic cache refresh
+            timing = dynamic
+
+            # Harmonization disabled for default setup
+            harmonization {
+                enabled = 0
+            }
+        }
+    }
+}

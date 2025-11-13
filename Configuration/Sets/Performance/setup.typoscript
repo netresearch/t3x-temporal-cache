@@ -1,0 +1,23 @@
+# Performance-Optimized Temporal Cache Configuration
+# For high-traffic sites with many temporal content changes
+
+config {
+    cache {
+        temporal {
+            # Per-content scoping for granular cache control
+            scoping = per-content
+
+            # Scheduler-based timing for predictable performance
+            timing = scheduler
+
+            # Enable harmonization for optimal cache efficiency
+            harmonization {
+                enabled = 1
+                slots = 00:00,06:00,12:00,18:00
+            }
+
+            # Enable refindex for accurate dependency tracking
+            use_refindex = 1
+        }
+    }
+}

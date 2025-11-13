@@ -1,0 +1,19 @@
+# Crowdin configuration for TYPO3 Temporal Cache Extension
+# https://support.crowdin.com/configuration-file/
+
+project_id: 'temporal-cache'
+
+# Preserve hierarchy when uploading files
+preserve_hierarchy: true
+
+# Files configuration
+files:
+  # Backend module labels
+  - source: /Resources/Private/Language/locallang_mod.xlf
+    translation: /Resources/Private/Language/%two_letters_code%.locallang_mod.xlf
+    update_option: update_as_unapproved
+
+  # Report labels
+  - source: /Resources/Private/Language/locallang_reports.xlf
+    translation: /Resources/Private/Language/%two_letters_code%.locallang_reports.xlf
+    update_option: update_as_unapproved

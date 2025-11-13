@@ -1,0 +1,4 @@
+name: netresearch/temporal-cache-performance
+label: Temporal Cache - Performance Optimized
+dependencies:
+  - netresearch/temporal-cache-default

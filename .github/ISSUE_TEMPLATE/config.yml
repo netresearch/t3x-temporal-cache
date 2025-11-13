@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: TYPO3 Slack Community
+    url: https://typo3.org/community/meet/chat-slack
+    about: Join the TYPO3 Slack for general questions and community support
+  - name: Documentation
+    url: https://github.com/netresearch/t3x-temporal-cache/tree/main/Documentation
+    about: Check the documentation for setup guides and reference

@@ -47,7 +47,8 @@ final class TemporalCacheController extends ActionController
         private readonly HarmonizationAnalysisService $harmonizationAnalysisService,
         private readonly HarmonizationService $harmonizationService,
         private readonly PermissionService $permissionService,
-        private readonly CacheManager $cacheManager
+        private readonly CacheManager $cacheManager,
+        private readonly LanguageService $languageService
     ) {
     }
 
@@ -361,8 +362,6 @@ final class TemporalCacheController extends ActionController
      */
     private function getLanguageService(): LanguageService
     {
-        $lang = $GLOBALS['LANG'];
-        \assert($lang instanceof LanguageService);
-        return $lang;
+        return $this->languageService;
     }
 }
