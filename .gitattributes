@@ -1,0 +1,49 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Source files
+*.php text
+*.xml text
+*.xlf text
+*.yaml text
+*.yml text
+*.json text
+*.js text
+*.css text
+*.scss text
+*.html text
+*.sql text
+*.md text
+*.rst text
+*.txt text
+
+# Shell scripts
+*.sh text eol=lf
+
+# Documentation export-ignore for distribution
+/Tests export-ignore
+/Build export-ignore
+/.github export-ignore
+/.ddev export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/phpstatus export-ignore
+/renovate.json export-ignore
+/Makefile export-ignore
+/AGENTS.md export-ignore
+/README.md export-ignore
+/claudedocs export-ignore
+/.serena export-ignore
+/composer.lock export-ignore
+/.php-cs-fixer.cache export-ignore
+
+# Binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.gz binary

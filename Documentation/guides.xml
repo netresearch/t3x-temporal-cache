@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides xmlns="https://www.typo3.org/ns/guides"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.typo3.org/ns/guides https://www.typo3.org/ns/guides-1.0.0.xsd">
+    <project>
+        <title>Temporal Cache Management</title>
+        <release>0.9.0</release>
+        <vendor>Netresearch</vendor>
+    </project>
+    <inventory>
+        <repository>
+            <url>https://github.com/netresearch/t3x-temporal-cache</url>
+        </repository>
+        <codeRepository>
+            <url>https://github.com/netresearch/t3x-temporal-cache</url>
+        </codeRepository>
+        <issues>
+            <url>https://github.com/netresearch/t3x-temporal-cache/issues</url>
+        </issues>
+    </inventory>
+</guides>
