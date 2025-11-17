@@ -35,7 +35,7 @@ composer ci
 ## Project Structure
 
 ```
-typo3-temporal-cache/
+t3x-nr-temporal-cache/
 ├── Classes/              # Source code (PSR-4)
 ├── Configuration/        # TYPO3 configuration
 ├── Documentation/        # ReST documentation

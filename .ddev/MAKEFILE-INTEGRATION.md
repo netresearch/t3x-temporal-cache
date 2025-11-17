@@ -2,13 +2,13 @@
 
 ## Summary
 
-The typo3-temporal-cache extension now includes a complete Makefile following the Netresearch pattern, providing a standardized command interface for development and testing.
+The t3x-nr-temporal-cache extension now includes a complete Makefile following the Netresearch pattern, providing a standardized command interface for development and testing.
 
 ## What Was Added
 
 ### 1. Project Makefile
 
-**Location**: `/home/sme/p/forge-105737/typo3-temporal-cache/Makefile`
+**Location**: `/home/sme/t3x-nr-temporal-cache/Makefile`
 
 **Features**:
 - 30 make targets for common operations
@@ -98,7 +98,7 @@ make backend-v13   # Open TYPO3 v13 backend
 ### 1. Verify Makefile Works
 
 ```bash
-cd /home/sme/p/forge-105737/typo3-temporal-cache
+cd /home/sme/t3x-nr-temporal-cache
 make help
 ```
 
