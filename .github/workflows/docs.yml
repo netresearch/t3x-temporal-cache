@@ -1,0 +1,22 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Documentation/**'
+      - '.github/workflows/docs.yml'
+  repository_dispatch:
+    types: [ documentation ]
+
+jobs:
+  trigger-docs-build:
+    name: Trigger docs.typo3.org rebuild
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify docs.typo3.org
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"branch": "main"}' \
+            "https://docs.typo3.org/service/webhooks/github/${{ github.repository }}"
