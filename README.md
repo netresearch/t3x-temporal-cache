@@ -3,7 +3,7 @@
 [![TYPO3 12](https://img.shields.io/badge/TYPO3-12-orange.svg)](https://get.typo3.org/version/12)
 [![TYPO3 13](https://img.shields.io/badge/TYPO3-13-orange.svg)](https://get.typo3.org/version/13)
 [![Version](https://img.shields.io/badge/version-0.9.0-blue.svg)](#)
-[![License](https://img.shields.io/github/license/netresearch/typo3-temporal-cache)](LICENSE)
+[![License](https://img.shields.io/github/license/netresearch/t3x-nr-temporal-cache)](LICENSE)
 
 **Addresses [TYPO3 Forge Issue #14277](https://forge.typo3.org/issues/14277)**: Automatic cache invalidation for time-based content.
 
