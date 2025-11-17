@@ -103,24 +103,38 @@ Optional: Monitor Custom Tables
 If you have custom extension tables with ``starttime/endtime`` fields, you can
 register them for temporal cache monitoring using the ``TemporalMonitorRegistry``.
 
-**File:** ``config/system/additional.php`` or your extension's ``ext_localconf.php``
+**Recommended:** Configure in ``Configuration/Services.yaml`` (modern dependency injection):
+
+.. code-block:: yaml
+
+   services:
+     # Register custom news table
+     my_ext_news_table_registration:
+       class: 'Closure'
+       factory: ['@Netresearch\TemporalCache\Service\TemporalMonitorRegistry', 'registerTable']
+       arguments:
+         - 'tx_news_domain_model_news'
+         - ['uid', 'pid', 'title', 'starttime', 'endtime', 'hidden', 'deleted', 'sys_language_uid']
+
+     # Register custom event table
+     my_ext_events_table_registration:
+       class: 'Closure'
+       factory: ['@Netresearch\TemporalCache\Service\TemporalMonitorRegistry', 'registerTable']
+       arguments:
+         - 'tx_events_domain_model_event'
+         - ['uid', 'pid', 'title', 'starttime', 'endtime', 'hidden', 'deleted', 'sys_language_uid']
+
+**Alternative:** For ext_localconf.php (when DI not available):
 
 .. code-block:: php
 
    <?php
-
    use Netresearch\TemporalCache\Service\TemporalMonitorRegistry;
    use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+   // Only use makeInstance() in ext_localconf.php where DI is not yet available
    $registry = GeneralUtility::makeInstance(TemporalMonitorRegistry::class);
-
-   // Register custom table with explicit field list
    $registry->registerTable('tx_news_domain_model_news', [
-       'uid', 'pid', 'title', 'starttime', 'endtime', 'hidden', 'deleted', 'sys_language_uid'
-   ]);
-
-   // Register event table
-   $registry->registerTable('tx_events_domain_model_event', [
        'uid', 'pid', 'title', 'starttime', 'endtime', 'hidden', 'deleted', 'sys_language_uid'
    ]);
 

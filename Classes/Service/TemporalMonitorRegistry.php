@@ -12,16 +12,26 @@ use TYPO3\CMS\Core\SingletonInterface;
  * Allows extensions to register their own tables with starttime/endtime fields
  * so the temporal cache extension can monitor them for transitions.
  *
- * Example usage in ext_localconf.php:
+ * Example usage in Configuration/Services.yaml:
+ *
+ * ```yaml
+ * services:
+ *   my_extension_table_registration:
+ *     class: Netresearch\TemporalCache\Service\TemporalMonitorRegistry
+ *     factory: ['@Netresearch\TemporalCache\Service\TemporalMonitorRegistry', 'registerTable']
+ *     arguments:
+ *       - 'tx_news_domain_model_news'
+ *       - ['uid', 'pid', 'title', 'starttime', 'endtime', 'hidden', 'deleted']
+ * ```
+ *
+ * Or inject the service where needed:
  *
  * ```php
- * use Netresearch\TemporalCache\Service\TemporalMonitorRegistry;
- * use TYPO3\CMS\Core\Utility\GeneralUtility;
- *
- * $registry = GeneralUtility::makeInstance(TemporalMonitorRegistry::class);
- * $registry->registerTable('tx_news_domain_model_news', [
- *     'uid', 'pid', 'title', 'starttime', 'endtime', 'hidden', 'deleted'
- * ]);
+ * public function __construct(
+ *     private readonly TemporalMonitorRegistry $monitorRegistry
+ * ) {
+ *     $this->monitorRegistry->registerTable('tx_news_domain_model_news', [...]);
+ * }
  * ```
  */
 final class TemporalMonitorRegistry implements SingletonInterface
