@@ -1,384 +1,456 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="en" datatype="plaintext" original="EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf" date="2024-01-01T12:00:00Z" product-name="temporal_cache">
+    <file source-language="en" target-language="ja" datatype="plaintext" original="EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf" date="2024-01-01T00:00:00Z" product-name="temporal_cache">
         <header/>
         <body>
-            <!-- Module -->
             <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
                 <source>Temporal Cache</source>
+                <target>Temporal Cache</target>
             </trans-unit>
             <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
                 <source>Manage temporal content and cache configuration</source>
+                <target>Manage temporal content and cache configuration</target>
             </trans-unit>
-
-            <!-- Menu -->
             <trans-unit id="menu.dashboard" resname="menu.dashboard">
                 <source>Dashboard</source>
+                <target>ダッシュボード</target>
             </trans-unit>
             <trans-unit id="menu.content" resname="menu.content">
                 <source>Content</source>
+                <target>コンテンツ</target>
             </trans-unit>
             <trans-unit id="menu.wizard" resname="menu.wizard">
                 <source>Configuration Wizard</source>
+                <target>設定ウィザード</target>
             </trans-unit>
-
-            <!-- Dashboard -->
             <trans-unit id="dashboard.title" resname="dashboard.title">
                 <source>Temporal Cache Dashboard</source>
+                <target>Temporal Cache Dashboard</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.total" resname="dashboard.stats.total">
                 <source>Total Temporal Content</source>
+                <target>Total Temporal Content</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.pages" resname="dashboard.stats.pages">
                 <source>Pages</source>
+                <target>Pages</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.content" resname="dashboard.stats.content">
                 <source>Content</source>
+                <target>コンテンツ</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.active" resname="dashboard.stats.active">
                 <source>Active Content</source>
+                <target>Active Content</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.visible_now" resname="dashboard.stats.visible_now">
                 <source>Visible now</source>
+                <target>Visible now</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.scheduled" resname="dashboard.stats.scheduled">
                 <source>Scheduled Content</source>
+                <target>Scheduled Content</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.upcoming" resname="dashboard.stats.upcoming">
                 <source>Upcoming</source>
+                <target>Upcoming</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.transitions" resname="dashboard.stats.transitions">
                 <source>Transitions</source>
+                <target>Transitions</target>
             </trans-unit>
             <trans-unit id="dashboard.stats.next_30_days" resname="dashboard.stats.next_30_days">
                 <source>Next 30 days</source>
+                <target>Next 30 days</target>
             </trans-unit>
-
-            <!-- Configuration -->
             <trans-unit id="dashboard.config.title" resname="dashboard.config.title">
                 <source>Current Configuration</source>
+                <target>Current Configuration</target>
             </trans-unit>
             <trans-unit id="dashboard.config.scoping" resname="dashboard.config.scoping">
                 <source>Scoping Strategy</source>
+                <target>Scoping Strategy</target>
             </trans-unit>
             <trans-unit id="dashboard.config.timing" resname="dashboard.config.timing">
                 <source>Timing Strategy</source>
+                <target>Timing Strategy</target>
             </trans-unit>
             <trans-unit id="dashboard.config.harmonization" resname="dashboard.config.harmonization">
                 <source>Harmonization</source>
+                <target>Harmonization</target>
             </trans-unit>
             <trans-unit id="dashboard.config.enabled" resname="dashboard.config.enabled">
                 <source>Enabled</source>
+                <target>Enabled</target>
             </trans-unit>
             <trans-unit id="dashboard.config.disabled" resname="dashboard.config.disabled">
                 <source>Disabled</source>
+                <target>Disabled</target>
             </trans-unit>
             <trans-unit id="dashboard.config.harmonizable_hint" resname="dashboard.config.harmonizable_hint">
                 <source>%d content elements can be harmonized to optimize cache efficiency.</source>
+                <target>%d content elements can be harmonized to optimize cache efficiency.</target>
             </trans-unit>
             <trans-unit id="dashboard.config.view_harmonizable" resname="dashboard.config.view_harmonizable">
                 <source>View Harmonizable Content</source>
+                <target>View Harmonizable Content</target>
             </trans-unit>
-
-            <!-- Timeline -->
             <trans-unit id="dashboard.timeline.title" resname="dashboard.timeline.title">
                 <source>Upcoming Transitions (Next 7 Days)</source>
+                <target>Upcoming Transitions (Next 7 Days)</target>
             </trans-unit>
             <trans-unit id="dashboard.timeline.transitions" resname="dashboard.timeline.transitions">
                 <source>transitions</source>
+                <target>transitions</target>
             </trans-unit>
             <trans-unit id="dashboard.timeline.start" resname="dashboard.timeline.start">
                 <source>Start</source>
+                <target>Start</target>
             </trans-unit>
             <trans-unit id="dashboard.timeline.end" resname="dashboard.timeline.end">
                 <source>End</source>
+                <target>End</target>
             </trans-unit>
             <trans-unit id="dashboard.timeline.no_transitions" resname="dashboard.timeline.no_transitions">
                 <source>No transitions scheduled in the next 7 days.</source>
+                <target>No transitions scheduled in the next 7 days.</target>
             </trans-unit>
-
-            <!-- KPI -->
             <trans-unit id="dashboard.kpi.title" resname="dashboard.kpi.title">
                 <source>Key Performance Indicators</source>
+                <target>Key Performance Indicators</target>
             </trans-unit>
             <trans-unit id="dashboard.kpi.transitions_per_day" resname="dashboard.kpi.transitions_per_day">
                 <source>Average Transitions per Day</source>
+                <target>Average Transitions per Day</target>
             </trans-unit>
             <trans-unit id="dashboard.kpi.temporal_content_ratio" resname="dashboard.kpi.temporal_content_ratio">
                 <source>Temporal Content Ratio</source>
+                <target>Temporal Content Ratio</target>
             </trans-unit>
             <trans-unit id="dashboard.kpi.harmonization_potential" resname="dashboard.kpi.harmonization_potential">
                 <source>Harmonization Potential</source>
+                <target>Harmonization Potential</target>
             </trans-unit>
-
-            <!-- Quick Actions -->
             <trans-unit id="dashboard.quick_actions.title" resname="dashboard.quick_actions.title">
                 <source>Quick Actions</source>
+                <target>Quick Actions</target>
             </trans-unit>
             <trans-unit id="dashboard.quick_actions.view_content" resname="dashboard.quick_actions.view_content">
                 <source>View All Temporal Content</source>
+                <target>View All Temporal Content</target>
             </trans-unit>
             <trans-unit id="dashboard.quick_actions.configuration_wizard" resname="dashboard.quick_actions.configuration_wizard">
                 <source>Configuration Wizard</source>
+                <target>設定ウィザード</target>
             </trans-unit>
             <trans-unit id="dashboard.quick_actions.harmonize" resname="dashboard.quick_actions.harmonize">
                 <source>Harmonize Content</source>
+                <target>Harmonize Content</target>
             </trans-unit>
-
-            <!-- Content List -->
             <trans-unit id="content.title" resname="content.title">
                 <source>Temporal Content Management</source>
+                <target>Temporal Content Management</target>
             </trans-unit>
             <trans-unit id="content.filter.all" resname="content.filter.all">
                 <source>All Content</source>
+                <target>All Content</target>
             </trans-unit>
             <trans-unit id="content.filter.pages" resname="content.filter.pages">
                 <source>Pages Only</source>
+                <target>Pages Only</target>
             </trans-unit>
             <trans-unit id="content.filter.content" resname="content.filter.content">
                 <source>Content Elements</source>
+                <target>Content Elements</target>
             </trans-unit>
             <trans-unit id="content.filter.active" resname="content.filter.active">
                 <source>Active</source>
+                <target>Active</target>
             </trans-unit>
             <trans-unit id="content.filter.scheduled" resname="content.filter.scheduled">
                 <source>Scheduled</source>
+                <target>Scheduled</target>
             </trans-unit>
             <trans-unit id="content.filter.expired" resname="content.filter.expired">
                 <source>Expired</source>
+                <target>Expired</target>
             </trans-unit>
             <trans-unit id="content.filter.harmonizable" resname="content.filter.harmonizable">
                 <source>Harmonizable</source>
+                <target>Harmonizable</target>
             </trans-unit>
             <trans-unit id="content.harmonize_selected" resname="content.harmonize_selected">
                 <source>Harmonize Selected</source>
+                <target>Harmonize Selected</target>
             </trans-unit>
-
-            <!-- Content Table -->
             <trans-unit id="content.table.type" resname="content.table.type">
                 <source>Type</source>
+                <target>Type</target>
             </trans-unit>
             <trans-unit id="content.table.uid" resname="content.table.uid">
                 <source>UID</source>
+                <target>UID</target>
             </trans-unit>
             <trans-unit id="content.table.title" resname="content.table.title">
                 <source>Title</source>
+                <target>Title</target>
             </trans-unit>
             <trans-unit id="content.table.start" resname="content.table.start">
                 <source>Start Time</source>
+                <target>Start Time</target>
             </trans-unit>
             <trans-unit id="content.table.end" resname="content.table.end">
                 <source>End Time</source>
+                <target>End Time</target>
             </trans-unit>
             <trans-unit id="content.table.status" resname="content.table.status">
                 <source>Status</source>
+                <target>Status</target>
             </trans-unit>
             <trans-unit id="content.table.harmonization" resname="content.table.harmonization">
                 <source>Harmonization Suggestion</source>
+                <target>Harmonization Suggestion</target>
             </trans-unit>
-
-            <!-- Content Status -->
             <trans-unit id="content.status.active" resname="content.status.active">
                 <source>Active</source>
+                <target>Active</target>
             </trans-unit>
             <trans-unit id="content.status.scheduled" resname="content.status.scheduled">
                 <source>Scheduled</source>
+                <target>Scheduled</target>
             </trans-unit>
             <trans-unit id="content.status.expired" resname="content.status.expired">
                 <source>Expired</source>
+                <target>Expired</target>
             </trans-unit>
             <trans-unit id="content.no_content" resname="content.no_content">
                 <source>No temporal content found matching the current filter.</source>
+                <target>No temporal content found matching the current filter.</target>
             </trans-unit>
-
-            <!-- Pagination -->
             <trans-unit id="pagination.previous" resname="pagination.previous">
                 <source>Previous</source>
+                <target>Previous</target>
             </trans-unit>
             <trans-unit id="pagination.next" resname="pagination.next">
                 <source>Next</source>
+                <target>Next</target>
             </trans-unit>
-
-            <!-- Harmonization -->
             <trans-unit id="harmonize.success" resname="harmonize.success">
                 <source>Successfully harmonized %d of %d content elements.</source>
+                <target>Successfully harmonized %d of %d content elements.</target>
             </trans-unit>
             <trans-unit id="harmonize.error.no_content" resname="harmonize.error.no_content">
                 <source>No content selected for harmonization.</source>
+                <target>No content selected for harmonization.</target>
             </trans-unit>
             <trans-unit id="harmonize.error.disabled" resname="harmonize.error.disabled">
                 <source>Harmonization is not enabled in the extension configuration.</source>
+                <target>Harmonization is not enabled in the extension configuration.</target>
             </trans-unit>
-
-            <!-- Wizard -->
             <trans-unit id="wizard.title" resname="wizard.title">
                 <source>Configuration Wizard</source>
+                <target>設定ウィザード</target>
             </trans-unit>
             <trans-unit id="wizard.back" resname="wizard.back">
                 <source>Back</source>
+                <target>Back</target>
             </trans-unit>
-
-            <!-- Wizard: Welcome -->
             <trans-unit id="wizard.welcome.title" resname="wizard.welcome.title">
                 <source>Welcome to Temporal Cache Configuration Wizard</source>
+                <target>Welcome to Temporal Cache Configuration Wizard</target>
             </trans-unit>
             <trans-unit id="wizard.welcome.description" resname="wizard.welcome.description">
                 <source>This wizard will help you configure the Temporal Cache extension for optimal performance based on your site's temporal content patterns.</source>
+                <target>This wizard will help you configure the Temporal Cache extension for optimal performance based on your site's temporal content patterns.</target>
             </trans-unit>
             <trans-unit id="wizard.welcome.current_stats" resname="wizard.welcome.current_stats">
                 <source>Your Current Statistics:</source>
+                <target>Your Current Statistics:</target>
             </trans-unit>
             <trans-unit id="wizard.welcome.stat.total" resname="wizard.welcome.stat.total">
                 <source>%d temporal content elements</source>
+                <target>%d temporal content elements</target>
             </trans-unit>
             <trans-unit id="wizard.welcome.stat.transitions" resname="wizard.welcome.stat.transitions">
                 <source>%d average transitions per day</source>
+                <target>%d average transitions per day</target>
             </trans-unit>
             <trans-unit id="wizard.welcome.stat.harmonizable" resname="wizard.welcome.stat.harmonizable">
                 <source>%d elements can be harmonized</source>
+                <target>%d elements can be harmonized</target>
             </trans-unit>
             <trans-unit id="wizard.welcome.start" resname="wizard.welcome.start">
                 <source>Start Configuration</source>
+                <target>Start Configuration</target>
             </trans-unit>
-
-            <!-- Wizard: Analysis -->
             <trans-unit id="wizard.analysis.title" resname="wizard.analysis.title">
                 <source>Configuration Analysis</source>
+                <target>Configuration Analysis</target>
             </trans-unit>
             <trans-unit id="wizard.analysis.description" resname="wizard.analysis.description">
                 <source>Based on your site's temporal content patterns, here are our recommendations:</source>
+                <target>Based on your site's temporal content patterns, here are our recommendations:</target>
             </trans-unit>
             <trans-unit id="wizard.analysis.recommendations" resname="wizard.analysis.recommendations">
                 <source>Recommendations</source>
+                <target>Recommendations</target>
             </trans-unit>
             <trans-unit id="wizard.analysis.continue" resname="wizard.analysis.continue">
                 <source>Continue to Presets</source>
+                <target>Continue to Presets</target>
             </trans-unit>
-
-            <!-- Wizard: Presets -->
             <trans-unit id="wizard.presets.title" resname="wizard.presets.title">
                 <source>Choose Configuration Preset</source>
+                <target>Choose Configuration Preset</target>
             </trans-unit>
             <trans-unit id="wizard.presets.description" resname="wizard.presets.description">
                 <source>Select a preset configuration that best matches your needs, or create a custom configuration.</source>
+                <target>Select a preset configuration that best matches your needs, or create a custom configuration.</target>
             </trans-unit>
             <trans-unit id="wizard.presets.apply" resname="wizard.presets.apply">
                 <source>Apply Preset</source>
+                <target>Apply Preset</target>
             </trans-unit>
             <trans-unit id="wizard.presets.custom" resname="wizard.presets.custom">
                 <source>Custom Configuration</source>
+                <target>Custom Configuration</target>
             </trans-unit>
-
-            <!-- Wizard: Preset Names -->
             <trans-unit id="preset.simple.name" resname="preset.simple.name">
                 <source>Simple (Phase 1 Compatible)</source>
+                <target>Simple (Phase 1 Compatible)</target>
             </trans-unit>
             <trans-unit id="preset.simple.description" resname="preset.simple.description">
                 <source>Backward compatible with Phase 1. Global scoping, dynamic timing, no harmonization. Best for sites with minimal temporal content.</source>
+                <target>Backward compatible with Phase 1. Global scoping, dynamic timing, no harmonization. Best for sites with minimal temporal content.</target>
             </trans-unit>
             <trans-unit id="preset.balanced.name" resname="preset.balanced.name">
                 <source>Balanced</source>
+                <target>Balanced</target>
             </trans-unit>
             <trans-unit id="preset.balanced.description" resname="preset.balanced.description">
                 <source>Per-page scoping with hybrid timing and harmonization. Good balance between performance and cache efficiency for most sites.</source>
+                <target>Per-page scoping with hybrid timing and harmonization. Good balance between performance and cache efficiency for most sites.</target>
             </trans-unit>
             <trans-unit id="preset.aggressive.name" resname="preset.aggressive.name">
                 <source>Aggressive Optimization</source>
+                <target>Aggressive Optimization</target>
             </trans-unit>
             <trans-unit id="preset.aggressive.description" resname="preset.aggressive.description">
                 <source>Per-content scoping with scheduler timing and harmonization. Maximum cache efficiency for sites with extensive temporal content. Achieves up to 99.7% cache reduction.</source>
+                <target>Per-content scoping with scheduler timing and harmonization. Maximum cache efficiency for sites with extensive temporal content. Achieves up to 99.7% cache reduction.</target>
             </trans-unit>
-
-            <!-- Wizard: Custom -->
             <trans-unit id="wizard.custom.title" resname="wizard.custom.title">
                 <source>Custom Configuration</source>
+                <target>Custom Configuration</target>
             </trans-unit>
             <trans-unit id="wizard.custom.description" resname="wizard.custom.description">
                 <source>Configure temporal cache settings according to your specific requirements.</source>
+                <target>Configure temporal cache settings according to your specific requirements.</target>
             </trans-unit>
             <trans-unit id="wizard.custom.scoping.title" resname="wizard.custom.scoping.title">
                 <source>Scoping Strategy</source>
+                <target>Scoping Strategy</target>
             </trans-unit>
             <trans-unit id="wizard.custom.scoping.global" resname="wizard.custom.scoping.global">
                 <source>Flush all pages on any transition (Phase 1 behavior)</source>
+                <target>Flush all pages on any transition (Phase 1 behavior)</target>
             </trans-unit>
             <trans-unit id="wizard.custom.scoping.perpage" resname="wizard.custom.scoping.perpage">
                 <source>Flush only the affected page</source>
+                <target>Flush only the affected page</target>
             </trans-unit>
             <trans-unit id="wizard.custom.scoping.percontent" resname="wizard.custom.scoping.percontent">
                 <source>Flush only pages where content appears (uses refindex)</source>
+                <target>Flush only pages where content appears (uses refindex)</target>
             </trans-unit>
             <trans-unit id="wizard.custom.timing.title" resname="wizard.custom.timing.title">
                 <source>Timing Strategy</source>
+                <target>Timing Strategy</target>
             </trans-unit>
             <trans-unit id="wizard.custom.timing.dynamic" resname="wizard.custom.timing.dynamic">
                 <source>Calculate cache lifetime on every page generation</source>
+                <target>Calculate cache lifetime on every page generation</target>
             </trans-unit>
             <trans-unit id="wizard.custom.timing.scheduler" resname="wizard.custom.timing.scheduler">
                 <source>Process transitions via scheduler task</source>
+                <target>Process transitions via scheduler task</target>
             </trans-unit>
             <trans-unit id="wizard.custom.timing.hybrid" resname="wizard.custom.timing.hybrid">
                 <source>Use different strategies for pages and content</source>
+                <target>Use different strategies for pages and content</target>
             </trans-unit>
             <trans-unit id="wizard.custom.harmonization.title" resname="wizard.custom.harmonization.title">
                 <source>Time Slot Harmonization</source>
+                <target>Time Slot Harmonization</target>
             </trans-unit>
             <trans-unit id="wizard.custom.harmonization.enable" resname="wizard.custom.harmonization.enable">
                 <source>Enable harmonization to round timestamps to common time slots</source>
+                <target>Enable harmonization to round timestamps to common time slots</target>
             </trans-unit>
             <trans-unit id="wizard.custom.note" resname="wizard.custom.note">
                 <source>Important Note:</source>
+                <target>Important Note:</target>
             </trans-unit>
             <trans-unit id="wizard.custom.note_text" resname="wizard.custom.note_text">
                 <source>Configuration changes must be applied in the Extension Manager. This wizard will guide you to the correct settings.</source>
+                <target>Configuration changes must be applied in the Extension Manager. This wizard will guide you to the correct settings.</target>
             </trans-unit>
             <trans-unit id="wizard.custom.save" resname="wizard.custom.save">
                 <source>Apply Configuration</source>
+                <target>Apply Configuration</target>
             </trans-unit>
-
-            <!-- Wizard: Summary -->
             <trans-unit id="wizard.summary.title" resname="wizard.summary.title">
                 <source>Configuration Complete</source>
+                <target>Configuration Complete</target>
             </trans-unit>
             <trans-unit id="wizard.summary.success" resname="wizard.summary.success">
                 <source>Your temporal cache configuration has been updated successfully!</source>
+                <target>Your temporal cache configuration has been updated successfully!</target>
             </trans-unit>
             <trans-unit id="wizard.summary.next_steps" resname="wizard.summary.next_steps">
                 <source>Next Steps:</source>
+                <target>Next Steps:</target>
             </trans-unit>
             <trans-unit id="wizard.summary.step1" resname="wizard.summary.step1">
                 <source>Clear all caches to ensure the new configuration takes effect</source>
+                <target>Clear all caches to ensure the new configuration takes effect</target>
             </trans-unit>
             <trans-unit id="wizard.summary.step2" resname="wizard.summary.step2">
                 <source>If using scheduler timing, configure the Temporal Cache scheduler task</source>
+                <target>If using scheduler timing, configure the Temporal Cache scheduler task</target>
             </trans-unit>
             <trans-unit id="wizard.summary.step3" resname="wizard.summary.step3">
                 <source>Monitor the dashboard to track cache performance</source>
+                <target>Monitor the dashboard to track cache performance</target>
             </trans-unit>
             <trans-unit id="wizard.summary.goto_dashboard" resname="wizard.summary.goto_dashboard">
                 <source>Go to Dashboard</source>
+                <target>Go to Dashboard</target>
             </trans-unit>
-
-            <!-- Recommendations -->
             <trans-unit id="recommendation.harmonization.title" resname="recommendation.harmonization.title">
                 <source>Enable Harmonization</source>
+                <target>Enable Harmonization</target>
             </trans-unit>
             <trans-unit id="recommendation.harmonization.message" resname="recommendation.harmonization.message">
                 <source>With 10+ transitions per day, enabling harmonization can significantly reduce cache invalidations by aligning timestamps to common time slots.</source>
+                <target>With 10+ transitions per day, enabling harmonization can significantly reduce cache invalidations by aligning timestamps to common time slots.</target>
             </trans-unit>
             <trans-unit id="recommendation.scoping.title" resname="recommendation.scoping.title">
                 <source>Consider Per-Content Scoping</source>
+                <target>Consider Per-Content Scoping</target>
             </trans-unit>
             <trans-unit id="recommendation.scoping.message" resname="recommendation.scoping.message">
                 <source>With 100+ content elements, per-content scoping can achieve up to 99.7% reduction in unnecessary cache flushes by targeting only affected pages.</source>
+                <target>With 100+ content elements, per-content scoping can achieve up to 99.7% reduction in unnecessary cache flushes by targeting only affected pages.</target>
             </trans-unit>
             <trans-unit id="recommendation.timing.title" resname="recommendation.timing.title">
                 <source>Use Scheduler Timing</source>
+                <target>Use Scheduler Timing</target>
             </trans-unit>
             <trans-unit id="recommendation.timing.message" resname="recommendation.timing.message">
                 <source>With 20+ transitions per day, scheduler-based timing can reduce frontend overhead by processing transitions in background tasks.</source>
+                <target>With 20+ transitions per day, scheduler-based timing can reduce frontend overhead by processing transitions in background tasks.</target>
             </trans-unit>
-
         </body>
     </file>
 </xliff>
