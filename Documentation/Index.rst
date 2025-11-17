@@ -31,7 +31,7 @@ Temporal Cache Management
 
 Automatic cache invalidation for time-based content in TYPO3.
 
-Solves `TYPO3 Forge Issue #14277 <https://forge.typo3.org/issues/14277>`__:
+Addresses `TYPO3 Forge Issue #14277 <https://forge.typo3.org/issues/14277>`__:
 Menus and content with starttime/endtime update automatically when time passes,
 without manual cache clearing.
 
@@ -106,7 +106,7 @@ Documentation
     ..  card:: 🏗️ Architecture
 
         Deep dive into root cause analysis, implementation approach, and how
-        Phase 1 solves the temporal content problem.
+        Phase 1 addresses the temporal content problem.
 
         ..  card-footer:: :ref:`Architecture Details <architecture>`
             :button-style: btn btn-primary stretched-link

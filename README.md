@@ -5,7 +5,7 @@
 [![Version](https://img.shields.io/badge/version-0.9.0-blue.svg)](#)
 [![License](https://img.shields.io/github/license/netresearch/typo3-temporal-cache)](LICENSE)
 
-**Solves [TYPO3 Forge Issue #14277](https://forge.typo3.org/issues/14277)**: Automatic cache invalidation for time-based content.
+**Addresses [TYPO3 Forge Issue #14277](https://forge.typo3.org/issues/14277)**: Automatic cache invalidation for time-based content.
 
 ## The Problem (20+ Years Old)
 
@@ -42,7 +42,7 @@ Timeline:
 - ✅ **Plugin Output** - Any cached plugin with temporal records
 - ✅ **Custom Records** - Extensions using starttime/endtime fields
 
-## Version 1.0 Features
+## Phase 1 Features
 
 ### Three Scoping Strategies
 
@@ -124,17 +124,17 @@ Visual management interface accessible at **Tools → Temporal Cache**:
 ### Composer (Recommended)
 
 ```bash
-composer req netresearch/typo3-temporal-cache
+composer req netresearch/nr-temporal-cache
 ```
 
 ### TER (TYPO3 Extension Repository)
 
-Search for `temporal_cache` in the Extension Manager.
+Search for `nr_temporal_cache` in the Extension Manager.
 
 ### Manual
 
-1. Download from [GitHub](https://github.com/netresearch/typo3-temporal-cache)
-2. Extract to `typo3conf/ext/temporal_cache/`
+1. Download from [GitHub](https://github.com/netresearch/t3x-nr-temporal-cache)
+2. Extract to `typo3conf/ext/nr_temporal_cache/`
 3. Activate in Extension Manager
 
 ### Requirements
@@ -316,7 +316,7 @@ See [Performance Considerations](Documentation/Performance-Considerations.rst) f
 The extension works immediately after installation with zero configuration required.
 
 To optimize for your site:
-1. Install via Composer: `composer require netresearch/typo3-temporal-cache`
+1. Install via Composer: `composer require netresearch/nr-temporal-cache`
 2. Configure strategies in Extension Manager (optional)
 3. Test in staging environment
 4. Deploy to production
@@ -404,7 +404,7 @@ Contributions welcome!
 
 ## Support & Issues
 
-- **Issues**: [GitHub Issues](https://github.com/netresearch/typo3-temporal-cache/issues)
+- **Issues**: [GitHub Issues](https://github.com/netresearch/t3x-nr-temporal-cache/issues)
 - **Forge**: [TYPO3 Forge #14277](https://forge.typo3.org/issues/14277)
 - **Documentation**: [docs.typo3.org](https://docs.typo3.org/)
 
@@ -416,7 +416,7 @@ GPL-2.0-or-later - See [LICENSE](LICENSE) file
 
 **Developed by**: [Netresearch DTT GmbH](https://www.netresearch.de/)
 
-**Solves**: TYPO3 Forge Issue [#14277](https://forge.typo3.org/issues/14277) (reported 2004, unsolved for 20+ years)
+**Addresses**: TYPO3 Forge Issue [#14277](https://forge.typo3.org/issues/14277) (reported 2004, unsolved for 20+ years)
 
 **Related Issues**:
 - [#16815](https://forge.typo3.org/issues/16815) - Sitemap ignoring start/end flags

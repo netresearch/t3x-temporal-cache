@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Context\Context;
 /**
  * Event listener that dynamically adjusts cache lifetime based on temporal content dependencies.
  *
- * Solves TYPO3 Forge Issue #14277: Menus and content with starttime/endtime don't update
+ * Addresses TYPO3 Forge Issue #14277: Menus and content with starttime/endtime don't update
  * automatically when time passes. This listener delegates to configurable strategies:
  *
  * - Scoping Strategy: Determines WHICH caches to invalidate (global/per-page/per-content)

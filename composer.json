@@ -1,7 +1,7 @@
 {
-    "name": "netresearch/temporal-cache",
+    "name": "netresearch/nr-temporal-cache",
     "type": "typo3-cms-extension",
-    "description": "Phase 1 Experimental Approach: Solves TYPO3 Forge #14277 via site-wide cache synchronization. Automatic cache invalidation for time-based content. WARNING: ALL page caches expire on EVERY temporal transition (starttime/endtime). Read Performance Considerations documentation before deployment. Alternative approaches (USER_INT menus) may be more suitable for high-traffic sites.",
+    "description": "Phase 1 Experimental Approach: Addresses TYPO3 Forge #14277 via site-wide cache synchronization. Automatic cache invalidation for time-based content. WARNING: ALL page caches expire on EVERY temporal transition (starttime/endtime). Read Performance Considerations documentation before deployment. Alternative approaches (USER_INT menus) may be more suitable for high-traffic sites.",
     "keywords": [
         "TYPO3",
         "cache",

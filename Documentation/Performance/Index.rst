@@ -18,13 +18,13 @@ Critical Information for Production Deployment
 Overview
 ========
 
-The TYPO3 Temporal Cache extension solves Forge #14277 by dynamically adjusting cache lifetime
+The TYPO3 Temporal Cache extension addresses Forge #14277 by dynamically adjusting cache lifetime
 based on temporal content transitions. The extension provides flexible optimization strategies
 to match different site sizes and requirements.
 
 **Key Performance Factors:**
 
-✅ **Solves 20-year-old temporal content bug** - Automatic cache invalidation
+✅ **Addresses 20-year-old temporal content bug** - Automatic cache invalidation
 ⚠️ **Site-wide cache synchronization** - Phase 1 architectural constraint
 ✅ **Mitigation strategies available** - Scoping, timing, harmonization
 ⚠️ **Performance implications** - Varies by site size and configuration
@@ -123,7 +123,7 @@ Summary: Key Takeaways
 
 **Benefits:**
 
-✅ Solves 20-year-old temporal content bug (Forge #14277)
+✅ Addresses 20-year-old temporal content bug (Forge #14277)
 ✅ Automatic, zero-configuration operation
 ✅ Multiple optimization strategies available
 ✅ Works today with TYPO3 v12/v13 LTS

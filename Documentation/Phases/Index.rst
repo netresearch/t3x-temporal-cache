@@ -322,7 +322,7 @@ Next Steps
 
     ..  card:: 📘 Understand Current Implementation
 
-        Learn how Phase 1 solves the temporal cache problem with dynamic
+        Learn how Phase 1 addresses the temporal cache problem with dynamic
         cache lifetime strategies.
 
         ..  card-footer:: :ref:`Read Architecture <architecture>`

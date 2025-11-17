@@ -196,7 +196,7 @@ $result = $queryBuilder
 - **TYPO3 Docs**: https://docs.typo3.org/
 - **Forge Issues**: https://forge.typo3.org/projects/typo3cms-core
 - **Extension Key**: temporal_cache
-- **Issue**: Solves Forge #14277 (20-year-old caching problem)
+- **Issue**: Addresses Forge #14277 (20-year-old caching problem)
 - **Review**: See `claudedocs/COMPREHENSIVE_REVIEW.md`
 
 ## House Rules
