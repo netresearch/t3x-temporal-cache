@@ -57,7 +57,7 @@ mkdir -p public/typo3conf/ext
 mkdir -p var/log var/session
 
 # Link extension
-ln -sf /var/www/html/typo3conf/ext/temporal_cache public/typo3conf/ext/temporal_cache
+ln -sf /var/www/html/typo3conf/ext/nr_temporal_cache public/typo3conf/ext/nr_temporal_cache
 
 # Setup TYPO3 using CLI (database db_${VERSION} should be created beforehand)
 echo "Setting up TYPO3..."
@@ -65,7 +65,7 @@ vendor/bin/typo3 setup --no-interaction --force \
     --driver=mysqli \
     --host=db \
     --port=3306 \
-    --dbname=db \
+    --dbname=${VERSION} \
     --username=db \
     --password=db \
     --admin-username=admin \
@@ -90,5 +90,5 @@ echo "Backend credentials:"
 echo "  Username: admin"
 echo "  Password: Password:joh316"
 echo ""
-echo "Extension 'temporal_cache' is installed and activated."
+echo "Extension 'nr_temporal_cache' is installed and activated."
 echo ""
