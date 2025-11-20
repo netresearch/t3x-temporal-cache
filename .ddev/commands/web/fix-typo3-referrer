@@ -1,0 +1,41 @@
+#!/bin/bash
+
+## Description: Fix TYPO3 13 referrer check for DDEV development
+## Usage: fix-typo3-referrer
+## Example: ddev fix-typo3-referrer
+
+set -e
+
+VERSION="v13"
+
+echo "Fixing TYPO3 13 referrer check for ${VERSION}..."
+
+# Create AdditionalConfiguration.php to disable referrer enforcement
+cat > /var/www/html/${VERSION}/public/typo3conf/AdditionalConfiguration.php << 'PHPEOF'
+<?php
+// Development configuration for DDEV environment
+
+// Disable strict security checks for development
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['cookieSecure'] = 0;
+$GLOBALS['TYPO3_CONF_VARS']['BE']['lockSSL'] = 0;
+
+// Disable referrer enforcement for backend (TYPO3 13)
+// This is required for DDEV development environment
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['security.backend.enforceReferrer'] = false;
+PHPEOF
+
+echo "Created AdditionalConfiguration.php"
+
+# Flush caches
+cd /var/www/html/${VERSION}
+vendor/bin/typo3 cache:flush
+vendor/bin/typo3 cache:warmup
+
+echo ""
+echo "==========================================="
+echo "TYPO3 ${VERSION} referrer check fixed!"
+echo "==========================================="
+echo ""
+echo "The backend should now be accessible without referrer errors."
+echo "Backend: https://${VERSION}.temporal-cache.ddev.site/typo3/"
+echo ""
