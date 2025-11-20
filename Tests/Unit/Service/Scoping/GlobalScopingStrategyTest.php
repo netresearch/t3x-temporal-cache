@@ -15,6 +15,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  * Unit tests for GlobalScopingStrategy
  *
  * @covers \Netresearch\TemporalCache\Service\Scoping\GlobalScopingStrategy
+ * @uses \Netresearch\TemporalCache\Domain\Model\TemporalContent
  */
 final class GlobalScopingStrategyTest extends UnitTestCase
 {

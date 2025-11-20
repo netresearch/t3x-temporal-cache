@@ -197,22 +197,6 @@ final class TransitionEventTest extends UnitTestCase
 
     /**
      * @test
-     */
-    public function getTransitionTimeReturnsTimestamp(): void
-    {
-        $timestamp = 1609459200;
-
-        $subject = new TransitionEvent(
-            content: $this->temporalContent,
-            timestamp: $timestamp,
-            transitionType: 'start'
-        );
-
-        self::assertSame($timestamp, $subject->getTransitionTime());
-    }
-
-    /**
-     * @test
      * @dataProvider transitionScenarioDataProvider
      */
     public function transitionEventsWorkForDifferentScenarios(

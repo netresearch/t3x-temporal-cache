@@ -48,12 +48,4 @@ final class TransitionEvent
         );
     }
 
-    /**
-     * Backward compatibility alias.
-     * @deprecated Use $timestamp instead
-     */
-    public function getTransitionTime(): int
-    {
-        return $this->timestamp;
-    }
 }

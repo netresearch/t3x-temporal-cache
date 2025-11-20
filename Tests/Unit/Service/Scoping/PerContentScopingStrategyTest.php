@@ -16,6 +16,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Netresearch\TemporalCache\Service\Scoping\PerContentScopingStrategy
+ * @uses \Netresearch\TemporalCache\Domain\Model\TemporalContent
  */
 final class PerContentScopingStrategyTest extends UnitTestCase
 {

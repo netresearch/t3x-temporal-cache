@@ -16,6 +16,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Netresearch\TemporalCache\Service\Timing\HybridTimingStrategy
+ * @uses \Netresearch\TemporalCache\Domain\Model\TemporalContent
+ * @uses \Netresearch\TemporalCache\Domain\Model\TransitionEvent
  */
 final class HybridTimingStrategyTest extends UnitTestCase
 {

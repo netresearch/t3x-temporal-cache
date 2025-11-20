@@ -18,6 +18,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository
+ * @uses \Netresearch\TemporalCache\Domain\Model\TemporalContent
  */
 final class TemporalContentRepositoryTest extends UnitTestCase
 {

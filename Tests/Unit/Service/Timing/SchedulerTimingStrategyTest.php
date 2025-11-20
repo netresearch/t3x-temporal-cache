@@ -18,6 +18,8 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * @covers \Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy
+ * @uses \Netresearch\TemporalCache\Domain\Model\TemporalContent
+ * @uses \Netresearch\TemporalCache\Domain\Model\TransitionEvent
  */
 final class SchedulerTimingStrategyTest extends UnitTestCase
 {
