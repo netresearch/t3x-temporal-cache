@@ -8,6 +8,7 @@ use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
 use Netresearch\TemporalCache\Controller\Backend\TemporalCacheController;
 use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
 use Netresearch\TemporalCache\Service\Backend\HarmonizationAnalysisService;
+use Netresearch\TemporalCache\Service\Backend\PermissionService;
 use Netresearch\TemporalCache\Service\Backend\TemporalCacheStatisticsService;
 use Netresearch\TemporalCache\Service\HarmonizationService;
 use Psr\Http\Message\ResponseInterface;
@@ -15,7 +16,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Http\ServerRequest;
-use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Routing\Route;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -33,8 +34,10 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class TemporalCacheControllerTest extends FunctionalTestCase
 {
+    protected array $coreExtensionsToLoad = ['scheduler'];
+
     protected array $testExtensionsToLoad = [
-        'typo3conf/ext/temporal_cache',
+        'nr_temporal_cache',
     ];
 
     protected array $configurationToUseInTestInstance = [
@@ -71,6 +74,9 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
         // Set up backend user context
         $this->setUpBackendUser(1);
 
+        // Initialize language service for backend (required for ModuleTemplate)
+        $GLOBALS['LANG'] = $this->get(\TYPO3\CMS\Core\Localization\LanguageServiceFactory::class)->createFromUserPreferences($GLOBALS['BE_USER']);
+
         // Initialize services
         $this->configuration = $this->get(ExtensionConfiguration::class);
         $this->repository = $this->get(TemporalContentRepository::class);
@@ -83,8 +89,8 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
             $this->get(TemporalCacheStatisticsService::class),
             $this->get(HarmonizationAnalysisService::class),
             $this->get(HarmonizationService::class),
-            $this->get(CacheManager::class),
-            $this->get(IconFactory::class)
+            $this->get(PermissionService::class),
+            $this->get(CacheManager::class)
         );
     }
 
@@ -99,7 +105,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     {
         $request = $this->createRequest();
 
-        $response = $this->controller->dashboardAction();
+        $response = $this->controller->dashboardAction($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
         self::assertSame(200, $response->getStatusCode());
@@ -112,7 +118,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     {
         $request = $this->createRequest();
 
-        $response = $this->controller->dashboardAction();
+        $response = $this->controller->dashboardAction($request);
 
         // Response should contain HTML with statistics
         $body = (string)$response->getBody();
@@ -134,7 +140,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
 
         $request = $this->createRequest();
 
-        $response = $this->controller->dashboardAction();
+        $response = $this->controller->dashboardAction($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
         self::assertSame(200, $response->getStatusCode());
@@ -147,7 +153,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     {
         $request = $this->createRequest();
 
-        $response = $this->controller->dashboardAction();
+        $response = $this->controller->dashboardAction($request);
 
         self::assertSame(200, $response->getStatusCode());
         // Timeline should be rendered in response
@@ -162,7 +168,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     {
         $request = $this->createRequest();
 
-        $response = $this->controller->dashboardAction();
+        $response = $this->controller->dashboardAction($request);
 
         self::assertSame(200, $response->getStatusCode());
         // Configuration summary should be present
@@ -181,7 +187,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     {
         $request = $this->createRequest();
 
-        $response = $this->controller->contentAction();
+        $response = $this->controller->contentAction($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
         self::assertSame(200, $response->getStatusCode());
@@ -194,7 +200,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     {
         $request = $this->createRequest();
 
-        $response = $this->controller->contentAction(1, 'all');
+        $response = $this->controller->contentAction($request, 1, 'all');
 
         self::assertSame(200, $response->getStatusCode());
         $body = (string)$response->getBody();
@@ -207,8 +213,8 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     public function contentActionPaginatesCorrectly(): void
     {
         // Test pagination with multiple pages
-        $response1 = $this->controller->contentAction(1, 'all');
-        $response2 = $this->controller->contentAction(2, 'all');
+        $response1 = $this->controller->contentAction($request, 1, 'all');
+        $response2 = $this->controller->contentAction($request, 2, 'all');
 
         self::assertSame(200, $response1->getStatusCode());
         self::assertSame(200, $response2->getStatusCode());
@@ -220,11 +226,11 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     public function contentActionHandlesBoundaryPagination(): void
     {
         // Test first page
-        $response = $this->controller->contentAction(1, 'all');
+        $response = $this->controller->contentAction($request, 1, 'all');
         self::assertSame(200, $response->getStatusCode());
 
         // Test very high page number (should not crash)
-        $response = $this->controller->contentAction(999, 'all');
+        $response = $this->controller->contentAction($request, 999, 'all');
         self::assertSame(200, $response->getStatusCode());
     }
 
@@ -241,7 +247,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
             ->getConnectionForTable('tt_content')
             ->executeStatement('UPDATE tt_content SET deleted = 1');
 
-        $response = $this->controller->contentAction(1, 'all');
+        $response = $this->controller->contentAction($request, 1, 'all');
 
         self::assertSame(200, $response->getStatusCode());
     }
@@ -256,7 +262,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersContentCorrectly(string $filter): void
     {
-        $response = $this->controller->contentAction(1, $filter);
+        $response = $this->controller->contentAction($request, 1, $filter);
 
         self::assertSame(200, $response->getStatusCode());
         $body = (string)$response->getBody();
@@ -281,7 +287,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersPagesOnly(): void
     {
-        $response = $this->controller->contentAction(1, 'pages');
+        $response = $this->controller->contentAction($request, 1, 'pages');
 
         self::assertSame(200, $response->getStatusCode());
         // Should only show pages, not tt_content
@@ -292,7 +298,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersContentElementsOnly(): void
     {
-        $response = $this->controller->contentAction(1, 'content');
+        $response = $this->controller->contentAction($request, 1, 'content');
 
         self::assertSame(200, $response->getStatusCode());
         // Should only show tt_content, not pages
@@ -303,7 +309,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersActiveContent(): void
     {
-        $response = $this->controller->contentAction(1, 'active');
+        $response = $this->controller->contentAction($request, 1, 'active');
 
         self::assertSame(200, $response->getStatusCode());
         // Should only show currently visible content
@@ -314,7 +320,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersScheduledContent(): void
     {
-        $response = $this->controller->contentAction(1, 'scheduled');
+        $response = $this->controller->contentAction($request, 1, 'scheduled');
 
         self::assertSame(200, $response->getStatusCode());
         // Should only show content with future starttime
@@ -325,7 +331,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersExpiredContent(): void
     {
-        $response = $this->controller->contentAction(1, 'expired');
+        $response = $this->controller->contentAction($request, 1, 'expired');
 
         self::assertSame(200, $response->getStatusCode());
         // Should only show content with past endtime
@@ -336,7 +342,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionFiltersHarmonizableContent(): void
     {
-        $response = $this->controller->contentAction(1, 'harmonizable');
+        $response = $this->controller->contentAction($request, 1, 'harmonizable');
 
         self::assertSame(200, $response->getStatusCode());
         // Should only show content that can benefit from harmonization
@@ -347,7 +353,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionHandlesInvalidFilterGracefully(): void
     {
-        $response = $this->controller->contentAction(1, 'invalid_filter');
+        $response = $this->controller->contentAction($request, 1, 'invalid_filter');
 
         // Should default to 'all' and not crash
         self::assertSame(200, $response->getStatusCode());
@@ -362,7 +368,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function contentActionIncludesHarmonizationSuggestions(): void
     {
-        $response = $this->controller->contentAction(1, 'all');
+        $response = $this->controller->contentAction($request, 1, 'all');
 
         self::assertSame(200, $response->getStatusCode());
         // Each content item should have harmonization suggestion attached
@@ -374,7 +380,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     public function contentActionShowsHarmonizationOnlyWhenEnabled(): void
     {
         // Test with harmonization enabled
-        $response = $this->controller->contentAction(1, 'all');
+        $response = $this->controller->contentAction($request, 1, 'all');
         self::assertSame(200, $response->getStatusCode());
 
         // Response should indicate harmonization is available
@@ -391,7 +397,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function wizardActionReturnsSuccessfulResponse(): void
     {
-        $response = $this->controller->wizardAction();
+        $response = $this->controller->wizardAction($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
         self::assertSame(200, $response->getStatusCode());
@@ -403,7 +409,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function wizardActionHandlesDifferentSteps(string $step): void
     {
-        $response = $this->controller->wizardAction($step);
+        $response = $this->controller->wizardAction($request, $step);
 
         self::assertSame(200, $response->getStatusCode());
     }
@@ -424,7 +430,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function wizardActionShowsConfigurationPresets(): void
     {
-        $response = $this->controller->wizardAction('welcome');
+        $response = $this->controller->wizardAction($request, 'welcome');
 
         self::assertSame(200, $response->getStatusCode());
         // Response should contain presets: simple, balanced, aggressive
@@ -435,7 +441,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function wizardActionShowsCurrentConfiguration(): void
     {
-        $response = $this->controller->wizardAction('welcome');
+        $response = $this->controller->wizardAction($request, 'welcome');
 
         self::assertSame(200, $response->getStatusCode());
         // Should display current configuration values
@@ -446,7 +452,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
      */
     public function wizardActionProvidesRecommendations(): void
     {
-        $response = $this->controller->wizardAction('welcome');
+        $response = $this->controller->wizardAction($request, 'welcome');
 
         self::assertSame(200, $response->getStatusCode());
         // Should include configuration recommendations based on statistics
@@ -458,7 +464,7 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
     public function wizardActionRecommendationsBasedOnStatistics(): void
     {
         // Wizard should show different recommendations based on content statistics
-        $response = $this->controller->wizardAction('welcome');
+        $response = $this->controller->wizardAction($request, 'welcome');
 
         self::assertSame(200, $response->getStatusCode());
     }
@@ -740,10 +746,22 @@ final class TemporalCacheControllerTest extends FunctionalTestCase
 
     private function createRequest(): ServerRequestInterface
     {
-        return new ServerRequest(
+        $request = new ServerRequest(
             'http://localhost',
             'GET'
         );
+
+        // Create minimal route for backend module
+        $route = new Route('/module/temporal-cache', []);
+        $route->setOption('packageName', 'nr_temporal_cache');
+
+        // Add required backend request attributes
+        $request = $request->withAttribute('applicationType', \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_BE);
+        $request = $request->withAttribute('route', $route);
+        $request = $request->withAttribute('module', null);
+        $request = $request->withAttribute('moduleData', null);
+
+        return $request;
     }
 
     private function createRequestWithBody(array $body): ServerRequestInterface

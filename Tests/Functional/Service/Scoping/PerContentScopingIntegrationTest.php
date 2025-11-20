@@ -19,8 +19,10 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class PerContentScopingIntegrationTest extends FunctionalTestCase
 {
+    protected array $coreExtensionsToLoad = ['scheduler'];
+
     protected array $testExtensionsToLoad = [
-        'typo3conf/ext/temporal_cache',
+        'nr_temporal_cache',
     ];
 
     /**

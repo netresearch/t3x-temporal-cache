@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Tests\Functional\EventListener;
 
 use Netresearch\TemporalCache\EventListener\TemporalCacheLifetime;
-use TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent;
+use TYPO3\CMS\Frontend\Event\ModifyCacheLifetimeForPageEvent;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -20,12 +19,10 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class TemporalCacheLifetimeTest extends FunctionalTestCase
 {
-    protected array $testExtensionsToLoad = [
-        'typo3conf/ext/temporal_cache',
-    ];
+    protected array $coreExtensionsToLoad = ['scheduler'];
 
-    protected array $coreExtensionsToLoad = [
-        'core',
+    protected array $testExtensionsToLoad = [
+        'nr_temporal_cache',
     ];
 
     protected function setUp(): void
@@ -356,6 +353,6 @@ final class TemporalCacheLifetimeTest extends FunctionalTestCase
 
     protected function getConnectionPool(): ConnectionPool
     {
-        return GeneralUtility::makeInstance(ConnectionPool::class);
+        return $this->get(ConnectionPool::class);
     }
 }

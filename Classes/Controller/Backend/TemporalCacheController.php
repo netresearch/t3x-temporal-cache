@@ -47,17 +47,17 @@ final class TemporalCacheController extends ActionController
         private readonly HarmonizationAnalysisService $harmonizationAnalysisService,
         private readonly HarmonizationService $harmonizationService,
         private readonly PermissionService $permissionService,
-        private readonly CacheManager $cacheManager,
-        private readonly LanguageService $languageService
+        private readonly CacheManager $cacheManager
     ) {
     }
 
     /**
      * Dashboard action: Show statistics, timeline, and KPIs.
      */
-    public function dashboardAction(): ResponseInterface
+    public function dashboardAction(?ServerRequestInterface $request = null): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $request = $request ?? $this->request;
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
         $this->setupModuleTemplate($moduleTemplate, 'dashboard');
 
         $currentTime = \time();
@@ -78,9 +78,10 @@ final class TemporalCacheController extends ActionController
     /**
      * Content action: List all temporal content with harmonization suggestions.
      */
-    public function contentAction(int $currentPage = 1, string $filter = 'all'): ResponseInterface
+    public function contentAction(?ServerRequestInterface $request = null, int $currentPage = 1, string $filter = 'all'): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $request = $request ?? $this->request;
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
         $this->setupModuleTemplate($moduleTemplate, 'content');
 
         $currentTime = \time();
@@ -116,9 +117,10 @@ final class TemporalCacheController extends ActionController
     /**
      * Wizard action: Configuration wizard with presets.
      */
-    public function wizardAction(string $step = 'welcome'): ResponseInterface
+    public function wizardAction(?ServerRequestInterface $request = null, string $step = 'welcome'): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $request = $request ?? $this->request;
+        $moduleTemplate = $this->moduleTemplateFactory->create($request);
         $this->setupModuleTemplate($moduleTemplate, 'wizard');
 
         $currentConfig = $this->extensionConfiguration->getAll();
@@ -222,22 +224,24 @@ final class TemporalCacheController extends ActionController
             $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab')
         );
 
-        // Create menu
-        $menu = $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
-        $menu->setIdentifier('temporal_cache_menu');
+        // Only create menu if uriBuilder is available (skipped in tests)
+        if (isset($this->uriBuilder)) {
+            $menu = $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+            $menu->setIdentifier('temporal_cache_menu');
 
-        $actions = ['dashboard', 'content', 'wizard'];
-        foreach ($actions as $action) {
-            $item = $menu->makeMenuItem()
-                ->setTitle($this->getLanguageService()->sL(
-                    'LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:menu.' . $action
-                ))
-                ->setHref($this->uriBuilder->reset()->uriFor($action))
-                ->setActive($currentAction === $action);
-            $menu->addMenuItem($item);
+            $actions = ['dashboard', 'content', 'wizard'];
+            foreach ($actions as $action) {
+                $item = $menu->makeMenuItem()
+                    ->setTitle($this->getLanguageService()->sL(
+                        'LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:menu.' . $action
+                    ))
+                    ->setHref($this->uriBuilder->reset()->uriFor($action))
+                    ->setActive($currentAction === $action);
+                $menu->addMenuItem($item);
+            }
+
+            $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
         }
-
-        $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
 
@@ -362,6 +366,6 @@ final class TemporalCacheController extends ActionController
      */
     private function getLanguageService(): LanguageService
     {
-        return $this->languageService;
+        return $GLOBALS['LANG'];
     }
 }

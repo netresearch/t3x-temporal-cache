@@ -10,7 +10,9 @@ use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
 use Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface;
 use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Registry;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 /**
@@ -34,7 +36,6 @@ final class TemporalCacheSchedulerTask extends AbstractTask
     private ?ExtensionConfiguration $extensionConfiguration = null;
     private ?Context $context = null;
     private ?Registry $registry = null;
-    protected ?LoggerInterface $logger = null;
 
     /**
      * Inject dependencies via setter methods for scheduler compatibility.
@@ -65,11 +66,6 @@ final class TemporalCacheSchedulerTask extends AbstractTask
         $this->registry = $registry;
     }
 
-    public function injectLogger(LoggerInterface $logger): void
-    {
-        $this->logger = $logger;
-    }
-
     /**
      * Execute the scheduler task.
      *
@@ -90,7 +86,6 @@ final class TemporalCacheSchedulerTask extends AbstractTask
             \assert($this->extensionConfiguration !== null);
             \assert($this->context !== null);
             \assert($this->registry !== null);
-            \assert($this->logger !== null);
 
             $lastRun = $this->getLastRunTimestamp();
             $now = \time();
@@ -163,8 +158,7 @@ final class TemporalCacheSchedulerTask extends AbstractTask
             && $this->timingStrategy !== null
             && $this->extensionConfiguration !== null
             && $this->context !== null
-            && $this->registry !== null
-            && $this->logger !== null;
+            && $this->registry !== null;
     }
 
     /**
@@ -222,6 +216,14 @@ final class TemporalCacheSchedulerTask extends AbstractTask
     }
 
     /**
+     * Get logger instance.
+     */
+    private function getLogger(): LoggerInterface
+    {
+        return GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+    }
+
+    /**
      * Log debug message if debug logging enabled.
      *
      * @param array<string, mixed> $context
@@ -231,11 +233,8 @@ final class TemporalCacheSchedulerTask extends AbstractTask
         if ($this->extensionConfiguration === null) {
             throw new \RuntimeException('ExtensionConfiguration not injected', 1699876547);
         }
-        if ($this->logger === null) {
-            throw new \RuntimeException('Logger not injected', 1699876548);
-        }
         if ($this->extensionConfiguration->isDebugLoggingEnabled()) {
-            $this->logger->debug($message, $context);
+            $this->getLogger()->debug($message, $context);
         }
     }
 
@@ -246,10 +245,7 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function logInfo(string $message, array $context = []): void
     {
-        if ($this->logger === null) {
-            throw new \RuntimeException('Logger not injected', 1699876549);
-        }
-        $this->logger->info($message, $context);
+        $this->getLogger()->info($message, $context);
     }
 
     /**
@@ -259,9 +255,6 @@ final class TemporalCacheSchedulerTask extends AbstractTask
      */
     private function logError(string $message, array $context = []): void
     {
-        if ($this->logger === null) {
-            throw new \RuntimeException('Logger not injected', 1699876550);
-        }
-        $this->logger->error($message, $context);
+        $this->getLogger()->error($message, $context);
     }
 }

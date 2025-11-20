@@ -36,7 +36,7 @@ services:
   Netresearch\TemporalCache\Service\HarmonizationService:
     public: false
     arguments:
-      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
 
   # ============================================================================
   # Backend Services
@@ -78,6 +78,8 @@ services:
     public: false
     arguments:
       $refindexService: '@Netresearch\TemporalCache\Service\RefindexService'
+      $temporalContentRepository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
     tags:
       - { name: 'nr_temporal_cache.scoping_strategy', identifier: 'per-content' }
 
@@ -104,7 +106,8 @@ services:
   Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy:
     public: false
     arguments:
-      $scopingStrategy: '@Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface'
+      $temporalContentRepository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
     tags:
       - { name: 'nr_temporal_cache.timing_strategy', identifier: 'dynamic' }
 
@@ -114,6 +117,8 @@ services:
     arguments:
       $scopingStrategy: '@Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface'
       $cacheManager: '@TYPO3\CMS\Core\Cache\CacheManager'
+      $context: '@TYPO3\CMS\Core\Context\Context'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
     tags:
       - { name: 'nr_temporal_cache.timing_strategy', identifier: 'scheduler' }
 
@@ -123,7 +128,7 @@ services:
     arguments:
       $dynamicStrategy: '@Netresearch\TemporalCache\Service\Timing\DynamicTimingStrategy'
       $schedulerStrategy: '@Netresearch\TemporalCache\Service\Timing\SchedulerTimingStrategy'
-      $extensionConfiguration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
+      $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
     tags:
       - { name: 'nr_temporal_cache.timing_strategy', identifier: 'hybrid' }
 
@@ -153,7 +158,6 @@ services:
       $scopingStrategy: '@Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface'
       $timingStrategy: '@Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface'
       $context: '@TYPO3\CMS\Core\Context\Context'
-      $logger: '@logger'
     tags:
       - name: event.listener
         identifier: 'temporal-cache/modify-cache-lifetime'
@@ -183,9 +187,6 @@ services:
       - method: injectRegistry
         arguments:
           - '@TYPO3\CMS\Core\Registry'
-      - method: injectLogger
-        arguments:
-          - '@logger'
 
   # ============================================================================
   # Backend Controllers
@@ -200,6 +201,7 @@ services:
       $statisticsService: '@Netresearch\TemporalCache\Service\Backend\TemporalCacheStatisticsService'
       $harmonizationAnalysisService: '@Netresearch\TemporalCache\Service\Backend\HarmonizationAnalysisService'
       $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
+      $permissionService: '@Netresearch\TemporalCache\Service\Backend\PermissionService'
       $cacheManager: '@TYPO3\CMS\Core\Cache\CacheManager'
 
   # ============================================================================
@@ -242,8 +244,6 @@ services:
     arguments:
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
       $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
-      $schemaMigrator: '@TYPO3\CMS\Core\Database\Schema\SchemaMigrator'
-      $sqlReader: '@TYPO3\CMS\Core\Database\Schema\SqlReader'
     tags:
       - name: 'console.command'
         command: 'temporalcache:verify'
@@ -258,7 +258,6 @@ services:
       $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
       $configuration: '@Netresearch\TemporalCache\Configuration\ExtensionConfiguration'
       $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
-      $dataHandler: '@TYPO3\CMS\Core\DataHandling\DataHandler'
     tags:
       - name: 'console.command'
         command: 'temporalcache:harmonize'
@@ -270,7 +269,6 @@ services:
     public: false
     arguments:
       $repository: '@Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository'
-      $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
     tags:
       - name: 'console.command'
         command: 'temporalcache:list'

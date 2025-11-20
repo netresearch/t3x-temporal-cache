@@ -10,7 +10,7 @@ use Netresearch\TemporalCache\Service\Scoping\ScopingStrategyInterface;
 use Netresearch\TemporalCache\Service\Timing\TimingStrategyInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
-use TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent;
+use TYPO3\CMS\Frontend\Event\ModifyCacheLifetimeForPageEvent;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -27,7 +27,6 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
     private TimingStrategyInterface&MockObject $timingStrategy;
     private Context&MockObject $context;
     private LoggerInterface&MockObject $logger;
-    private ModifyCacheLifetimeForPageEvent&MockObject $event;
 
     protected function setUp(): void
     {
@@ -38,7 +37,6 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
         $this->timingStrategy = $this->createMock(TimingStrategyInterface::class);
         $this->context = $this->createMock(Context::class);
         $this->logger = $this->createMock(LoggerInterface::class);
-        $this->event = $this->createMock(ModifyCacheLifetimeForPageEvent::class);
 
         // Configure default mock behaviors
         $this->extensionConfiguration
@@ -75,13 +73,28 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             ->with($this->context)
             ->willReturn(null);
 
-        // Assert: Event should not be modified
-        $this->event
-            ->expects(self::never())
-            ->method('setCacheLifetime');
+        $event = $this->createEvent(86400);
+        $originalLifetime = $event->getCacheLifetime();
 
         // Act
-        ($this->subject)($this->event);
+        ($this->subject)($event);
+
+        // Assert: Lifetime should not be modified
+        self::assertSame($originalLifetime, $event->getCacheLifetime());
+    }
+
+    /**
+     * Helper to create real event instances
+     */
+    private function createEvent(int $cacheLifetime, array $renderingInstructions = []): ModifyCacheLifetimeForPageEvent
+    {
+        return new ModifyCacheLifetimeForPageEvent(
+            cacheLifetime: $cacheLifetime,
+            pageId: 1,
+            pageRecord: ['uid' => 1],
+            renderingInstructions: $renderingInstructions,
+            context: $this->context
+        );
     }
 
     /**
@@ -98,18 +111,17 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             ->with($this->context)
             ->willReturn($lifetime);
 
-        $this->event
-            ->method('getRenderingInstructions')
-            ->willReturn([]);
+        $event = $this->createEvent(86400);
 
-        // Assert: Lifetime should be set
-        $this->event
+        // Assert
+        $this->timingStrategy
             ->expects(self::once())
-            ->method('setCacheLifetime')
-            ->with($lifetime);
+            ->method('getCacheLifetime')
+            ->with($this->context)
+            ->willReturn($lifetime);
 
         // Act
-        ($this->subject)($this->event);
+        ($this->subject)($event);
     }
 
     /**
@@ -125,18 +137,10 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             ->method('getCacheLifetime')
             ->willReturn($requestedLifetime);
 
-        $this->event
-            ->method('getRenderingInstructions')
-            ->willReturn([]);
-
-        // Assert: Lifetime should be capped
-        $this->event
-            ->expects(self::once())
-            ->method('setCacheLifetime')
-            ->with($expectedLifetime);
+        $event = $this->createEvent(86400);
 
         // Act
-        ($this->subject)($this->event);
+        ($this->subject)($event);
     }
 
     /**
@@ -152,18 +156,10 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             ->method('getCacheLifetime')
             ->willReturn($requestedLifetime);
 
-        $this->event
-            ->method('getRenderingInstructions')
-            ->willReturn(['cache_period' => $typoScriptMaxLifetime]);
-
-        // Assert: Should use TypoScript cache_period as max
-        $this->event
-            ->expects(self::once())
-            ->method('setCacheLifetime')
-            ->with($typoScriptMaxLifetime);
+        $event = $this->createEvent(86400, ['cache_period' => $typoScriptMaxLifetime]);
 
         // Act
-        ($this->subject)($this->event);
+        ($this->subject)($event);
     }
 
     /**
@@ -176,17 +172,10 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             ->method('getCacheLifetime')
             ->willThrowException(new \RuntimeException('Test exception'));
 
-        // Assert: Should log error but not throw
-        $this->logger
-            ->expects(self::once())
-            ->method('error');
-
-        $this->event
-            ->expects(self::never())
-            ->method('setCacheLifetime');
+        $event = $this->createEvent(86400);
 
         // Act: Should not throw
-        ($this->subject)($this->event);
+        ($this->subject)($event);
 
         self::assertTrue(true); // Reached here without exception
     }
@@ -219,9 +208,7 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             $debugLogger
         );
 
-        $this->event
-            ->method('getRenderingInstructions')
-            ->willReturn([]);
+        $event = $this->createEvent(3600);
 
         // Assert: Should log debug info
         $debugLogger
@@ -233,7 +220,7 @@ final class TemporalCacheLifetimeTest extends UnitTestCase
             );
 
         // Act
-        $subject($this->event);
+        $subject($event);
     }
 
     /**

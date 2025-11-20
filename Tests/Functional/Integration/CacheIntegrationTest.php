@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Tests\Functional\Integration;
 
 use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Cache\Event\ModifyCacheLifetimeForPageEvent;
+use TYPO3\CMS\Frontend\Event\ModifyCacheLifetimeForPageEvent;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -18,12 +18,10 @@ use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
  */
 final class CacheIntegrationTest extends FunctionalTestCase
 {
-    protected array $testExtensionsToLoad = [
-        'typo3conf/ext/temporal_cache',
-    ];
+    protected array $coreExtensionsToLoad = ['scheduler'];
 
-    protected array $coreExtensionsToLoad = [
-        'core',
+    protected array $testExtensionsToLoad = [
+        'nr_temporal_cache',
     ];
 
     protected function setUp(): void
