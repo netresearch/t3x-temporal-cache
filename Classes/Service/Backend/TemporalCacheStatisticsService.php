@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Service\Backend;
 
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\HarmonizationService;
 
 /**
@@ -29,7 +29,7 @@ use Netresearch\TemporalCache\Service\HarmonizationService;
 final class TemporalCacheStatisticsService
 {
     public function __construct(
-        private readonly TemporalContentRepository $contentRepository,
+        private readonly TemporalContentRepositoryInterface $contentRepository,
         private readonly ExtensionConfiguration $extensionConfiguration,
         private readonly HarmonizationService $harmonizationService
     ) {
