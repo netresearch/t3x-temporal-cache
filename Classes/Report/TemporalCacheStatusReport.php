@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Report;
 
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\HarmonizationService;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
@@ -51,7 +51,7 @@ final class TemporalCacheStatusReport implements StatusProviderInterface
 
     public function __construct(
         private readonly ExtensionConfiguration $extensionConfiguration,
-        private readonly TemporalContentRepository $contentRepository,
+        private readonly TemporalContentRepositoryInterface $contentRepository,
         private readonly HarmonizationService $harmonizationService,
         private readonly ConnectionPool $connectionPool
     ) {
