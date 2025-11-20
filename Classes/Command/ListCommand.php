@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netresearch\TemporalCache\Command;
 
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
@@ -52,7 +52,7 @@ final class ListCommand extends Command
     private const VALID_SORT_FIELDS = ['uid', 'title', 'starttime', 'endtime', 'table'];
 
     public function __construct(
-        private readonly TemporalContentRepository $repository
+        private readonly TemporalContentRepositoryInterface $repository
     ) {
         parent::__construct('temporalcache:list');
     }

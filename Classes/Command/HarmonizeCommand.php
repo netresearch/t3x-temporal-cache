@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Command;
 
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\HarmonizationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -45,7 +45,7 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 final class HarmonizeCommand extends Command
 {
     public function __construct(
-        private readonly TemporalContentRepository $repository,
+        private readonly TemporalContentRepositoryInterface $repository,
         private readonly HarmonizationService $harmonizationService,
         private readonly ExtensionConfiguration $configuration,
         private readonly ConnectionPool $connectionPool

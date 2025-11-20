@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netresearch\TemporalCache\Command;
 
 use Netresearch\TemporalCache\Configuration\ExtensionConfiguration;
-use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepository;
+use Netresearch\TemporalCache\Domain\Repository\TemporalContentRepositoryInterface;
 use Netresearch\TemporalCache\Service\HarmonizationService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
@@ -38,7 +38,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class AnalyzeCommand extends Command
 {
     public function __construct(
-        private readonly TemporalContentRepository $repository,
+        private readonly TemporalContentRepositoryInterface $repository,
         private readonly ExtensionConfiguration $configuration,
         private readonly HarmonizationService $harmonizationService
     ) {
