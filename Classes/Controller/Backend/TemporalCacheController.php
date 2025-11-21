@@ -152,7 +152,7 @@ final class TemporalCacheController extends ActionController
         if (empty($contentUids)) {
             $json = \json_encode([
                 'success' => false,
-                'message' => $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.no_content'),
+                'message' => $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.no_content'),
             ]);
             \assert(\is_string($json));
             return $this->jsonResponse($json);
@@ -161,7 +161,7 @@ final class TemporalCacheController extends ActionController
         if (!$this->extensionConfiguration->isHarmonizationEnabled()) {
             $json = \json_encode([
                 'success' => false,
-                'message' => $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.disabled'),
+                'message' => $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.disabled'),
             ]);
             \assert(\is_string($json));
             return $this->jsonResponse($json);
@@ -173,7 +173,7 @@ final class TemporalCacheController extends ActionController
             $json = \json_encode([
                 'success' => false,
                 'message' => \sprintf(
-                    $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.no_permission'),
+                    $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.error.no_permission'),
                     \implode(', ', $unmodifiableTables)
                 ),
             ]);
@@ -204,7 +204,7 @@ final class TemporalCacheController extends ActionController
         $json = \json_encode([
             'success' => true,
             'message' => \sprintf(
-                $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.success'),
+                $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:harmonize.success'),
                 $successCount,
                 $totalCount
             ),
@@ -221,7 +221,7 @@ final class TemporalCacheController extends ActionController
     private function setupModuleTemplate(ModuleTemplate $moduleTemplate, string $currentAction): void
     {
         $moduleTemplate->setTitle(
-            $this->getLanguageService()->sL('LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab')
+            $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab')
         );
 
         // Only create menu if uriBuilder is available (skipped in tests)
@@ -233,7 +233,7 @@ final class TemporalCacheController extends ActionController
             foreach ($actions as $action) {
                 $item = $menu->makeMenuItem()
                     ->setTitle($this->getLanguageService()->sL(
-                        'LLL:EXT:temporal_cache/Resources/Private/Language/locallang_mod.xlf:menu.' . $action
+                        'LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:menu.' . $action
                     ))
                     ->setHref($this->uriBuilder->reset()->uriFor($action))
                     ->setActive($currentAction === $action);
