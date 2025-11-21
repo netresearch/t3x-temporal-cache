@@ -13,12 +13,17 @@ use Netresearch\TemporalCache\Service\HarmonizationService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
@@ -47,7 +52,8 @@ final class TemporalCacheController extends ActionController
         private readonly HarmonizationAnalysisService $harmonizationAnalysisService,
         private readonly HarmonizationService $harmonizationService,
         private readonly PermissionService $permissionService,
-        private readonly CacheManager $cacheManager
+        private readonly CacheManager $cacheManager,
+        private readonly IconFactory $iconFactory
     ) {
     }
 
@@ -109,6 +115,7 @@ final class TemporalCacheController extends ActionController
             'harmonizationEnabled' => $this->extensionConfiguration->isHarmonizationEnabled(),
             'canModifyContent' => $this->permissionService->canModifyTemporalContent(),
             'permissionStatus' => $this->permissionService->getPermissionStatus(),
+            'harmonizeActionUri' => isset($this->uriBuilder) ? $this->uriBuilder->reset()->uriFor('harmonize') : '',
         ]);
 
         return $moduleTemplate->renderResponse('Backend/TemporalCache/Content');
@@ -224,6 +231,14 @@ final class TemporalCacheController extends ActionController
             $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab')
         );
 
+        // Load JavaScript module
+        $moduleTemplate->getPageRenderer()->loadJavaScriptModule(
+            '@netresearch/nr-temporal-cache/backend-module.js'
+        );
+
+        // Add DocHeader buttons
+        $this->addDocHeaderButtons($moduleTemplate, $currentAction);
+
         // Only create menu if uriBuilder is available (skipped in tests)
         if (isset($this->uriBuilder)) {
             $menu = $moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
@@ -244,6 +259,57 @@ final class TemporalCacheController extends ActionController
         }
     }
 
+    /**
+     * Add DocHeader buttons to module template.
+     */
+    private function addDocHeaderButtons(ModuleTemplate $moduleTemplate, string $currentAction): void
+    {
+        if (!isset($this->uriBuilder)) {
+            return; // Skip in tests
+        }
+
+        $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
+
+        // Refresh button (all actions)
+        $refreshButton = $buttonBar->makeLinkButton()
+            ->setHref($this->uriBuilder->reset()->uriFor($currentAction))
+            ->setTitle($this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.reload'))
+            ->setIcon($this->iconFactory->getIcon('actions-refresh', Icon::SIZE_SMALL))
+            ->setShowLabelText(false);
+        $buttonBar->addButton($refreshButton, ButtonBar::BUTTON_POSITION_RIGHT, 1);
+
+        // Shortcut button (all actions)
+        $shortcutButton = $buttonBar->makeShortcutButton()
+            ->setRouteIdentifier('tools_TemporalCache')
+            ->setDisplayName($this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab'))
+            ->setArguments(['action' => $currentAction]);
+        $buttonBar->addButton($shortcutButton, ButtonBar::BUTTON_POSITION_RIGHT, 2);
+
+        // Action-specific buttons
+        switch ($currentAction) {
+            case 'dashboard':
+                // Quick access to content list
+                $contentButton = $buttonBar->makeLinkButton()
+                    ->setHref($this->uriBuilder->reset()->uriFor('content'))
+                    ->setTitle($this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:button.view_content'))
+                    ->setIcon($this->iconFactory->getIcon('actions-document-open', Icon::SIZE_SMALL))
+                    ->setShowLabelText(true);
+                $buttonBar->addButton($contentButton, ButtonBar::BUTTON_POSITION_LEFT, 1);
+                break;
+
+            case 'content':
+                // Filter display only - harmonize button is in template
+                break;
+
+            case 'wizard':
+                // Help button for wizard
+                $helpButton = $buttonBar->makeHelpButton()
+                    ->setFieldName('temporal_cache_wizard')
+                    ->setModuleName('_MOD_tools_TemporalCache');
+                $buttonBar->addButton($helpButton, ButtonBar::BUTTON_POSITION_RIGHT, 3);
+                break;
+        }
+    }
 
     /**
      * Filter content based on selected filter.
