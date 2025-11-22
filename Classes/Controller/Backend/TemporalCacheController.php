@@ -21,6 +21,7 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
@@ -53,7 +54,8 @@ final class TemporalCacheController extends ActionController
         private readonly HarmonizationService $harmonizationService,
         private readonly PermissionService $permissionService,
         private readonly CacheManager $cacheManager,
-        private readonly IconFactory $iconFactory
+        private readonly IconFactory $iconFactory,
+        private readonly PageRenderer $pageRenderer
     ) {
     }
 
@@ -231,8 +233,8 @@ final class TemporalCacheController extends ActionController
             $this->getLanguageService()->sL('LLL:EXT:nr_temporal_cache/Resources/Private/Language/locallang_mod.xlf:mlang_tabs_tab')
         );
 
-        // Load JavaScript module
-        $moduleTemplate->getPageRenderer()->loadJavaScriptModule(
+        // Load JavaScript module (TYPO3 v12/v13 compatible via injected PageRenderer)
+        $this->pageRenderer->loadJavaScriptModule(
             '@netresearch/nr-temporal-cache/backend-module.js'
         );
 
@@ -302,11 +304,7 @@ final class TemporalCacheController extends ActionController
                 break;
 
             case 'wizard':
-                // Help button for wizard
-                $helpButton = $buttonBar->makeHelpButton()
-                    ->setFieldName('temporal_cache_wizard')
-                    ->setModuleName('_MOD_tools_TemporalCache');
-                $buttonBar->addButton($helpButton, ButtonBar::BUTTON_POSITION_RIGHT, 3);
+                // Help button removed (not available in TYPO3 v13 ButtonBar API)
                 break;
         }
     }
@@ -432,6 +430,8 @@ final class TemporalCacheController extends ActionController
      */
     private function getLanguageService(): LanguageService
     {
-        return $GLOBALS['LANG'];
+        $languageService = $GLOBALS['LANG'];
+        \assert($languageService instanceof LanguageService);
+        return $languageService;
     }
 }

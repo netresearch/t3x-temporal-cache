@@ -203,6 +203,8 @@ services:
       $harmonizationService: '@Netresearch\TemporalCache\Service\HarmonizationService'
       $permissionService: '@Netresearch\TemporalCache\Service\Backend\PermissionService'
       $cacheManager: '@TYPO3\CMS\Core\Cache\CacheManager'
+      $iconFactory: '@TYPO3\CMS\Core\Imaging\IconFactory'
+      $pageRenderer: '@TYPO3\CMS\Core\Page\PageRenderer'
 
   # ============================================================================
   # Reports Module Integration
