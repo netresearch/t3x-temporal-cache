@@ -13,12 +13,13 @@
 
     <extension
         class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
-        project-home="https://github.com/netresearch/t3x-nr-temporal-cache"
-        project-contact="https://github.com/netresearch/t3x-nr-temporal-cache/issues"
-        project-repository="https://github.com/netresearch/t3x-nr-temporal-cache"
-        project-issues="https://github.com/netresearch/t3x-nr-temporal-cache/issues"
         edit-on-github="netresearch/t3x-nr-temporal-cache"
         edit-on-github-branch="main"
+        project-home="https://github.com/netresearch/t3x-nr-temporal-cache"
+        project-contact="https://github.com/netresearch/t3x-nr-temporal-cache/discussions"
+        project-repository="https://github.com/netresearch/t3x-nr-temporal-cache"
+        project-issues="https://github.com/netresearch/t3x-nr-temporal-cache/issues"
+        report-issue="https://github.com/netresearch/t3x-nr-temporal-cache/issues"
     />
 
     <inventory id="t3coreapi"
